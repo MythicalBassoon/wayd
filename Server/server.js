@@ -13,6 +13,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Set up routes
 app.use('/api', router);
 
+//INDEX INTERACTS WITH CONTROLLER FILE IN SERVER
+
+//init db
+require('../DB/schema.js');
+
+var db = require('../DB/config');
+
 
 // //Set up static files
 // app.use(express.static(path.join(__dirname ,'../client')));
