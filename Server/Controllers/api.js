@@ -2,7 +2,6 @@
 var request = require('request')
 var shuffle = require('./helpers').shuffle
 var dateFormater = require('./helpers.js').dateFormater
-// var moment = require('moment')
 
 /************************************************************/
 // EVENTFUL API QUERY
@@ -10,35 +9,34 @@ var dateFormater = require('./helpers.js').dateFormater
 
 module.exports = {
 	getEvents: (latlng, timeframe, callback) => {
+    //construct api query
 
-    //create time section of query: using moment 
-      // var t = JSON.stringify(new Date()) ;
-      // var today = moment(t).format('YYYYMMDD').toString()
-      // var eventDate = moment(timeframe).format('YYYYMMDD').toString()
+      //create time section of query: using moment library
+        // var moment = require('moment')
+        // var t = JSON.stringify(new Date()) ;
+        // var today = moment(t).format('YYYYMMDD').toString()
+        // var eventDate = moment(timeframe).format('YYYYMMDD').toString()
 
     //using non-moment formatting
+    var today = dateFormater(new Date())
+    // console.log('today', today)
     var eventDate = dateFormater(timeframe)
-    var time = `t=${eventDate}-${eventDate}` // look between now and the date given
+    var time = `t=${today}-${eventDate}` // look between now and the date given
 
-    //construct api query
     var eventfulKey = 'bkBjvhD7BjJDSJMC'
     var url ='http://api.eventful.com/json/events/search/?'
     var appkey = 'app_key=bkBjvhD7BjJDSJMC'
     
     var loc = 'where=' + latlng
     var range = 'within=.5'
-    var pageSize = 'page_size=2'
+    var pageSize = 'page_size=25'
 
     var categories = 'c=' + ['music', 'comedy', 'conference', 'learning_education', 'family_fun_kids', 'festival_parades', 'movies_film', 'food', 'fundraisers', 'art', 'support', 'holiday', 'books', 'attractions', 'community', 'singles_social', 'schools_alumni', 'clubs_associations', 'outdoors_recreation', 'performing_arts', 'animals', 'sales', 'science', 'religion_spirituality', 'sports', 'technology'].join(',')
 
     // request string 
     var reqUrl = `${url}&${time}&${loc}&${range}&${categories}&${pageSize}&${appkey}`
-    //var reqUrl = url + '&' + time + '&' + loc + '&' + range + '&' + categories + '&' + pageSize + '&' + appkey
-    // console.log('api call',reqUrl)
 
     request(reqUrl, function (error, response, body) {
-      
-      console.log('requesting...')
 
         if (!error && response.statusCode == 200) {
 
@@ -96,10 +94,10 @@ module.exports = {
 // DATE AND TIME:
   // The default is "Future", but many other human-readable time formats are supported, plus keywords like "Past", "This Weekend", "Friday", "Next month", and "Next 30 days".
 
-  var Today = new Date()
-  var Tomorrow = new Date(Today.getTime() + 1000 * 60 * 60 * 24) //not used yet
+  
+  // var Tomorrow = new Date(Today.getTime() + 1000 * 60 * 60 * 24) //not used yet
 
-  // timeframe hash
+  // timeframe hash for extending user controls of timeframe
   var times = {
     today: '',
     tomorrow: '',
