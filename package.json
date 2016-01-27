@@ -9,6 +9,7 @@
     "body-parser": "^1.14.2",
     "express": "^4.13.4",
     "path": "^0.12.7",
+    "pg-promise": "^3.0.6",
     "react-native": "^0.18.1",
     "react-native-simple-store": "^0.1.0",
     "react-redux": "^4.0.6",
