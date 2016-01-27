@@ -1,15 +1,26 @@
 'use strict';
 
 var express = require('express');
+
 // var controller = require('../controllers');
 // var helpers = require('../helpers');
 var router = express.Router();
 var bodyParser = require('body-parser')
 var apiController = require('../Controllers/api.js')
 
+
+
 router.route('/events/:loc')
 	.get(function(req, res) {
-		apiController.getEvents(req, res);
+
+    var loc = req.params.loc
+
+    console.log('loc', loc)
+		apiController.getEvents(loc, function(err, data){
+      res.json(data)
+
+    });
+
 	});
 
 
