@@ -13,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Set up routes
 app.use('/api', router);
 
+
 //INDEX INTERACTS WITH CONTROLLER FILE IN SERVER
 
 //init db
@@ -24,11 +25,11 @@ var db = require('../DB/config');
 // //Set up static files
 // app.use(express.static(path.join(__dirname ,'../client')));
 
+
 // Set up ports
 var port = process.env.PORT || 3000;
 app.listen(port, function(){
   console.log('Server listening on port ' + port);
 });
-
 
 module.exports = app;

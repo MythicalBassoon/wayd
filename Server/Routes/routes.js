@@ -1,24 +1,24 @@
 'use strict';
 
 var express = require('express');
-
-// var controller = require('../controllers');
-// var helpers = require('../helpers');
 var router = express.Router();
-var bodyParser = require('body-parser')
 var apiController = require('../Controllers/api.js')
 
-
-
-router.route('/events/:loc')
+// route to retrieve event api(s)
+router.route('/events/:loc/:timeframe')
 	.get(function(req, res) {
 
     var loc = req.params.loc
-
+    var timeframe = req.params.timeframe
     console.log('loc', loc)
-		apiController.getEvents(loc, function(err, data){
-      res.json(data)
+    console.log('timeframe', timeframe)
 
+		apiController.getEvents(loc, timeframe, function(err, data){
+      if(err) {
+        throw err
+      } else {
+        res.json(data)
+      }
     });
 
 	});
