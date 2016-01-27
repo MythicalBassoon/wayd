@@ -15,6 +15,27 @@ module.exports = {
     }
 
     return array;
+  },
+
+  dateFormater: function(dateString) {
+
+    var monthFormater = function(month) {
+     if(month < 10) {
+      return '0' + month.toString()
+     } else {
+      return month.toString()
+     }
+    }
+
+    var day = new Date(dateString)
+    var dayOfMonth= day.getDate().toString()
+    var year = day.getFullYear().toString()
+    var month = (day.getMonth() + 1)
+      month = monthFormater(month)
+
+    var date = year + month + dayOfMonth;
+    return date + '00'
+
   }
 
 

@@ -1,16 +1,24 @@
 
 var request = require('request')
 var shuffle = require('./helpers').shuffle
-var moment = require('moment')
+var dateFormater = require('./helpers.js').dateFormater
+// var moment = require('moment')
 
-//eventful api call
+/************************************************************/
+// EVENTFUL API QUERY
+/************************************************************/
+
 module.exports = {
 	getEvents: (latlng, timeframe, callback) => {
 
-    //create time section of query
-	 // var timeframe = JSON.parse(timeframe);
-   var tiempo = moment(timeframe).format('YYYYMMDD').toString()
-   var time = `t=${tiempo}00-${tiempo}00`
+    //create time section of query: using moment 
+      // var t = JSON.stringify(new Date()) ;
+      // var today = moment(t).format('YYYYMMDD').toString()
+      // var eventDate = moment(timeframe).format('YYYYMMDD').toString()
+
+    //using non-moment formatting
+    var eventDate = dateFormater(timeframe)
+    var time = `t=${eventDate}-${eventDate}` // look between now and the date given
 
     //construct api query
     var eventfulKey = 'bkBjvhD7BjJDSJMC'
@@ -26,7 +34,7 @@ module.exports = {
     // request string 
     var reqUrl = `${url}&${time}&${loc}&${range}&${categories}&${pageSize}&${appkey}`
     //var reqUrl = url + '&' + time + '&' + loc + '&' + range + '&' + categories + '&' + pageSize + '&' + appkey
-    console.log('api call',reqUrl)
+    // console.log('api call',reqUrl)
 
     request(reqUrl, function (error, response, body) {
       
@@ -36,8 +44,8 @@ module.exports = {
 
           //take resposne from eventful api and map it to data schema for db
           var results = JSON.parse(body).events.event
-          console.log(body)
-          console.log(results)
+          
+          // console.log(results)
 
           var newresults = results.map(function(event){
             return {
@@ -60,7 +68,7 @@ module.exports = {
           });
 
           newresults = shuffle(newresults)
-          console.log(newresults)
+          // console.log(newresults)
 
           callback(null, newresults)
 
@@ -73,9 +81,9 @@ module.exports = {
 }
 
 
-////////////
-//api notes
-////////////
+/************************************************************/
+// EVENTFUL NOTES
+/************************************************************/
 
 
 //simple example
@@ -84,29 +92,23 @@ module.exports = {
 // call to individual event with event_id
   //http://api.eventful.com/json/events/get/?id=E0-001-090103636-9&app_key=bkBjvhD7BjJDSJMC
 
-//date or time range
+
+// DATE AND TIME:
   // The default is "Future", but many other human-readable time formats are supported, plus keywords like "Past", "This Weekend", "Friday", "Next month", and "Next 30 days".
-var Today = new Date()
-var Tomorrow = new Date(Today.getTime() + 1000 * 60 * 60 * 24)
 
-var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dec']
+  var Today = new Date()
+  var Tomorrow = new Date(Today.getTime() + 1000 * 60 * 60 * 24) //not used yet
 
-var dateFormater = function(date) {
-  return `t=${date.getFullYear().toString()}${months.toString()}+${date.getDate().toString()}`
-}
+  // timeframe hash
+  var times = {
+    today: '',
+    tomorrow: '',
+    weekend: 't=This+Weekend',
+    week: 't=This+Week',
+    future: 'date=future'
+  }
 
-var times = {
-  today: dateFormater(Today),
-  tomorrow: dateFormater(Tomorrow),
-  weekend: 't=This+Weekend',
-  week: 't=This+Week',
-  date: 't=' ,
-  future: 'date=future'
-
-}
-
-// '2016012600-2016012600'
-
-  // dateformat:   http://eventful.com/events?q=music&l=San+Diego&t=9+December+2006
 
   // Limit this list of results to a date range, specified by label or exact range. Currently supported labels include: "All", "Future", "Past", "Today", "Last Week", "This Week", "Next week", and months by name, e.g. "October". Exact ranges can be specified the form 'YYYYMMDD00-YYYYMMDD00', for example '2012042500-2012042700'; the last two digits of each date in this format are ignored. (optional)
+
+  // another dateformat:   http://eventful.com/events?q=music&l=San+Diego&t=9+December+2006
