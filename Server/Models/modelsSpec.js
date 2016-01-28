@@ -1,35 +1,40 @@
 /* You'll need to have MySQL running and your Node server running
  * for these tests to pass. */
 
-require('../DB/testSchema.js');
-var db = require('../../DB/testConfig.js');
 var eventModel = require('./eventModel.js');
 var pollModel = require('./pollModel.js');
 var expect = require('../../node_modules/chai/chai').expect;
+var db = require('../../DB/testConfig.js');
 
 describe("Models Insert Polls and Events to database", function() {
-  var dbConnection;
 
-  // beforeEach(function(done) {
-  //   dbConnection = mysql.createConnection({
-  //     user: "root",
-  //     password: "",
-  //     database: "chat"
-  //   });
-  //   dbConnection.connect();
+  beforeEach(function(done) {
 
-  //      var tablename = ""; // TODO: fill this out
-
-    /* Empty the db table before each test so that multiple tests
-     * (or repeated runs of the tests) won't screw each other up: */
-  //   dbConnection.query("truncate " + tablename, done);
-  // });
+    db.query("drop table if exists emails;")
+    .then(function(){
+      db.query("drop table if exists polls;")
+    })
+    .then(function(){
+      db.query("drop table if exists users;")
+    })
+    .then(function(){
+      db.query("drop table if exists events;")
+    })
+    .then(function(){
+      require('../../DB/testSchema.js');
+      done();
+    })
+    .catch(function(err) {
+      console.log('err building test db. err is:', err);
+      done();
+    })
+  });
 
   // afterEach(function() {
   //   dbConnection.end();
   // });
 
-  it("Should insert event into DB", function(done) {
+  it("Should insert an event into the DB", function(done) {
     // should insert event into DB
 
     eventObj = {
@@ -51,13 +56,15 @@ describe("Models Insert Polls and Events to database", function() {
 
     var testEventId
 
-    eventModel.insertEvent(eventObj, function(err, eventId) {
-      if err throw err;
-      console.log(eventid)
-      testEventId = eventId;
-      expect(eventId).to.exist;
-      done()
-    })
+    eventModel.insertEvent(eventObj, function(eventId) {
+      console.log("in test case, this event id has been created: ", eventId);
+      testEventId = eventId.id;
+      eventModel.getOneEvent(eventId.id, function(event) {
+        console.log(event);
+        expect(event).to.exist;
+        done();
+      }, true)
+    }, true)
 
     
   });

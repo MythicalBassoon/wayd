@@ -5,7 +5,11 @@ var db = require('../../db/config.js');
 var queryString = require('../../DB/psql/index.js');
 
 
-module.exports.insertEvent = function(eventObj, callback){
+module.exports.insertEvent = function(eventObj, callback, testMode){
+
+	if (testMode){
+    db = require('../../db/testConfig.js');
+  }
 
 	//hardcoding below eventObj for test purposes only:
 
@@ -59,8 +63,11 @@ module.exports.insertEvent = function(eventObj, callback){
 
   //putting this here for future use if we build view component showing details for one eventObj
 
-  module.exports.getOneEvent = function(eventId, callback){
+  module.exports.getOneEvent = function(eventId, callback, testMode){
 
+  	if (testMode){
+   		db = require('../../db/testConfig.js');
+  	}
   	//hardcoding below paramter vales for testing purposes only!
     // callback = function(x) {console.log(x)};
     // eventId = 1;
@@ -72,7 +79,7 @@ module.exports.insertEvent = function(eventObj, callback){
       })
       .catch(function(error){
         console.log('error getting event, error is:', error);
-        return callback(error, null);
+        return callback(err);
       });
   }
 
