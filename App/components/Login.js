@@ -1,4 +1,6 @@
 const React = require('react-native')
+const Search = require('../containers/Search')
+
 const {
   StyleSheet,
   ListView,
@@ -13,70 +15,84 @@ const {
 const Login = React.createClass({
   getInitialState: function() {
     return {
-      newItem: '',
-      numVotes: this.props.votes
     }
   },
 
-  componentWillMount: function() {
-    
+  //should navigate to search page depending on login status. might need to change this later to be
+  //a call of {{this.login()}} should happen in render, making a check to redux state.
+  login: function(){
+    this.props.navigator.push({
+      component: Search
+    });
   },
-
-  increment: function(){
-    this.props.add();
-    this.setState({numVotes: this.props.votes})
-    console.log(this.props.votes)
-  },
-
- 
 
   render: function() {
-
-    console.log('Login page rerendered: ', this.props)
-
-
     return (
-      <View style={styles.container}>
-        <Text onClick={this.increment} style={styles.newItem}>Senor Sisig</Text>
-        <TouchableHighlight style={styles.testContiner} onPress={this.increment}>
-        <Text style={styles.newItem}>{this.props.votes}</Text>
+      <View style = {styles.mainContainer}>
+        <Text style= {styles.title}> No New Friends. </Text>
+        <TextInput
+          style={styles.searchInput}
+          value={this.state.username}
+          placeholder="username"/>
+        <TextInput
+          style={styles.searchInput}
+          value={this.state.password}
+          placeholder="password"/>
+        <TouchableHighlight
+          style={styles.button}
+          onPress={this.login}
+          underlayColor = "white">
+          <Text style={styles.buttonText}> LOG IN </Text> 
         </TouchableHighlight>
-
-        
       </View>
     )
   }
 })
 
+
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
     flex: 1,
-    paddingTop: 40,
-    backgroundColor: '#F6F6F6'
+    padding: 30,
+    marginTop: 65,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    backgroundColor: '#B3B5B5'
   },
-  testContiner: {
-    height: 40,
-  },
-  newItem: {
-    backgroundColor: '#FFFFFF',
-    height: 40,
-    borderColor: '#CCCCCC',
-    borderWidth: 1,
-    marginBottom: 10,
-    marginLeft: 20,
-    marginRight: 20,
-    paddingLeft: 10,
-    borderRadius: 5,
-    fontSize: 20
-  },
-  offline: {
-    backgroundColor: '#000000',
-    color: '#FFFFFF',
+  title: {
+    marginBottom: 20,
+    fontSize: 25,
     textAlign: 'center',
+    color: '#fff'
+  },
+  searchInput: {
+    height: 50,
+    padding: 4,
     marginBottom: 10,
-    paddingTop: 5,
-    paddingBottom: 5
-  }
-})
+    marginRight: 5,
+    fontSize: 23,
+    borderWidth: 1,
+    borderColor: 'white',
+    borderRadius: 8,
+    color: 'white'
+  },
+  buttonText: {
+    fontSize: 18,
+    color: '#111',
+    alignSelf: 'center'
+  },
+  button: {
+    height: 45,
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    borderColor: 'white',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    marginTop: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+});
 
 module.exports = Login
