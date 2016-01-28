@@ -4,7 +4,10 @@ var db = require('../../db/config.js');
 var queryString = require('../../db/psql/');
 
 
-module.exports.insertPoll = function(eventId, userId, numParticipants, callback){
+module.exports.insertPoll = function(eventId, userId, numParticipants, callback, testMode){
+  if (testMode){
+    db = require('../../db/testConfig.js');
+  }
   //hardcoding parameter values for testing purposes only!
 
   // eventId = 1;
@@ -25,13 +28,15 @@ module.exports.insertPoll = function(eventId, userId, numParticipants, callback)
     })
     .catch(function(error){
       console.log('error inserting poll to db, error is:', error);
-      return callback(error, null);
+      return callback(error);
     });
 }
 
   //putting this here for future use if we build view component showing current status of poll
-  module.exports.getOnePoll = function(pollId, callback){
-
+  module.exports.getOnePoll = function(pollId, callback, testMode){
+    if (testMode){
+      db = require('../../db/testConfig.js');
+    }
     //hadrcoding parameters below for testing purposes only!
     // callback = function(x) {console.log(x)};
     // pollId = 1;
