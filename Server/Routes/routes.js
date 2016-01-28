@@ -1,43 +1,79 @@
 'use strict';
 
 var express = require('express');
-// var controller = require('../controllers');
-// var helpers = require('../helpers');
 var router = express.Router();
-var bodyParser = require('body-parser')
 var apiController = require('../Controllers/api.js')
 
-router.route('/events/:loc')
+// var insertEvent = require('').insertEvent
+// var insertPoll = require('').insertPoll
+
+
+// ROUTE TO RETRIEVE API(S) DATA 
+router.route('/events/:loc/:timeframe')
 	.get(function(req, res) {
-		apiController.getEvents(req, res);
+
+    var loc = req.params.loc
+    var timeframe = req.params.timeframe
+    // console.log('loc', loc)
+    // console.log('timeframe', timeframe)
+
+		apiController.getEvents(loc, timeframe, function(err, data){
+      if(err) {
+        res.statusCode(404).send("did not find events")
+      } else {
+        // console.log('data', data)
+        res.json(data)
+      }
+    });
+
 	});
 
+// ROUTE TO CREATE USERS
+router.route('/users')
+  .post(function(req,res){
+    // add to user table
+    // respond with user token
 
-// module.exports = function(app, express) {
+  })
 
 
-// 	// // ROUTE FOR DISPLAYING DASHBOARD
-// 	// app.get('/users/:user_id/clients', function(req,res){
-// 	// 	controller.dashboard.get(req,res);
-// 	// });
+// ROUTE TO CREATE POLL
+router.route('/polls/:id')
+  .post(function(req, res){
+  // create new poll
+ 
+    // var userId = req.params.id
+    // var eventObj = req.body.evenObj
 
-// 	// // ROUTE FOR CREATING A NEW CLIENT
-// 	// app.post('/users/:user_id/clients', function(req,res){
-// 	// 	 controller.user.post(req,res);
-// 	// });
+    // // add to event table
+    // insertEvent(eventObj, function(err, eventId){
+    //   // add to poll table
+    //   insertPoll(eventId, userId, function(err, pollId){ 
+    //   //don't yet know the num of participants because the emais have not been created
+    //     if(err){
+    //       throw err
+    //     }
+    //     res.send(pollId)
+    //   });
+      
+    // })
 
-// 	// // ROUTE FOR DISPLAYING PARTICULAR CLIENT
-// 	// app.get('/users/:user_id/clients/:client_id', function(req,res){
-// 	// 	controller.client.get(req,res);
-// 	// })
+    
+    
+    // add to email table (including main user)
+    // send out to email service
 
-//  //  // ROUTE FOR UPDATING A CLIENT
-// 	// app.put('/users/:user_id/clients/:client_id', controller.client.put);
+  });
 
-// 	// // ROUTE FOR GETTING FEED FOR A PARTICULAR CLIENT
-// 	// app.get('/users/:user_id/clients/:client_id/feed', function(req,res){
-// 	// 	controller.feed.getOneClient(req,res);
-// 	// })
-// };
+// ROUTE TO CALCULATE POLL STATUS
+router.route('/polls/:id')
+  .put(function(req, res){
+    // updated poll count in poll table
+      // if poll complete, send email to everyone
+      // or send poll results to everyone as of now
+
+  })
+
+
 
 module.exports = router;
