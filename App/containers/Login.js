@@ -1,15 +1,15 @@
 const { bindActionCreators } = require('redux')
 const { connect } = require('react-redux')
 const Login = require('../components/Login')
-const ItemsActions = require('../actions/actions')
+const ItemsActions = require('../actions/search')
 
+//currently no redux state variables given to login page. will need login status eventually
 function mapStateToProps(state) {
-	console.log('SEEING STATE', state)
   return {
-    votes: state.voteZ.votes
   }
 }
 
+//currently taking in search actions. will need new set of actions to set up user through server
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(ItemsActions, dispatch)
 }

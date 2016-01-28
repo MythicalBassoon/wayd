@@ -1,8 +1,10 @@
 const { combineReducers } = require('redux')
-const voteZ = require('./reducers')
+const search = require('./search')
 
+//combined reducers. REMEMBER: what you name reducer in this file will be the name of the object where that
+//state variable is located in. EXAMPLE: latlng will be accessed in containers as state.search.latlng
 const rootReducer = combineReducers({
-  voteZ
+  search,
 })
 
 module.exports = rootReducer
