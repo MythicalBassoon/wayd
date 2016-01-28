@@ -1,5 +1,6 @@
 const React = require('react-native')
-const Search = require('../containers/Search')
+
+
 
 const {
   StyleSheet,
@@ -12,40 +13,29 @@ const {
 } = React
 
 
-const Login = React.createClass({
+const EventRec = React.createClass({
   getInitialState: function() {
     return {
     }
   },
 
-  //should navigate to search page depending on login status. might need to change this later to be
-  //a call of {{this.login()}} should happen in render, making a check to redux state.
-  login: function(){
-    this.props.navigator.push({
-      component: Search
-    });
+  emailView: function(){
+
   },
 
   render: function() {
-
-
+    console.log('event component', this.props)
     return (
       <View style = {styles.mainContainer}>
-        <Text style= {styles.title}> No New Friends. </Text>
-        <TextInput
-          style={styles.searchInput}
-          value={this.state.username}
-          placeholder="username"/>
-        <TextInput
-          style={styles.searchInput}
-          value={this.state.password}
-          placeholder="password"/>
+        <Text style= {styles.title}> event </Text>
+
         <TouchableHighlight
           style={styles.button}
           onPress={this.login}
           underlayColor = "white">
-          <Text style={styles.buttonText}> LOG IN </Text> 
+          <Text style={styles.buttonText}> yes </Text> 
         </TouchableHighlight>
+
       </View>
     )
   }
@@ -97,4 +87,4 @@ const styles = StyleSheet.create({
   },
 });
 
-module.exports = Login
+module.exports = EventRec

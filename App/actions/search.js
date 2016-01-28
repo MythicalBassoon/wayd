@@ -21,3 +21,21 @@ exports.loadingscreen = function loadingscreen(bool) {
     loading: bool
   }
 }
+
+//
+
+exports.eventView = function eventView(data) {
+  console.log('event view action', data)
+  return {
+    type: "PASS_SEARCH_QUERY",
+    prevData: data
+  }
+}
+
+// ADDED GET DATA
+exports.getData = function getData(data){
+  return{
+    type: "GET_DATA",
+    apiresults: data
+  }
+}

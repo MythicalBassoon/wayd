@@ -1,4 +1,8 @@
 const React = require('react-native')
+const EventRec = require('../containers/EventRec')
+
+
+
 const {
   StyleSheet,
   ListView,
@@ -18,21 +22,64 @@ var {GooglePlacesAutocomplete} = require('react-native-google-places-autocomplet
 const Search = React.createClass({
   //changes redux.state.date
   onDateChange: function(date){
+    console.log('datechange', date)
     this.props.timechange(date);
   },
 
   //submits date and time information for worker rendering
-  submitToServer: function(){
-    this.props.loadingscreen(true);
-    fetch("https://api.github.com/users/rscastro", {method: "GET"})
-    .then((response) => response.json())
-    .then((responseData) => {
-        this.props.loadingscreen(false)
-    })
-    .done();
+    // submitToServer: function(){
+    //   console.log(this.props)
+    //   this.props.loadingscreen(true);
+
+      /*
+      // fetch("http://api.eventful.com/json/events/search/?app_key=bkBjvhD7BjJDSJMC&t-this+week&end&where=32.746682,-117.162741&within=.5", {method: "GET"})
+      // .then((response) => response.json())
+      // .then((responseData) => {
+          
+      //     console.log('res data', responseData.events.event)
+      //     //
+      //     this.props.loadingscreen(false)
+
+      //     console.log('props...', this.props)
+
+      //     //dispatch action
+      //     this.props.getData(responseData.events.event)
+
+      //     this.props.navigator.push({
+      //       component: View,
+      //       }
+      //     });
+
+      // })
+      // .done();
+      */
+    // },
+  eventRecView: function() {
+    console.log('eventrectview', this.props)
+    var message = {
+      latlng: this.props.latlng,
+      date: this.props.date
+    }
+    
+    this.props.eventView(message)
+
+    this.props.navigator.push({
+      component: EventRec
+    });
+
+  },
+
+  componentDidMount: function() {
+    // this.eventview
+    // navigator.geolocation.getCurrentPosition(function(position) {
+    //   console.log(position)
+    // }, function(error) {
+    //   console.log(error)
+    // })
   },
 
   render: function() {
+
     return (
       <View style={styles.container}>
         <GooglePlacesAutocomplete
@@ -98,17 +145,9 @@ const Search = React.createClass({
 
 
           filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
-
           // predefinedPlaces={[homePlace, workPlace]}
 
         ></GooglePlacesAutocomplete>
-
-        <Text>{
-            this.props.date.toLocaleDateString() +
-            ' ' +
-            this.props.date.toLocaleTimeString()
-            }
-        </Text>
 
        
         <DatePickerIOS
@@ -120,10 +159,11 @@ const Search = React.createClass({
 
         <TouchableHighlight
           style={styles.button}
-          onPress={this.submitToServer}
+          onPress={this.eventRecView}
           underlayColor = "white">
           <Text style={styles.buttonText}> FIND ME AN EVENT </Text> 
         </TouchableHighlight>
+
 
         <ActivityIndicatorIOS
           animating ={this.props.loading}
@@ -134,6 +174,11 @@ const Search = React.createClass({
     )
   }
 })
+
+// Search.propTypes = {
+//   latlng: React.PropTypes.string.isRequired,
+//   date: React.PropTypes.object.isRequired
+// }
 
 const styles = StyleSheet.create({
   container: {

@@ -5,7 +5,7 @@ const initialState = {
 }
 
 module.exports = function search(state = initialState, action) {
-	console.log('reducers called: ', state)
+	console.log('search reducer called: ', state)
 
   switch (action.type) {
   case 'LATLNG':
@@ -19,14 +19,14 @@ module.exports = function search(state = initialState, action) {
     return {
       ...state,
       date: action.date
-    }
+    };
   case 'LOADING_SCREEN':
     console.log('LOADINGSCREEN BEING CALLED')
     return {
       ...state,
       loading: action.loading
-    };
-  
+    };  
+
   default:
     return state
   }

@@ -16,6 +16,7 @@ const {
 } = React
 
 const store = configureStore()
+console.log(store)
 
 class wayd extends React.Component{
   render() {
