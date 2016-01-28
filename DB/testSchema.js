@@ -1,4 +1,4 @@
-var db = require('./config.js');
+var db = require('./testConfig.js');
 
 
 //Create a postgres db named 'wayd' prior to bringing server up - this file creates tables in this db
