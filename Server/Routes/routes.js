@@ -4,6 +4,9 @@ var express = require('express');
 var router = express.Router();
 var apiController = require('../Controllers/api.js')
 
+// var insertEvent = require('').insertEvent
+// var insertPoll = require('').insertPoll
+
 
 // ROUTE TO RETRIEVE API(S) DATA 
 router.route('/events/:loc/:timeframe')
@@ -33,15 +36,32 @@ router.route('/users')
 
   })
 
+
 // ROUTE TO CREATE POLL
 router.route('/polls/:id')
   .post(function(req, res){
   // create new poll
-    // add to poll table
-    // add to event table
+ 
+    // var userId = req.params.id
+    // var eventObj = req.body.evenObj
+
+    // // add to event table
+    // insertEvent(eventObj, function(err, eventId){
+    //   // add to poll table
+    //   insertPoll(eventId, userId, function(err, pollId){ 
+    //   //don't yet know the num of participants because the emais have not been created
+    //     if(err){
+    //       throw err
+    //     }
+    //     res.send(pollId)
+    //   });
+      
+    // })
+
+    
+    
     // add to email table (including main user)
-  // send out to email service
-  //respond success or error
+    // send out to email service
 
   });
 
