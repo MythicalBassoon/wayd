@@ -1,4 +1,6 @@
 const React = require('react-native')
+const EventRec = require('../containers/EventRec')
+
 const {
   StyleSheet,
   ListView,
@@ -18,21 +20,40 @@ var {GooglePlacesAutocomplete} = require('react-native-google-places-autocomplet
 const Search = React.createClass({
   //changes redux.state.date
   onDateChange: function(date){
+    // console.log('datechange', date)
     this.props.timechange(date);
   },
 
-  //submits date and time information for worker rendering
-  submitToServer: function(){
-    this.props.loadingscreen(true);
-    fetch("https://api.github.com/users/rscastro", {method: "GET"})
-    .then((response) => response.json())
-    .then((responseData) => {
-        this.props.loadingscreen(false)
-    })
-    .done();
+  eventRecView: function() {
+    // console.log('eventrectview', this.props)
+    var message = {
+      latlng: this.props.latlng,
+      date: this.props.date
+    }
+    
+    this.props.eventView(message)
+
+    this.props.navigator.push({
+      title: 'Event',
+      component: EventRec
+    });
+
+  },
+
+  componentDidMount: function() {
+    // figure out for automatic geolocation findering without search
+    // console.log('mounted...')
+    // navigator.geolocation.getCurrentPosition(function(position) {
+    //   console.log(position)
+    // }, function(error) {
+    //   console.log(error)
+    // })
+
+
   },
 
   render: function() {
+
     return (
       <View style={styles.container}>
         <GooglePlacesAutocomplete
@@ -93,53 +114,46 @@ const Search = React.createClass({
           GooglePlacesSearchQuery={{
             // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
             rankby: 'distance',
-            types: 'food',
+            // types: 'food',
           }}
 
 
           filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
-
           // predefinedPlaces={[homePlace, workPlace]}
 
         ></GooglePlacesAutocomplete>
 
-        <Text>{
-            this.props.date.toLocaleDateString() +
-            ' ' +
-            this.props.date.toLocaleTimeString()
-            }
-        </Text>
-
        
         <DatePickerIOS
           date={this.props.date}
-          timeZoneOffsetInMinutes={(-1) * (new Date()).getTimezoneOffset()}
-          mode="datetime"
+          // timeZoneOffsetInMinutes={(-1) * (new Date()).getTimezoneOffset()}
+          mode="date" // changed from 'datetime'
           onDateChange={this.onDateChange}>
         </DatePickerIOS>
 
         <TouchableHighlight
           style={styles.button}
-          onPress={this.submitToServer}
-          underlayColor = "white">
+          onPress={this.eventRecView}
+          underlayColor = "tranparent">
           <Text style={styles.buttonText}> FIND ME AN EVENT </Text> 
         </TouchableHighlight>
 
-        <ActivityIndicatorIOS
-          animating ={this.props.loading}
-          color = '#111'
-          size = 'large'>
-        </ActivityIndicatorIOS>
       </View>
     )
   }
 })
 
+Search.propTypes = {
+  latlng: React.PropTypes.string.isRequired,
+  date: React.PropTypes.object.isRequired
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 0,
     paddingTop: 40,
-    backgroundColor: '#F6F6F6'
+    backgroundColor: '#F6F6F6',
+    marginTop: 20,
   },
   testContiner: {
     height: 40,

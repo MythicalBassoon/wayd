@@ -18,6 +18,7 @@ module.exports = {
   },
 
   dateFormater: function(dateString) {
+    var day;
 
     var monthFormater = function(month) {
      if(month < 10) {
@@ -27,7 +28,13 @@ module.exports = {
      }
     }
 
-    var day = new Date(dateString)
+    if(typeof dateString === 'object') {
+       day = new Date(dateString)
+    } else {
+       day = new Date(JSON.parse(dateString))
+    }
+
+    console.log('day', day)
     var dayOfMonth= day.getDate().toString()
     var year = day.getFullYear().toString()
     var month = (day.getMonth() + 1)

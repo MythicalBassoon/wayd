@@ -16,6 +16,7 @@ const {
 } = React
 
 const store = configureStore()
+console.log(store)
 
 class wayd extends React.Component{
   render() {
@@ -24,10 +25,10 @@ class wayd extends React.Component{
           <NavigatorIOS
             style={styles.container}
             initialRoute = {{
-              title: "wayd",
+              title: "Login",
               component: Login
             }}
-            navigationBarHidden = {true}
+            navigationBarHidden = {false}
           />
       </Provider>
     );
