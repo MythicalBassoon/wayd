@@ -34,6 +34,7 @@ const Search = React.createClass({
     this.props.eventView(message)
 
     this.props.navigator.push({
+      title: 'Wayd',
       component: EventRec
     });
 
@@ -111,7 +112,7 @@ const Search = React.createClass({
           GooglePlacesSearchQuery={{
             // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
             rankby: 'distance',
-            types: 'food',
+            // types: 'food',
           }}
 
 
@@ -123,8 +124,8 @@ const Search = React.createClass({
        
         <DatePickerIOS
           date={this.props.date}
-          timeZoneOffsetInMinutes={(-1) * (new Date()).getTimezoneOffset()}
-          mode="datetime"
+          // timeZoneOffsetInMinutes={(-1) * (new Date()).getTimezoneOffset()}
+          mode="date"
           onDateChange={this.onDateChange}>
         </DatePickerIOS>
 
@@ -149,7 +150,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 0,
     paddingTop: 40,
-    backgroundColor: '#F6F6F6'
+    backgroundColor: '#F6F6F6',
+    marginTop: 20,
   },
   testContiner: {
     height: 40,

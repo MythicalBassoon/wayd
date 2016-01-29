@@ -1,5 +1,5 @@
 const React = require('react-native')
-
+const moment = require('moment')
 
 const {
   StyleSheet,
@@ -27,8 +27,8 @@ const EventRec = React.createClass({
 
   //submits date and time information for worker rendering
   submitToServer: function(){
-  
-    var url = `http://localhost:3000/api/events/${this.props.prevData.latlng}/{JSON.stringify(this.props.prevData.date)}`
+    
+    var url = `http://localhost:3000/api/events/${this.props.prevData.latlng}/${JSON.stringify(this.props.prevData.date)}`
     fetch(url, {method: "GET"})
     .then((response) => response.json())
     .then((responseData) => {
@@ -68,14 +68,16 @@ const EventRec = React.createClass({
 
         console.log('api results', this.props)
         console.log('api current img', this.props.currentimg)
+
+        // var eventTime = moment(event.start_time).format('MMM Do YY')
         var event = this.props.currentimg
         return (
           <View style = {styles.mainContainer}>
 
             <Image style={styles.image} source={{uri: event.image_medium}}/>
             <Text style={styles.title}> {event.title} </Text>
-            <Text style={styles.title}> {event.address} </Text>
-  
+            <Text style={styles.bodytext}> {event.address} </Text>
+            <Text style={styles.bodytext}> { moment(event.start_time).calendar() } </Text>
 
               <TouchableHighlight
                 style={styles.button}
@@ -112,6 +114,12 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: 20,
     fontSize: 25,
+    textAlign: 'center',
+    color: '#fff'
+  },
+  bodytext: {
+    marginBottom: 20,
+    fontSize: 15,
     textAlign: 'center',
     color: '#fff'
   },

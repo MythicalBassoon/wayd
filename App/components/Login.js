@@ -22,6 +22,7 @@ const Login = React.createClass({
   //a call of {{this.login()}} should happen in render, making a check to redux state.
   login: function(){
     this.props.navigator.push({
+      title: 'Wayd',
       component: Search
     });
   },

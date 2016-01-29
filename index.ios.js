@@ -28,7 +28,7 @@ class wayd extends React.Component{
               title: "wayd",
               component: Login
             }}
-            navigationBarHidden = {true}
+            navigationBarHidden = {false}
           />
       </Provider>
     );

@@ -21,6 +21,7 @@ module.exports = {
     var today = dateFormater(new Date())
     // console.log('today', today)
     var eventDate = dateFormater(timeframe)
+    console.log('date for api',today, eventDate)
     var time = `t=${today}-${eventDate}` // look between now and the date given
 
     var eventfulKey = 'bkBjvhD7BjJDSJMC'
