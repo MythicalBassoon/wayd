@@ -29,14 +29,15 @@ module.exports = function search(state = initialState, action) {
       apiresults: action.apiresults
     };
   case "POP_EVENT":
-    console.log('pop reducer BEING CALLED', state)
-    var currentImage = state.apiresults.pop()
+    // console.log('pop reducer BEING CALLED', state)
 
-    console.log('cur img', currentImage)
-    console.log('new api results', state.apiresults)
-
+    var currentImage = state.apiresults.slice(-1)[0]
+    var newApiRes = state.apiresults.slice(1, state.apiresults.length-1)
+    // console.log('cur img', currentImage)
+    // console.log('new api results', state.apiresults)
     return {
       ...state,
+      apiresults: newApiRes,
       currentimg: currentImage
     };
     
