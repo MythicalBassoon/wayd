@@ -16,6 +16,7 @@ const {
 const EventRec = React.createClass({
 
   componentDidMount: function() {
+    this.props.loadingscreen(true);
     this.submitToServer()
   },
   
@@ -27,18 +28,15 @@ const EventRec = React.createClass({
   //submits date and time information for worker rendering
   submitToServer: function(){
   
-    this.props.loadingscreen(true);
-  
     var url = `http://localhost:3000/api/events/${this.props.prevData.latlng}/{JSON.stringify(this.props.prevData.date)}`
     fetch(url, {method: "GET"})
     .then((response) => response.json())
     .then((responseData) => {
-        this.props.getData(responseData)
-        this.props.loadingscreen(false)
-        console.log('props...', this.props)
-        // this.currentImage()
-        // console.log('current image', this.props.apiresults[this.props.apiresults.length-1])
-        //this.render()
+       this.props.getData(responseData)
+       this.props.popEvent() 
+    })
+    .then(() => {
+      this.props.loadingscreen(false)
     })
     .done();
     
@@ -47,38 +45,48 @@ const EventRec = React.createClass({
   render: function() {
     console.log('event component render', this.props.apiresults)
 
-    // if(this.props.apiresults !== undefined) {
-    //   var currentImage = this.props.apiresults[this.props.apiresults.length-1] 
-    //       console.log('current img', currentImage)
-    // } 
+    switch(this.props.loading){
+      case true:
+        return(
+          <View style= {styles.mainContainer}>
+             <ActivityIndicatorIOS
+                animating ={this.props.loading}
+                color = '#111'
+                size = 'large'>
+              </ActivityIndicatorIOS>
+          </View>
+        )
+      case false:
 
+        console.log('api results', this.props)
+        console.log('api current img', this.props.currentimg)
+        var event = this.props.currentimg
+        return (
+          <View style = {styles.mainContainer}>
 
-    return (
-      <View style = {styles.mainContainer}>
-        <Text style= {styles.title}> event  </Text>
+            <Image style={styles.image} source={{uri: event.image_medium}}/>
+            <Text style={styles.title}> {event.title} </Text>
+            <Text style={styles.title}> {event.address} </Text>
+  
 
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.login}
-          underlayColor = "white">
-          <Text style={styles.buttonText}> yes </Text> 
-        </TouchableHighlight>
+              <TouchableHighlight
+                style={styles.button}
+                onPress={this.login}
+                underlayColor = "white">
+                <Text style={styles.buttonText}> yes </Text> 
+              </TouchableHighlight>
 
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.login}
-          underlayColor = "white">
-          <Text style={styles.buttonText}> no </Text> 
-        </TouchableHighlight>
+              <TouchableHighlight
+                style={styles.button}
+                onPress={this.login}
+                underlayColor = "white">
+                <Text style={styles.buttonText}> no </Text> 
+              </TouchableHighlight>
 
-        <ActivityIndicatorIOS
-          animating ={this.props.loading}
-          color = '#111'
-          size = 'large'>
-        </ActivityIndicatorIOS>
+          </View>
+        )
+    }
 
-      </View>
-    )
   }
 
 })
@@ -127,6 +135,13 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
+  image: {
+    height: 125,
+    width: 125,
+    borderRadius: 65,
+    marginTop: 10,
+    alignSelf: 'center'
+  }
 });
 
 module.exports = EventRec

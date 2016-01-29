@@ -1,7 +1,7 @@
 
 const initialState = {
-  loading: false,
-  apidata: [],
+  loading: true,
+  apiresults: [],
   prevData: {},
   currentImg: {}
 }
@@ -28,6 +28,18 @@ module.exports = function search(state = initialState, action) {
       ...state,
       apiresults: action.apiresults
     };
+  case "POP_EVENT":
+    console.log('pop reducer BEING CALLED', state)
+    var currentImage = state.apiresults.pop()
+
+    console.log('cur img', currentImage)
+    console.log('new api results', state.apiresults)
+
+    return {
+      ...state,
+      currentimg: currentImage
+    };
+    
   
 
   default:

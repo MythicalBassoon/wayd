@@ -16,7 +16,7 @@ exports.timechange = function timechange(date) {
 }
 
 exports.loadingscreen = function loadingscreen(bool) {
-  // console.log('load screen action')
+  console.log('load screen action', bool)
   return {
     type: 'LOADING_SCREEN',
     loading: bool
@@ -39,3 +39,12 @@ exports.getData = function getData(data){
     apiresults: data
   }
 }
+
+exports.popEvent = function popEvent(){
+  console.log('pop event')
+  return{
+    type: "POP_EVENT"
+
+  }
+}
+
