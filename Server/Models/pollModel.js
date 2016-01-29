@@ -1,10 +1,10 @@
 var db = require('../../db/config.js');
 
 //retrieve sql query for inserting poll into polls table
-var queryString = require('../../db/psql/');
+var queryString = require('../../db/psql/index');
 
 
-module.exports.insertPoll = function(eventId, userId, numParticipants, callback, testMode){
+module.exports.insertPoll = function(eventId, pollInfo, callback, testMode){
   if (testMode){
     db = require('../../db/testConfig.js');
   }
@@ -18,13 +18,14 @@ module.exports.insertPoll = function(eventId, userId, numParticipants, callback,
 
   // array of values which will be inserted to polls table
   // first parameter (vote_count) is defaulted to 1 as we assume creator has voted in favor for event by selecting it
-  var queryParameters = [1, numParticipants, userId, eventId]
+  //POLLINFO: userId, array of emails
+  var queryParameters = [eventId, pollInfo.userId, pollInfo.emails.length]
   
   //insert poll into polls table
   return db.query(queryString.insertPoll, queryParameters)
     .then(function(pollId) {
       console.log('inserted poll id is', pollId);
-      return callback(pollId);
+      return callback(null, pollId);
     })
     .catch(function(error){
       console.log('error inserting poll to db, error is:', error);

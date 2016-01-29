@@ -28,6 +28,9 @@ module.exports = {
     var url ='http://api.eventful.com/json/events/search/?'
     var appkey = 'app_key=bkBjvhD7BjJDSJMC'
     
+    if(latlng.split(",").length !== 2){
+      latlng = '0,0'
+    }
     var loc = 'where=' + latlng
     var range = 'within=.5'
     var pageSize = 'page_size=25'
@@ -42,7 +45,14 @@ module.exports = {
         if (!error && response.statusCode == 200) {
 
           //take resposne from eventful api and map it to data schema for db
-          var results = JSON.parse(body).events.event
+          //Richard: handles if there's no events in area or bad time
+          if(JSON.parse(body).events){
+
+            var results = JSON.parse(body).events.event
+          }
+          else{
+            results = [];
+          }
           
           // console.log(results)
 
