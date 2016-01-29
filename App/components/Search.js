@@ -1,8 +1,6 @@
 const React = require('react-native')
 const EventRec = require('../containers/EventRec')
 
-
-
 const {
   StyleSheet,
   ListView,
@@ -26,34 +24,6 @@ const Search = React.createClass({
     this.props.timechange(date);
   },
 
-  //submits date and time information for worker rendering
-    // submitToServer: function(){
-    //   console.log(this.props)
-    //   this.props.loadingscreen(true);
-
-      /*
-      // fetch("http://api.eventful.com/json/events/search/?app_key=bkBjvhD7BjJDSJMC&t-this+week&end&where=32.746682,-117.162741&within=.5", {method: "GET"})
-      // .then((response) => response.json())
-      // .then((responseData) => {
-          
-      //     console.log('res data', responseData.events.event)
-      //     //
-      //     this.props.loadingscreen(false)
-
-      //     console.log('props...', this.props)
-
-      //     //dispatch action
-      //     this.props.getData(responseData.events.event)
-
-      //     this.props.navigator.push({
-      //       component: View,
-      //       }
-      //     });
-
-      // })
-      // .done();
-      */
-    // },
   eventRecView: function() {
     console.log('eventrectview', this.props)
     var message = {
@@ -70,6 +40,7 @@ const Search = React.createClass({
   },
 
   componentDidMount: function() {
+    // figure out for automatic geolocation findering without search
     // this.eventview
     // navigator.geolocation.getCurrentPosition(function(position) {
     //   console.log(position)
@@ -164,21 +135,15 @@ const Search = React.createClass({
           <Text style={styles.buttonText}> FIND ME AN EVENT </Text> 
         </TouchableHighlight>
 
-
-        <ActivityIndicatorIOS
-          animating ={this.props.loading}
-          color = '#111'
-          size = 'large'>
-        </ActivityIndicatorIOS>
       </View>
     )
   }
 })
 
-// Search.propTypes = {
-//   latlng: React.PropTypes.string.isRequired,
-//   date: React.PropTypes.object.isRequired
-// }
+Search.propTypes = {
+  latlng: React.PropTypes.string.isRequired,
+  date: React.PropTypes.object.isRequired
+}
 
 const styles = StyleSheet.create({
   container: {

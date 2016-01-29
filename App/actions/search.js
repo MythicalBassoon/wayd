@@ -22,10 +22,8 @@ exports.loadingscreen = function loadingscreen(bool) {
   }
 }
 
-//
-
+// EVENT VIEW
 exports.eventView = function eventView(data) {
-  console.log('event view action', data)
   return {
     type: "PASS_SEARCH_QUERY",
     prevData: data
@@ -34,6 +32,7 @@ exports.eventView = function eventView(data) {
 
 // ADDED GET DATA
 exports.getData = function getData(data){
+  console.log('get data dispatch', data)
   return{
     type: "GET_DATA",
     apiresults: data

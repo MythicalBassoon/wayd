@@ -7,10 +7,8 @@ const SearchActions = require('../actions/search')
 function mapStateToProps(state) {
   console.log('state event rec container', state)
   return {
-    latlng: null,
-    date: null,
-    loading: null,
-    apiresults: null,
+    loading: false,
+    apiresults: state.eventrec.apiresults,
     prevData: state.eventrec.prevData
   }
 }

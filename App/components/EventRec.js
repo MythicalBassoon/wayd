@@ -1,6 +1,5 @@
 const React = require('react-native')
-
-
+// add next view to navigated to for email form, or add component here?
 
 const {
   StyleSheet,
@@ -9,14 +8,39 @@ const {
   Text,
   TextInput,
   TouchableHighlight,
+  ActivityIndicatorIOS,
   View
 } = React
 
-
 const EventRec = React.createClass({
-  getInitialState: function() {
-    return {
-    }
+
+  componentDidMount: function() {
+
+    this.submitToServer()
+  },
+  
+  //submits date and time information for worker rendering
+  submitToServer: function(){
+    console.log('submit to server', this.props)
+    this.props.loadingscreen(true);
+
+    
+  //curl http://localhost:3000/api/events/37.7841,-122.40903/2016-01-28T20:10:20.232Z
+
+    fetch("http://localhost:3000/api/events/37.7841,-122.40903/2016-01-28T20:10:20.232Z", {method: "GET"})
+    .then((response) => response.json())
+    .then((responseData) => {
+        
+        console.log('res data', responseData)
+        this.props.getData(responseData)
+        this.props.loadingscreen(false)
+        
+        console.log('props...', this.props)
+
+        
+    })
+    .done();
+    
   },
 
   emailView: function(){
@@ -28,17 +52,16 @@ const EventRec = React.createClass({
     return (
       <View style = {styles.mainContainer}>
         <Text style= {styles.title}> event </Text>
-
         <TouchableHighlight
           style={styles.button}
           onPress={this.login}
           underlayColor = "white">
           <Text style={styles.buttonText}> yes </Text> 
         </TouchableHighlight>
-
       </View>
     )
   }
+
 })
 
 
