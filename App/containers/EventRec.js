@@ -5,14 +5,14 @@ const SearchActions = require('../actions/search')
 
 
 function mapStateToProps(state) {
-  console.log('state event rec container', state)
+  // console.log('state event rec container', state)
   return {
-    loading: false,
+    loading: state.eventrec.loading,
+    currentimg: state.eventrec.currentimg,
     apiresults: state.eventrec.apiresults,
     prevData: state.eventrec.prevData
   }
 }
-
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(SearchActions, dispatch)

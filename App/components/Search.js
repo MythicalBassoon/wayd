@@ -20,12 +20,12 @@ var {GooglePlacesAutocomplete} = require('react-native-google-places-autocomplet
 const Search = React.createClass({
   //changes redux.state.date
   onDateChange: function(date){
-    console.log('datechange', date)
+    // console.log('datechange', date)
     this.props.timechange(date);
   },
 
   eventRecView: function() {
-    console.log('eventrectview', this.props)
+    // console.log('eventrectview', this.props)
     var message = {
       latlng: this.props.latlng,
       date: this.props.date

@@ -16,13 +16,14 @@ exports.timechange = function timechange(date) {
 }
 
 exports.loadingscreen = function loadingscreen(bool) {
+  // console.log('load screen action')
   return {
     type: 'LOADING_SCREEN',
     loading: bool
   }
 }
 
-// EVENT VIEW
+
 exports.eventView = function eventView(data) {
   return {
     type: "PASS_SEARCH_QUERY",
@@ -30,9 +31,9 @@ exports.eventView = function eventView(data) {
   }
 }
 
-// ADDED GET DATA
+
 exports.getData = function getData(data){
-  console.log('get data dispatch', data)
+  // console.log('get data dispatch', data)
   return{
     type: "GET_DATA",
     apiresults: data

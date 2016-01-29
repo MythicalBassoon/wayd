@@ -1,11 +1,12 @@
 const React = require('react-native')
-// add next view to navigated to for email form, or add component here?
+
 
 const {
   StyleSheet,
   ListView,
   NetInfo,
   Text,
+  Image,
   TextInput,
   TouchableHighlight,
   ActivityIndicatorIOS,
@@ -15,49 +16,67 @@ const {
 const EventRec = React.createClass({
 
   componentDidMount: function() {
-
     this.submitToServer()
   },
   
+  currentImage: function() {
+    // var newImage = this.props.apiresults.pop()
+    // this.props.currentimg = newImage;
+  },
+
   //submits date and time information for worker rendering
   submitToServer: function(){
-    console.log('submit to server', this.props)
+  
     this.props.loadingscreen(true);
-
-    
-  //curl http://localhost:3000/api/events/37.7841,-122.40903/2016-01-28T20:10:20.232Z
-
-    fetch("http://localhost:3000/api/events/37.7841,-122.40903/2016-01-28T20:10:20.232Z", {method: "GET"})
+  
+    var url = `http://localhost:3000/api/events/${this.props.prevData.latlng}/{JSON.stringify(this.props.prevData.date)}`
+    fetch(url, {method: "GET"})
     .then((response) => response.json())
     .then((responseData) => {
-        
-        console.log('res data', responseData)
         this.props.getData(responseData)
         this.props.loadingscreen(false)
-        
         console.log('props...', this.props)
-
-        
+        // this.currentImage()
+        // console.log('current image', this.props.apiresults[this.props.apiresults.length-1])
+        //this.render()
     })
     .done();
     
   },
 
-  emailView: function(){
-
-  },
-
   render: function() {
-    console.log('event component', this.props)
+    console.log('event component render', this.props.apiresults)
+
+    // if(this.props.apiresults !== undefined) {
+    //   var currentImage = this.props.apiresults[this.props.apiresults.length-1] 
+    //       console.log('current img', currentImage)
+    // } 
+
+
     return (
       <View style = {styles.mainContainer}>
-        <Text style= {styles.title}> event </Text>
+        <Text style= {styles.title}> event  </Text>
+
         <TouchableHighlight
           style={styles.button}
           onPress={this.login}
           underlayColor = "white">
           <Text style={styles.buttonText}> yes </Text> 
         </TouchableHighlight>
+
+        <TouchableHighlight
+          style={styles.button}
+          onPress={this.login}
+          underlayColor = "white">
+          <Text style={styles.buttonText}> no </Text> 
+        </TouchableHighlight>
+
+        <ActivityIndicatorIOS
+          animating ={this.props.loading}
+          color = '#111'
+          size = 'large'>
+        </ActivityIndicatorIOS>
+
       </View>
     )
   }
