@@ -1,0 +1,4 @@
+curl http://localhost:3000/api/events/37.7841,-122.40903/2016-01-28T20:10:20.232Z
+
+
+curl -H "Content-Type: application/json" -X POST -d '{"id":"1234","eventObj":{"testprop": "test1"}}' http://localhost:3000/api/login

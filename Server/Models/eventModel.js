@@ -53,7 +53,7 @@ module.exports.insertEvent = function(eventObj, callback, testMode){
   return db.query(queryString.insertEvent, queryParameters)
   .then(function(eventObjId) {
     console.log('inserted eventObj id is', eventObjId);
-    return callback(eventObjId);
+    return callback(null, eventObjId);
   })
   .catch(function(error){
     console.log('error inserting eventObj to db, error is:', error);

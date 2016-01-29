@@ -4,8 +4,9 @@ var express = require('express');
 var router = express.Router();
 var apiController = require('../Controllers/api.js')
 
-// var insertEvent = require('').insertEvent
-// var insertPoll = require('').insertPoll
+var insertEvent = require('../Models/eventModel').insertEvent
+var insertPoll = require('../Models/pollModel').insertPoll
+var insertEmail = require('../Models/emailModel').insertEmail
 
 
 // ROUTE TO RETRIEVE API(S) DATA 
@@ -38,14 +39,56 @@ router.route('/users')
 
 
 // ROUTE TO CREATE POLL
-router.route('/polls/:id')
+router.route('/polls')
   .post(function(req, res){
   // create new poll
- 
-    // var userId = req.params.id
-    // var eventObj = req.body.evenObj
 
-    // // add to event table
+
+
+ 
+    var pollInfo = req.body.pollInfo;
+    var eventInfo = req.body.eventInfo;
+
+    insertEvent(eventInfo, function(err, eventId){
+      if(err){
+        res.send(404)
+      }
+      console.log(typeof eventId, 'EVENTID SUCKAAAAAAA', eventId[0]['id'])
+      insertPoll(eventId[0]['id'], pollInfo, function(err, pollId){
+        if(err){
+          res.send(404)
+        }
+        console.log('EMAILS SUCKAAAAAASDASD', pollId)
+        for(var i = 0;i<pollInfo.emails.length;i++){
+          insertEmail(pollInfo.emails[i], i, pollId[0]['id'], function(err, emailId, i){
+            if(err){
+              console.log('email insertion in db error: ', err)
+            }
+            console.log('THIS IS I BITCHHHHH', i)
+
+
+            if(i === pollInfo.emails.length - 1){
+              console.log('SHOULD GO INTO RESSEND')
+
+    
+              res.send(200, 'ALL EMAILS INSERTED, POLL CREATION SUCCESS')
+            }
+          })
+        }
+
+      })
+
+    })
+
+
+    // var sendObj = {
+    //   userid: userId,
+    //   eventObj: eventObj
+    // }
+    //   res.send(sendObj)
+
+
+    // add to event table
     // insertEvent(eventObj, function(err, eventId){
     //   // add to poll table
     //   insertPoll(eventId, userId, function(err, pollId){ 
@@ -56,14 +99,14 @@ router.route('/polls/:id')
     //     res.send(pollId)
     //   });
       
-    // })
+    })
 
     
     
     // add to email table (including main user)
     // send out to email service
 
-  });
+ // });
 
 // ROUTE TO CALCULATE POLL STATUS
 router.route('/polls/:id')

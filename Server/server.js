@@ -19,7 +19,7 @@ app.use('/api', router);
 //init db
 require('../DB/schema.js');
 
-var db = require('../DB/config');
+//var db = require('../DB/config');
 
 
 // //Set up static files

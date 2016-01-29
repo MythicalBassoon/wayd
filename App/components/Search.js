@@ -15,6 +15,7 @@ const {
 
 // Node module import for Google API autocomplete (autocomplete only).
 var {GooglePlacesAutocomplete} = require('react-native-google-places-autocomplete');
+var API_KEY_GOOGLE = require('../../apikeys').google_api_key;
 
 
 const Search = React.createClass({
@@ -72,7 +73,7 @@ const Search = React.createClass({
           }}
           query={{
             // available options: https://developers.google.com/places/web-service/autocomplete
-            key: 'AIzaSyCNsbBETvV4YWKJED_pBZ_9UKJVwYXcHSs',
+            key: API_KEY_GOOGLE,
             language: 'en', // language of the results
           }}
           styles={{

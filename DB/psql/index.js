@@ -15,7 +15,7 @@ module.exports = {
   insertUser: sqlLoad(path.join(__dirname, './insert-user.sql')),
   getOneEvent: sqlLoad(path.join(__dirname, './get-one-event')),
   getOnePoll: sqlLoad(path.join(__dirname, './get-one-poll')),
-  getOneUser: sqlLoad(path.join(__dirname, './get-one-user.sql'))
+  getOneUser: sqlLoad(path.join(__dirname, './get-one-user.sql')),
+  insertEmail: sqlLoad(path.join(__dirname, './insert-one-email.sql')),
 
 };
-

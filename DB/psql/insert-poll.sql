@@ -1,4 +1,4 @@
-INSERT INTO polls (vote_count, num_participants, user_id, event_id)
-VALUES ($1, $2, $3, $4);
+INSERT INTO polls (event_id, user_id, num_participants, yes_count, no_count)
+VALUES ($1, $2, $3, 0, 0);
 
-SELECT id from polls where user_id= $3 and event_id= $4;
+SELECT id from polls where user_id= $2 and event_id= $1;

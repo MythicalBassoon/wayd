@@ -39,10 +39,11 @@ db.query(
    console.log('events created');
 
    //create polls table
-   return db.query("CREATE TABLE IF NOT EXISTS polls (vote_count INTEGER,"
-    + "num_participants INTEGER,"
+   return db.query("CREATE TABLE IF NOT EXISTS polls (event_id INTEGER,"
     + "user_id INTEGER,"
-    + "event_id INTEGER,"
+    + "num_participants INTEGER,"
+    + "yes_count INTEGER DEFAULT 0,"
+    + "no_count INTEGER DEFAULT 0,"
     + "FOREIGN KEY (user_id) REFERENCES users(id),"
     + "FOREIGN KEY (event_id) REFERENCES events(id),"
     + "id SERIAL PRIMARY KEY)"
@@ -54,6 +55,7 @@ db.query(
    //create emails
    return db.query("CREATE TABLE IF NOT EXISTS emails (email VARCHAR(40),"
     + "poll_id INTEGER,"
+    + "id SERIAL PRIMARY KEY,"
     + "FOREIGN KEY (poll_id) REFERENCES polls(id)"
     + ")"
    )
