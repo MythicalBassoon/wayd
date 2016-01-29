@@ -53,22 +53,17 @@ router.route('/polls')
       if(err){
         res.send(404)
       }
-      console.log(typeof eventId, 'EVENTID SUCKAAAAAAA', eventId[0]['id'])
       insertPoll(eventId[0]['id'], pollInfo, function(err, pollId){
         if(err){
           res.send(404)
         }
-        console.log('EMAILS SUCKAAAAAASDASD', pollId)
         for(var i = 0;i<pollInfo.emails.length;i++){
           insertEmail(pollInfo.emails[i], i, pollId[0]['id'], function(err, emailId, i){
             if(err){
-              console.log('email insertion in db error: ', err)
             }
-            console.log('THIS IS I BITCHHHHH', i)
 
 
             if(i === pollInfo.emails.length - 1){
-              console.log('SHOULD GO INTO RESSEND')
 
     
               res.send(200, 'ALL EMAILS INSERTED, POLL CREATION SUCCESS')
