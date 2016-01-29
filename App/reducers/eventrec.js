@@ -40,8 +40,6 @@ module.exports = function search(state = initialState, action) {
       currentimg: currentImage
     };
     
-  
-
   default:
     return state
   }

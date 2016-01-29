@@ -42,6 +42,14 @@ const EventRec = React.createClass({
     
   },
 
+  no: function() {
+    this.props.popEvent() 
+  },
+
+  yes: function() {
+    console.log('yes')
+  },
+ 
   render: function() {
     console.log('event component render', this.props.apiresults)
 
@@ -71,14 +79,14 @@ const EventRec = React.createClass({
 
               <TouchableHighlight
                 style={styles.button}
-                onPress={this.login}
+                onPress={this.yes}
                 underlayColor = "white">
                 <Text style={styles.buttonText}> yes </Text> 
               </TouchableHighlight>
 
               <TouchableHighlight
                 style={styles.button}
-                onPress={this.login}
+                onPress={this.no}
                 underlayColor = "white">
                 <Text style={styles.buttonText}> no </Text> 
               </TouchableHighlight>
