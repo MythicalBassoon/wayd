@@ -34,7 +34,7 @@ const Search = React.createClass({
     this.props.eventView(message)
 
     this.props.navigator.push({
-      title: 'Wayd',
+      title: 'Event',
       component: EventRec
     });
 
@@ -42,12 +42,14 @@ const Search = React.createClass({
 
   componentDidMount: function() {
     // figure out for automatic geolocation findering without search
-    // this.eventview
+    // console.log('mounted...')
     // navigator.geolocation.getCurrentPosition(function(position) {
     //   console.log(position)
     // }, function(error) {
     //   console.log(error)
     // })
+
+
   },
 
   render: function() {
@@ -125,14 +127,14 @@ const Search = React.createClass({
         <DatePickerIOS
           date={this.props.date}
           // timeZoneOffsetInMinutes={(-1) * (new Date()).getTimezoneOffset()}
-          mode="date"
+          mode="date" // changed from 'datetime'
           onDateChange={this.onDateChange}>
         </DatePickerIOS>
 
         <TouchableHighlight
           style={styles.button}
           onPress={this.eventRecView}
-          underlayColor = "white">
+          underlayColor = "tranparent">
           <Text style={styles.buttonText}> FIND ME AN EVENT </Text> 
         </TouchableHighlight>
 

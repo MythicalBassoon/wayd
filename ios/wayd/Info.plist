@@ -36,8 +36,12 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+  <key>NSLocationUsageDescription</key>
+  <string>I need location</string>
+  <key>NSLocationAlwaysUsageDescription</key>
+  <string>I need location</string>
+  <key>NSLocationWhenInUseUsageDescription</key>
+  <string>I need location</string>
   <key>NSAppTransportSecurity</key>
   <dict>
     <!--See http://ste.vn/2015/06/10/configuring-app-transport-security-ios-9-osx-10-11/ -->

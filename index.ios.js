@@ -25,7 +25,7 @@ class wayd extends React.Component{
           <NavigatorIOS
             style={styles.container}
             initialRoute = {{
-              title: "wayd",
+              title: "Login",
               component: Login
             }}
             navigationBarHidden = {false}

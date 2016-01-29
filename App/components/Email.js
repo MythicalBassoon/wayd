@@ -1,55 +1,62 @@
 const React = require('react-native')
-const Search = require('../containers/Search')
 
 const {
   StyleSheet,
   ListView,
-  NetInfo,
   Text,
+  Image,
   TextInput,
   TouchableHighlight,
+  ActivityIndicatorIOS,
   View
 } = React
 
+const Email = React.createClass({
 
-const Login = React.createClass({
-  getInitialState: function() {
-    return {
-    }
+  componentDidMount: function() {
+   console.log('email mounted...')
+    
+    // Animate creation
+    // LayoutAnimation.spring();
+    
   },
-
-  //should navigate to search page depending on login status. might need to change this later to be
-  //a call of {{this.login()}} should happen in render, making a check to redux state.
-  login: function(){
-    this.props.navigator.push({
-      title: 'Search',
-      component: Search
-    });
-  },
-
+  
   render: function() {
-
+    console.log('email component render..')
 
     return (
       <View style = {styles.mainContainer}>
-        <Text style= {styles.title}> WAYD </Text>
+
+        <Text style={styles.title}> Friend 1: </Text> 
         <TextInput
-          style={styles.searchInput}
-          value={this.state.username}
-          placeholder="username"/>
+          style={styles.emailInput}
+          value={this.props.email}
+          placeholder="Enter Email"/>
+
+        <Text style={styles.title}> Friend 2: </Text>
         <TextInput
-          style={styles.searchInput}
-          value={this.state.password}
-          placeholder="password"/>
+          style={styles.emailInput}
+          value={this.props.email}
+          placeholder="Enter Email"/>
+
+        <Text style={styles.title}> Friend 3: </Text>
+        <TextInput
+          style={styles.emailInput}
+          value={this.props.email}
+          placeholder="Enter Email"/>
+
         <TouchableHighlight
           style={styles.button}
-          onPress={this.login}
-          underlayColor="tranparent">
-          <Text style={styles.buttonText}> LOG IN </Text> 
+          onPress={this.yes}
+          underlayColor = "tranparent">
+          <Text style={styles.buttonText}> SEND EMAIL </Text> 
         </TouchableHighlight>
+
       </View>
-    )
+      )
+
   }
+
 })
 
 
@@ -68,7 +75,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#fff'
   },
-  searchInput: {
+  bodytext: {
+    marginBottom: 20,
+    fontSize: 15,
+    textAlign: 'center',
+    color: '#fff'
+  },
+  emailInput: {
     height: 50,
     padding: 4,
     marginBottom: 10,
@@ -96,6 +109,13 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
+  image: {
+    height: 125,
+    width: 125,
+    borderRadius: 65,
+    marginTop: 10,
+    alignSelf: 'center'
+  }
 });
 
-module.exports = Login
+module.exports = Email

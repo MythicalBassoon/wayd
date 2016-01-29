@@ -1,5 +1,6 @@
 const React = require('react-native')
 const moment = require('moment')
+const Email = require('./Email')
 
 const {
   StyleSheet,
@@ -20,11 +21,6 @@ const EventRec = React.createClass({
     this.submitToServer()
   },
   
-  currentImage: function() {
-    // var newImage = this.props.apiresults.pop()
-    // this.props.currentimg = newImage;
-  },
-
   //submits date and time information for worker rendering
   submitToServer: function(){
     
@@ -48,6 +44,11 @@ const EventRec = React.createClass({
 
   yes: function() {
     console.log('yes')
+    this.props.navigator.push({
+      title: 'Add Friends',
+      component: Email
+    });
+   
   },
  
   render: function() {
@@ -70,7 +71,8 @@ const EventRec = React.createClass({
         console.log('api current img', this.props.currentimg)
 
         // var eventTime = moment(event.start_time).format('MMM Do YY')
-        var event = this.props.currentimg
+        var event = this.props.currentimg;
+
         return (
           <View style = {styles.mainContainer}>
 
@@ -82,14 +84,14 @@ const EventRec = React.createClass({
               <TouchableHighlight
                 style={styles.button}
                 onPress={this.yes}
-                underlayColor = "white">
+                underlayColor = "tranparent">
                 <Text style={styles.buttonText}> yes </Text> 
               </TouchableHighlight>
 
               <TouchableHighlight
                 style={styles.button}
                 onPress={this.no}
-                underlayColor = "white">
+                underlayColor = "tranparent">
                 <Text style={styles.buttonText}> no </Text> 
               </TouchableHighlight>
 
