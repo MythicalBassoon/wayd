@@ -15,12 +15,13 @@ var jobNumber = 0;
 function createHandler (req, res) {
   var client = redis.createClient();
   //var numberOfJobs = req.body.num;
+  var data = req.body;
   var jobQueue = new Queue('jobs', client);
 
   
     // TODO: Push the `job` into the `jobQueue`. Confirm your work in the Redis CLI
-    jobQueue.push(JSON.stringify({name: 'RICHARDDDDD'}), function(){
-      console.log('successful added 1234')
+    jobQueue.push(JSON.stringify(data), function(){
+      console.log('successfully added email to -- ', req.body.to, ' to redis queue')
     })
 
 

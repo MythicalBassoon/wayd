@@ -8,6 +8,7 @@ var insertEvent = require('../Models/eventModel').insertEvent
 var insertPoll = require('../Models/pollModel').insertPoll
 var insertEmail = require('../Models/emailModel').insertEmail
 var nodeMailer = require('../Workers/email').sendNodeMailer
+var request = require('request');
 
 
 // ROUTE TO RETRIEVE API(S) DATA 
@@ -59,10 +60,25 @@ router.route('/polls')
           res.send(404)
         }
         for(var i = 0;i<pollInfo.emails.length;i++){
-          insertEmail(pollInfo.emails[i], i, pollId[0]['id'], function(err, emailId, i){
+          insertEmail(pollInfo.emails[i], i, pollId[pollId.length-1]['id'], function(err, emailId, i){
             if(err){
+              res.send(404)
             }
 
+            var emailObj = {
+              to: pollInfo.emails[i],
+              user: 'RICHARD',
+              eventInfo: eventInfo,
+              othersInvited: pollInfo.emails.slice(0,i).concat(pollInfo.emails.slice(i+1))
+            }
+
+            request({
+              uri: 'http://localhost:4568/jobs',
+              headers: {'Content-type': 'application/json'},
+              method: 'POST',
+              body: JSON.stringify(emailObj)
+
+            })
 
             if(i === pollInfo.emails.length - 1){
 
@@ -113,7 +129,7 @@ router.route('/polls/:id')
 
   })
 
- 
+
 
 
 
