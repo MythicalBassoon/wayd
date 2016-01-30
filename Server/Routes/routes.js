@@ -55,6 +55,7 @@ router.route('/polls')
     var eventInfo = req.body.eventInfo;
 
     insertEvent(eventInfo, function(err, eventId){
+      console.log(eventId)
       if(err){
         res.send(404)
       }

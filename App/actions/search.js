@@ -1,3 +1,4 @@
+
 var search = exports = module.exports
 
 // Actions dispatched from search page
@@ -28,23 +29,6 @@ exports.eventView = function eventView(data) {
   return {
     type: "PASS_SEARCH_QUERY",
     prevData: data
-  }
-}
-
-
-exports.getData = function getData(data){
-  // console.log('get data dispatch', data)
-  return{
-    type: "GET_DATA",
-    apiresults: data
-  }
-}
-
-exports.popEvent = function popEvent(){
-  console.log('pop event')
-  return{
-    type: "POP_EVENT"
-
   }
 }
 

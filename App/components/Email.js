@@ -1,4 +1,4 @@
-const React = require('react-native')
+const React = require('react-native');
 
 const {
   StyleSheet,
@@ -8,52 +8,111 @@ const {
   TextInput,
   TouchableHighlight,
   ActivityIndicatorIOS,
-  View
+  View,
+  ScrollView
 } = React
 
 const Email = React.createClass({
 
   componentDidMount: function() {
-   console.log('email mounted...')
-    
-    // Animate creation
-    // LayoutAnimation.spring();
-    
+   console.log('email mounted...');
+   this.setState({email: ''});
+
+  },
+
+  addEmail: function() {
+    var email = this.state.email;
+    console.log('email getting dispatched is...', email)
+    this.props.addEmail(email);
+  },
+
+
+  sendPoll: function() {
+    console.log("sending event:", this.props.currentEvent);
+    this.props.loadingPoll(true);
+
+    fetch('http://localhost:3000/api/polls', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        pollInfo: {
+          emails: this.props.emails,
+          //Note tha the userId is hardcoded until Auth gets implemted!!
+          user: {
+            userId: 1,
+            userFirstName: "Richard",
+            userLastNAme: "Castro"
+          },
+        },
+        eventInfo: this.props.currentEvent,
+      })
+    })
+    .then(function(res) {
+      console.log("Got a response!", res);
+      this.props.loadingPoll(false)
+    }.bind(this))
+    .catch(function(err){
+      this.props.loadingPoll(false)
+      console.log("got an err!", err);
+    })
   },
   
   render: function() {
     console.log('email component render..')
+    console.log('props are', this.props);
 
-    return (
-      <View style = {styles.mainContainer}>
+    switch (this.props.loading) {
+      case false:
+        var emails = this.props.emails;
+        var list = emails.map((email, index) => {
+          return (
+              <Text style={styles.bodytext}>{email}</Text>
+            )
+          });
 
-        <Text style={styles.title}> Friend 1: </Text> 
-        <TextInput
-          style={styles.emailInput}
-          value={this.props.email}
-          placeholder="Enter Email"/>
+        console.log(list);
+        return (
+          <View style = {styles.mainContainer}>
 
-        <Text style={styles.title}> Friend 2: </Text>
-        <TextInput
-          style={styles.emailInput}
-          value={this.props.email}
-          placeholder="Enter Email"/>
+            <TextInput
+              style={styles.emailInput}
+              defaultValue= ''
+              onChangeText={(text) => this.setState({email:text})}
+              placeholder="Enter Email"/>
 
-        <Text style={styles.title}> Friend 3: </Text>
-        <TextInput
-          style={styles.emailInput}
-          value={this.props.email}
-          placeholder="Enter Email"/>
+            <TouchableHighlight
+              style={styles.button}
+              onPress = {this.addEmail}
+              underlayColor = "tranparent">
+              <Text style={styles.buttonText}> Add Email </Text> 
+            </TouchableHighlight>
 
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.yes}
-          underlayColor = "tranparent">
-          <Text style={styles.buttonText}> SEND EMAIL </Text> 
-        </TouchableHighlight>
+            <ScrollView style={styles.container}>
+              {list}
+            </ScrollView>
 
-      </View>
-      )
+            <TouchableHighlight
+              style={styles.button}
+              onPress = {this.sendPoll}
+              underlayColor = "tranparent">
+              <Text style={styles.buttonText}>Send to Friends!</Text> 
+            </TouchableHighlight>
+          </View>
+          )
+
+      case true:
+      console.log('throwing up loading screen');
+        return (
+          <View style={styles.mainContainer}><Text>Loading!</Text></View>
+          )
+
+      default:
+        console.log("in default for osme reason");
+        return <View></View>;
+    }
 
   }
 
