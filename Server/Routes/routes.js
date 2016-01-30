@@ -41,6 +41,9 @@ router.route('/users')
 
 
 // ROUTE TO CREATE POLL
+//POST BODY must have pollInfo and eventInfo properties, each holding an object with necessary info.
+//eventInfo will be preset on client, regardless of API its from. pollInfo will need to have userId,
+//user object with will include userId, firstName, lastName.
 router.route('/polls')
   .post(function(req, res){
   // create new poll

@@ -51,6 +51,6 @@ function runTest() {
 });
 
     runTest()
-)
+
   });
 }
