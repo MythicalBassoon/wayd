@@ -1,6 +1,7 @@
 
 const initialState = {
-  emails:[]
+  emails:[],
+  loading: false
 }
 
 module.exports = function addEmail(state = initialState, action) {
@@ -17,6 +18,12 @@ module.exports = function addEmail(state = initialState, action) {
       emails: newEmails
     };
     
+  case 'LOADING_POLL':
+  	return {
+  		...state,
+  			loading: action.loading
+  	};
+
   default:
     return state
   }

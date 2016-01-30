@@ -9,7 +9,9 @@ function mapStateToProps(state) {
   // console.log('state event rec container', state)
   return {
     emails: state.email.emails,
-    currentEvent: state.eventrec.currentEvent
+    currentEvent: state.eventrec.currentEvent,
+    loading: state.email.loading
+
   }
 }
 

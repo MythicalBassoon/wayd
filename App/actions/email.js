@@ -9,6 +9,14 @@ exports.addEmail = function addEmail(email) {
   }
 }
 
+exports.loadingPoll = function loadingPoll(bool) {
+  console.log('load poll action', bool)
+  return {
+    type: 'LOADING_POLL',
+    loading: bool
+  }
+}
+
 // exports.timechange = function timechange(date) {
 //   return {
 //     type: 'TIME_CHANGE',
@@ -16,13 +24,7 @@ exports.addEmail = function addEmail(email) {
 //   }
 // }
 
-// exports.loadingscreen = function loadingscreen(bool) {
-//   console.log('load screen action', bool)
-//   return {
-//     type: 'LOADING_SCREEN',
-//     loading: bool
-//   }
-// }
+
 
 
 // exports.eventView = function eventView(data) {
