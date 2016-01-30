@@ -11,6 +11,7 @@ module.exports.insertEmail = function(email, i, pollId, callback, testMode){
     db = require('../../db/testConfig.js');
   }
 
+  
 
 	var queryParameters = [email, pollId]
   

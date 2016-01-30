@@ -7,6 +7,7 @@ var apiController = require('../Controllers/api.js')
 var insertEvent = require('../Models/eventModel').insertEvent
 var insertPoll = require('../Models/pollModel').insertPoll
 var insertEmail = require('../Models/emailModel').insertEmail
+var nodeMailer = require('../Workers/email').sendNodeMailer
 
 
 // ROUTE TO RETRIEVE API(S) DATA 
@@ -111,6 +112,8 @@ router.route('/polls/:id')
       // or send poll results to everyone as of now
 
   })
+
+ 
 
 
 
