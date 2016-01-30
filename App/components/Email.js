@@ -1,4 +1,4 @@
-const React = require('react-native')
+const React = require('react-native');
 
 const {
   StyleSheet,
@@ -8,50 +8,62 @@ const {
   TextInput,
   TouchableHighlight,
   ActivityIndicatorIOS,
-  View
+  View,
+  ScrollView
 } = React
 
 const Email = React.createClass({
 
   componentDidMount: function() {
-   console.log('email mounted...')
+   console.log('email mounted...');
+   this.setState({email: ''});
     
     // Animate creation
     // LayoutAnimation.spring();
     
   },
+
+  retrieveEmail: function() {
+    // this.email = '';
+    var email = this.state.email;
+    console.log('email getting dispatched is...', email)
+    this.props.addEmail(email);
+    // this.setState({email: ''});
+  },
   
   render: function() {
     console.log('email component render..')
+    console.log('props are', this.props);
+
+    var emails = this.props.emails;
+    var list = emails.map((email, index) => {
+      return (
+          <Text style={styles.bodytext}>{email}</Text>
+        )
+      });
+
+    console.log(list);
+
 
     return (
       <View style = {styles.mainContainer}>
 
-        <Text style={styles.title}> Friend 1: </Text> 
         <TextInput
           style={styles.emailInput}
-          value={this.props.email}
-          placeholder="Enter Email"/>
-
-        <Text style={styles.title}> Friend 2: </Text>
-        <TextInput
-          style={styles.emailInput}
-          value={this.props.email}
-          placeholder="Enter Email"/>
-
-        <Text style={styles.title}> Friend 3: </Text>
-        <TextInput
-          style={styles.emailInput}
-          value={this.props.email}
+          defaultValue= ''
+          onChangeText={(text) => this.setState({email:text})}
           placeholder="Enter Email"/>
 
         <TouchableHighlight
           style={styles.button}
-          onPress={this.yes}
+          onPress = {this.retrieveEmail}
           underlayColor = "tranparent">
-          <Text style={styles.buttonText}> SEND EMAIL </Text> 
+          <Text style={styles.buttonText}> Add Email </Text> 
         </TouchableHighlight>
 
+        <ScrollView style={styles.container}>
+          {list}
+        </ScrollView>
       </View>
       )
 

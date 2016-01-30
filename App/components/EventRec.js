@@ -1,6 +1,6 @@
 const React = require('react-native')
 const moment = require('moment')
-const Email = require('./Email')
+const Email = require('../containers/Email')
 
 const {
   StyleSheet,
