@@ -23,12 +23,40 @@ const Email = React.createClass({
     
   },
 
-  retrieveEmail: function() {
-    // this.email = '';
+  addEmail: function() {
     var email = this.state.email;
     console.log('email getting dispatched is...', email)
     this.props.addEmail(email);
-    // this.setState({email: ''});
+  },
+
+
+  sendPoll: function() {
+    console.log("sending event:", this.props.currentEvent);
+    fetch('http://localhost:3000/api/polls', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        pollInfo: {
+          emails: this.props.emails,
+          //Note tha the userId is hardcoded until Auth gets implemted!!
+          user: {
+            userId: 1,
+            userFirstName: "Richard",
+            userLastNAme: "Castro"
+          },
+        },
+        eventInfo: this.props.currentEvent,
+      })
+    })
+    .then(function(res) {
+      console.log("Got a response!", res);
+    })
+    .catch(function(err){
+      console.log("got an err!", err);
+    })
   },
   
   render: function() {
@@ -56,7 +84,7 @@ const Email = React.createClass({
 
         <TouchableHighlight
           style={styles.button}
-          onPress = {this.retrieveEmail}
+          onPress = {this.addEmail}
           underlayColor = "tranparent">
           <Text style={styles.buttonText}> Add Email </Text> 
         </TouchableHighlight>
@@ -64,6 +92,13 @@ const Email = React.createClass({
         <ScrollView style={styles.container}>
           {list}
         </ScrollView>
+
+        <TouchableHighlight
+          style={styles.button}
+          onPress = {this.sendPoll}
+          underlayColor = "tranparent">
+          <Text style={styles.buttonText}>Send to Friends!</Text> 
+        </TouchableHighlight>
       </View>
       )
 

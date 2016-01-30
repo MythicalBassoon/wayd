@@ -19,7 +19,7 @@ db.query(
 
    //create events table
    return db.query("CREATE TABLE IF NOT EXISTS events (title VARCHAR(100),"
-    + "description VARCHAR(1000),"
+    + "description VARCHAR(10000),"
     + "start_time VARCHAR (40)," 
     + "stop_time VARCHAR (40)," 
     + "category VARCHAR(40)," 
@@ -28,8 +28,8 @@ db.query(
     + "state VARCHAR(500),"
     + "lat VARCHAR(40)," 
     + "long VARCHAR(40)," 
-    + "source VARCHAR(20)," 
-    + "source_id VARCHAR(20),"
+    + "source VARCHAR(50)," 
+    + "source_id VARCHAR(50),"
     + "image_thumb VARCHAR(1000),"
     + "image_medium VARCHAR(1000),"
     + "id SERIAL PRIMARY KEY)"

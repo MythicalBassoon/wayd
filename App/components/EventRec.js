@@ -1,6 +1,7 @@
 const React = require('react-native')
 const moment = require('moment')
 const Email = require('../containers/Email')
+const EventRect = require('../containers/EventRec')
 
 const {
   StyleSheet,
@@ -68,10 +69,10 @@ const EventRec = React.createClass({
       case false:
 
         console.log('api results', this.props)
-        console.log('api current img', this.props.currentimg)
+        console.log('api current img', this.props.currentEvent)
 
         // var eventTime = moment(event.start_time).format('MMM Do YY')
-        var event = this.props.currentimg;
+        var event = this.props.currentEvent;
 
         return (
           <View style = {styles.mainContainer}>

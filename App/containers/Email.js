@@ -8,7 +8,8 @@ const EmailActions = require('../actions/email.js')
 function mapStateToProps(state) {
   // console.log('state event rec container', state)
   return {
-    emails: state.email.emails
+    emails: state.email.emails,
+    currentEvent: state.eventrec.currentEvent
   }
 }
 
