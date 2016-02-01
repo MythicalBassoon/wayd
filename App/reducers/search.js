@@ -16,7 +16,7 @@ module.exports = function search(state = initialState, action) {
       latlng: action.latlong
     };
   case 'TIME_CHANGE':
-    // console.log('TIME_CHANGE BEING CALLED')
+    console.log('TIME_CHANGE BEING CALLED', action)
     return {
       ...state,
       date: action.date

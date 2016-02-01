@@ -1,6 +1,6 @@
 const React = require('react-native')
 const EventRec = require('../containers/EventRec')
-
+const Moment = require('moment')
 
 const {
   StyleSheet,
@@ -53,6 +53,7 @@ const Search = React.createClass({
     //   console.log(error)
     // })
    console.log('search mounted...');
+
   },
 
   getInitialState: function() {
@@ -70,7 +71,7 @@ const Search = React.createClass({
 
 
   render: function() {
-
+    console.log('search props', this.props)
     return (
       <View style={styles.container}>
         <GooglePlacesAutocomplete
@@ -160,7 +161,21 @@ const Search = React.createClass({
                 console.log(typeof val)
                 var txt = {1: "today", 2: "tomorrow", 3: "this weekend"}
                 var day = txt[val]
-                console.log('slider props', this.state)
+                console.log('slider props', this.state, typeof val)
+
+                //dispatch action on picker
+                if (val === "1") {
+                  console.log('time change to be called')
+                  
+                  this.props.timechange(JSON.parse(JSON.stringify(new Date())))
+
+                } else if (val === '2') {
+                   var tomorrow = JSON.parse(JSON.stringify(Moment(new Date()).add(1, 'days')));
+                  console.log('tomorrow', tomorrow)
+                  this.props.timechange(tomorrow)
+                }
+
+
 
                 this.setState({
                   value: day
