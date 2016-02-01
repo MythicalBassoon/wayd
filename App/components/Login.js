@@ -10,7 +10,7 @@ const {
 } = MK;
 
 MK.setTheme({
-  primaryColor: MKColor.Teal,
+  primaryColor: MKColor.Blue,
   accentColor: MKColor.Orange,
 });
 
@@ -23,6 +23,16 @@ const {
   TouchableHighlight,
   View
 } = React
+
+
+const ColoredRaisedButton = MKButton.coloredButton()
+  .withText('BUTTON')
+  .withOnPress(() => {
+    console.log("Hi, it's a colored button!");
+  })
+  .build();
+
+
 
 const Login = React.createClass({
   getInitialState: function() {
@@ -57,6 +67,8 @@ const Login = React.createClass({
           underlayColor="tranparent">
           <Text style={styles.buttonText}> log in </Text> 
         </TouchableHighlight>
+
+ 
 
 
       </View>

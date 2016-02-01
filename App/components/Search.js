@@ -1,6 +1,7 @@
 const React = require('react-native')
 const EventRec = require('../containers/EventRec')
 
+
 const {
   StyleSheet,
   ListView,
@@ -11,7 +12,8 @@ const {
   TouchableHighlight,
   DatePickerIOS,
   ActivityIndicatorIOS,
-  View
+  SliderIOS,
+  View,
 } = React
 
 // Node module import for Google API autocomplete (autocomplete only).
@@ -50,8 +52,16 @@ const Search = React.createClass({
     // }, function(error) {
     //   console.log(error)
     // })
+   console.log('search mounted...');
+   this.setState({timeframe: ''});
 
 
+  },
+
+  getInitialState: function() {
+    return {
+      value: 'today'
+    }
   },
 
   render: function() {
@@ -59,7 +69,7 @@ const Search = React.createClass({
     return (
       <View style={styles.container}>
         <GooglePlacesAutocomplete
-          placeholder='city, please!'
+          placeholder='Where you at, homie?'
           minLength={2} // minimum length of text to search
           autoFocus={false}
           enablePoweredByContainer={false}
@@ -87,16 +97,17 @@ const Search = React.createClass({
             },
             textInputContainer: {
               backgroundColor: 'white',
-              height: 44,
+              height: 60,
               borderTopColor: 'white',
               borderBottomColor: 'white',
               borderTopWidth: 0,
               borderBottomWidth: 0,
+              marginTop: 20
             },
             textInput: {
               backgroundColor: 'rgba(125,125,125,0.1)',
-              height: 33,
-              borderRadius: 7,
+              height: 55,
+              borderRadius: 0,
               paddingTop: 1,
               paddingBottom: 1,
               paddingLeft: 6,
@@ -104,7 +115,7 @@ const Search = React.createClass({
               marginTop: 3,
               marginLeft: 8,
               marginRight: 8,
-              fontSize: 15,
+              fontSize: 15
             },
           }}
 
@@ -126,13 +137,33 @@ const Search = React.createClass({
 
         ></GooglePlacesAutocomplete>
 
-       
-        <DatePickerIOS
-          date={this.props.date}
-          // timeZoneOffsetInMinutes={(-1) * (new Date()).getTimezoneOffset()}
-          mode="date" // changed from 'datetime'
-          onDateChange={this.onDateChange}>
-        </DatePickerIOS>
+        <Text style={styles.bodytext}> when you wanna do it?</Text> 
+    
+
+          <View style={styles.sliderView}>
+            <Text style={styles.bodytext} >
+              {this.state.value}
+            </Text>
+            <SliderIOS
+              ref='slider'
+              style={styles.slider}
+              value={1}
+              minimumValue={1}
+              maximumValue={3}
+              onValueChange={(value) => {
+                var val = JSON.stringify(Math.round(value));
+                console.log(typeof val)
+                var txt = {1: "today", 2: "tomorrow", 3: "this weekend"}
+                var day = txt[val]
+                console.log('slider props', this.props)
+
+                this.setState({
+                  value: day
+                });
+              }}
+            />
+          </View>  
+
 
         <TouchableHighlight
           style={styles.button}
@@ -207,7 +238,28 @@ const styles = StyleSheet.create({
   footer: {
     flex: .2,
     backgroundColor: '#607D8B'
-  }
+  },
+  bodytext: {
+    marginBottom: 10,
+    marginTop: 10,
+    fontSize: 15,
+    textAlign: 'center',
+    color: '#607D8B'
+  },
+  sliderView: {
+    marginBottom: 10
+  },
+  slider: {
+    marginLeft: 30,
+    marginRight: 30,
+  },
+  slidertext: {
+    marginBottom: 10,
+    marginTop: 10,
+    fontSize: 15,
+    textAlign: 'center',
+    color: '#607D8B'
+  },
 
 })
 
