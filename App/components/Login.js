@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     fontSize: 25,
     textAlign: 'center',
-    color: '#607D8B'
+    color: 'black'
   },
   searchInput: {
     height: 50,

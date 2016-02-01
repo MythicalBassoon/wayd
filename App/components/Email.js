@@ -1,6 +1,6 @@
 const React = require('react-native');
 const MK = require('react-native-material-kit')
-
+const Separator = require('./helpers/separator.js')
 
 const {
   StyleSheet,
@@ -85,7 +85,10 @@ const Email = React.createClass({
         var emails = this.props.emails;
         var list = emails.map((email, index) => {
           return (
+            <View>
               <Text key={index} style={styles.bodytext}>{email}</Text>
+              <Separator/>
+            </View>
             )
           });
 
@@ -142,7 +145,8 @@ const styles = StyleSheet.create({
   },
 
   bodytext: {
-    marginBottom: 20,
+    marginBottom: 10,
+    marginTop: 10,
     fontSize: 15,
     textAlign: 'center',
     color: '#607D8B'

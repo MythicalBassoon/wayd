@@ -6,6 +6,7 @@ const {
   ListView,
   NetInfo,
   Text,
+  Image,
   TextInput,
   TouchableHighlight,
   DatePickerIOS,
