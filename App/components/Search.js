@@ -80,6 +80,7 @@ const Search = React.createClass({
             description: {
               fontWeight: 'bold',
             },
+            body: {flex: .8},
             predefinedPlacesDescription: {
               color: '#1faadb',
             },
@@ -136,9 +137,11 @@ const Search = React.createClass({
           style={styles.button}
           onPress={this.eventRecView}
           underlayColor = "tranparent">
-          <Text style={styles.buttonText}> FIND ME AN EVENT </Text> 
+          <Text style={styles.buttonText}> find an event </Text> 
         </TouchableHighlight>
+        
 
+        <View style={styles.footer}><Text>  </Text></View>
       </View>
     )
   }
@@ -151,13 +154,10 @@ Search.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0,
+    flex: 1,
     paddingTop: 40,
-    backgroundColor: '#F6F6F6',
-    marginTop: 20,
-  },
-  testContiner: {
-    height: 40,
+    backgroundColor: 'white',
+    marginTop: 40,
   },
   textInput: {
       backgroundColor: 'rgba(125,125,125,0.1)',
@@ -185,30 +185,29 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   buttonText: {
-    fontSize: 18,
+    fontSize: 15,
     color: '#111',
     alignSelf: 'center'
   },
   button: {
     height: 45,
     flexDirection: 'row',
-    backgroundColor: 'purple',
+    backgroundColor: '#ECEFF1',
     borderColor: 'white',
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 0,
     marginBottom: 10,
+    marginLeft: 30,
+    marginRight: 30,
     marginTop: 10,
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
-  offline: {
-    backgroundColor: '#000000',
-    color: '#FFFFFF',
-    textAlign: 'center',
-    marginBottom: 10,
-    paddingTop: 5,
-    paddingBottom: 5
+  footer: {
+    flex: .2,
+    backgroundColor: '#607D8B'
   }
+
 })
 
 module.exports = Search

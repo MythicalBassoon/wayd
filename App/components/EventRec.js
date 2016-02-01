@@ -3,6 +3,12 @@ const moment = require('moment')
 const Email = require('../containers/Email')
 const EventRect = require('../containers/EventRec')
 
+
+const MK = require('react-native-material-kit')
+const {
+  mdl
+} = MK;
+
 const {
   StyleSheet,
   ListView,
@@ -58,12 +64,8 @@ const EventRec = React.createClass({
     switch(this.props.loading){
       case true:
         return(
-          <View style= {styles.mainContainer}>
-             <ActivityIndicatorIOS
-                animating ={this.props.loading}
-                color = '#111'
-                size = 'large'>
-              </ActivityIndicatorIOS>
+          <View style= {styles.spinnerContainer}>
+              <SingleColorSpinner/>
           </View>
         )
       case false:
@@ -76,11 +78,11 @@ const EventRec = React.createClass({
 
         return (
           <View style = {styles.mainContainer}>
-
-            <Image style={styles.image} source={{uri: event.image_medium}}/>
-            <Text style={styles.title}> {event.title} </Text>
-            <Text style={styles.bodytext}> {event.address} </Text>
-            <Text style={styles.bodytext}> { moment(event.start_time).calendar() } </Text>
+            <View style={styles.body}>
+              <Image style={styles.image} source={{uri: event.image_medium}}/>
+              <Text style={styles.title}> {event.title} </Text>
+              <Text style={styles.bodytext}> {event.address} </Text>
+              <Text style={styles.bodytext}> { moment(event.start_time).calendar() } </Text>
 
               <TouchableHighlight
                 style={styles.button}
@@ -95,6 +97,10 @@ const EventRec = React.createClass({
                 underlayColor = "tranparent">
                 <Text style={styles.buttonText}> no </Text> 
               </TouchableHighlight>
+            </View>
+
+            <View style={styles.footer}></View>
+
 
           </View>
         )
@@ -108,59 +114,79 @@ const EventRec = React.createClass({
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    padding: 30,
-    marginTop: 65,
+    padding: 0,
+    marginTop: 0,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: '#B3B5B5'
+    backgroundColor: 'white'
   },
   title: {
     marginBottom: 20,
-    fontSize: 25,
+    fontSize: 20,
     textAlign: 'center',
-    color: '#fff'
+    color: '#607D8B'
   },
   bodytext: {
     marginBottom: 20,
     fontSize: 15,
     textAlign: 'center',
-    color: '#fff'
-  },
-  searchInput: {
-    height: 50,
-    padding: 4,
-    marginBottom: 10,
-    marginRight: 5,
-    fontSize: 23,
-    borderWidth: 1,
-    borderColor: 'white',
-    borderRadius: 8,
-    color: 'white'
+    color: '#607D8B'
   },
   buttonText: {
-    fontSize: 18,
+    fontSize: 15,
     color: '#111',
     alignSelf: 'center'
   },
   button: {
     height: 45,
     flexDirection: 'row',
-    backgroundColor: 'white',
+    backgroundColor: '#ECEFF1',
     borderColor: 'white',
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 0,
     marginBottom: 10,
     marginTop: 10,
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
   image: {
-    height: 125,
-    width: 125,
+    height: 150,
+    width: 150,
     borderRadius: 65,
-    marginTop: 10,
+    marginTop: 50,
     alignSelf: 'center'
+  },
+  spinner: {
+    width: 50,
+    height: 50,
+    marginLeft: 150,
+    marginRight: 150
+  },
+  spinnerContainer: {
+    flex: 1,
+    padding: 0,
+    marginTop: 0,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    backgroundColor: '#ECEFF1'
+  },
+  body:{
+    flex: .9,
+    marginTop: 50,
+    marginLeft: 30,
+    marginRight: 30
+  },
+  footer:{
+    flex: .1,
+    backgroundColor: '#607D8B'
   }
+  
+
 });
+
+const SingleColorSpinner = mdl.Spinner.singleColorSpinner()
+  .withStyle(styles.spinner)
+  .build();
+
 
 module.exports = EventRec
