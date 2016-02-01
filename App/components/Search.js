@@ -53,16 +53,21 @@ const Search = React.createClass({
     //   console.log(error)
     // })
    console.log('search mounted...');
-   this.setState({timeframe: ''});
-
-
   },
 
   getInitialState: function() {
     return {
-      value: 'today'
+      value: 'today',
+      // active: false
     }
   },
+
+  showDatePikcer: function() {
+    console.log('show date picker')
+    // this.state.active = !this.state.active
+    // this.props.pickDate(this.state.simpleDate)
+  },
+
 
   render: function() {
 
@@ -155,15 +160,30 @@ const Search = React.createClass({
                 console.log(typeof val)
                 var txt = {1: "today", 2: "tomorrow", 3: "this weekend"}
                 var day = txt[val]
-                console.log('slider props', this.props)
+                console.log('slider props', this.state)
 
                 this.setState({
                   value: day
                 });
-              }}
-            />
+              }} />
           </View>  
 
+
+        <TouchableHighlight
+          style={styles.button}
+          onPress={this.showDatePikcer}
+          underlayColor = "tranparent">
+          <Text style={styles.buttonText}> show date picker </Text> 
+        </TouchableHighlight>
+        
+
+        <DatePickerIOS
+          style= {styles.datePicker}
+          date={this.props.date}
+          // timeZoneOffsetInMinutes={(-1) * (new Date()).getTimezoneOffset()}
+          mode="date" // changed from 'datetime'
+          onDateChange={this.onDateChange}>
+        </DatePickerIOS>
 
         <TouchableHighlight
           style={styles.button}
@@ -172,6 +192,7 @@ const Search = React.createClass({
           <Text style={styles.buttonText}> find an event </Text> 
         </TouchableHighlight>
         
+  
 
         <View style={styles.footer}><Text>  </Text></View>
       </View>
@@ -247,7 +268,8 @@ const styles = StyleSheet.create({
     color: '#607D8B'
   },
   sliderView: {
-    marginBottom: 10
+    marginBottom: 10,
+    flex: .5
   },
   slider: {
     marginLeft: 30,
@@ -260,6 +282,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#607D8B'
   },
+  datePicker: {
+    height: 0
+  },
+  activeDatePicker: {
+    flex: 1
+  }
 
 })
 

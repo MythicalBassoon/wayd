@@ -32,3 +32,11 @@ exports.eventView = function eventView(data) {
   }
 }
 
+
+// exports.datePicker = function datePicker() {
+//   return {
+//     type: "DATE_PICKER",
+//   }
+// }
+
+

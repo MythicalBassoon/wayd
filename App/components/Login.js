@@ -24,16 +24,6 @@ const {
   View
 } = React
 
-
-const ColoredRaisedButton = MKButton.coloredButton()
-  .withText('BUTTON')
-  .withOnPress(() => {
-    console.log("Hi, it's a colored button!");
-  })
-  .build();
-
-
-
 const Login = React.createClass({
   getInitialState: function() {
     return {

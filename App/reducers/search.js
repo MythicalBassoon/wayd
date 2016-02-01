@@ -1,7 +1,8 @@
 const initialState = {
 	latlng: '0,0',
   date: new Date(),
-  loading: false
+  loading: false,
+  datePicker: false
 }
 
 module.exports = function search(state = initialState, action) {
@@ -19,6 +20,12 @@ module.exports = function search(state = initialState, action) {
     return {
       ...state,
       date: action.date
+    };
+  case 'PICK_DATE':
+    // console.log('TIME_CHANGE BEING CALLED')
+    return {
+      ...state,
+      datePicker: action.datePicker
     };
 
   default:
