@@ -41,18 +41,70 @@ const Login = React.createClass({
       console.log('facebook configured successfully')
 
     })
+
+    //   simpleAuthClient.configure('google-web', {
+    //   client_id: '777216675382-mhop0gopud73jbfockvij43n7uh15lpb.apps.googleusercontent.com',
+    //   client_secret: 'wayd'
+    // }).then(() => {
+    //   // Twitter is configured.
+    //   console.log('facebook configured successfully')
+
+    // })
   },
 
   auth: function(){
     console.log(simpleAuthClient)
 
     simpleAuthClient.authorize('facebook').then((info) => {
-  console.log('facebook auth works', info)
-}).catch((error) => {
-  console.log('ERR', error)
-  let errorCode = error.code;
-  let errorDescription = error.description;
-});
+  
+  console.log('facebook data', info)
+
+  var url = `http://localhost:3000/api/users`;
+
+  var obj = {  
+  method: 'POST',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    'user_id': info['id'],
+    'user_first_name': info['first_name'],
+    'user_last_name': info['last_name'],
+    'user_email': info['email']
+  })
+}
+
+   fetch(url, obj)
+    .then((response) => response.json())
+    .then((responseData) => {
+      this.props.user_set(responseData[0]['id'], info['last_name'],info['first_name'], info['email']);
+    
+
+          this.props.navigator.push({
+              title: 'Search',
+              component: Search
+            });
+        }).catch((error) => {
+          console.log('ERR', error)
+          let errorCode = error.code;
+          let errorDescription = error.description;
+        });
+    })
+    
+    .done();
+
+
+
+ 
+
+//     simpleAuthClient.authorize('google-web').then((info) => {
+//   console.log('google auth works', info)
+// }).catch((error) => {
+//   console.log('ERR', error)
+//   let errorCode = error.code;
+//   let errorDescription = error.description;
+// });
   },
 
   //should navigate to search page depending on login status. might need to change this later to be

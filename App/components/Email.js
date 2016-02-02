@@ -57,9 +57,9 @@ const Email = React.createClass({
           emails: this.props.emails,
           //Note tha the userId is hardcoded until Auth gets implemted!!
           user: {
-            userId: 1,
-            userFirstName: "Richard",
-            userLastNAme: "Castro"
+            userId: this.props.user_id,
+            userFirstName: this.props.user_first_name,
+            userLastName: this.props.user_last_name
           },
         },
         eventInfo: this.props.currentEvent,

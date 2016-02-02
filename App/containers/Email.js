@@ -10,7 +10,10 @@ function mapStateToProps(state) {
   return {
     emails: state.email.emails,
     currentEvent: state.eventrec.currentEvent,
-    loading: state.email.loading
+    loading: state.email.loading,
+    user_id: state.login.user_id,
+    user_first_name: state.login.user_first_name,
+    user_last_name: state.login.user_last_name
 
   }
 }
