@@ -27,6 +27,10 @@ const {
 } = React
 
 
+
+var API_KEY_FACEBOOK_APP = require('../../apikeys').facebook_app_api_key;
+
+
 const Login = React.createClass({
   getInitialState: function() {
     return {
@@ -35,21 +39,14 @@ const Login = React.createClass({
 
   componentDidMount: function(){
     simpleAuthClient.configure('facebook', {
-      app_id: '538359742991930'
+      app_id: API_KEY_FACEBOOK_APP
     }).then(() => {
       // Twitter is configured.
       console.log('facebook configured successfully')
 
     })
 
-    //   simpleAuthClient.configure('google-web', {
-    //   client_id: '777216675382-mhop0gopud73jbfockvij43n7uh15lpb.apps.googleusercontent.com',
-    //   client_secret: 'wayd'
-    // }).then(() => {
-    //   // Twitter is configured.
-    //   console.log('facebook configured successfully')
-
-    // })
+ 
   },
 
   auth: function(){
