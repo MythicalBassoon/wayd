@@ -1,5 +1,5 @@
 const React = require('react-native')
-const Search = require('../containers/Search')
+const Search = require('../containers/Search');
 
 
 const MK = require('react-native-material-kit')

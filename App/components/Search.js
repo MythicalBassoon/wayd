@@ -47,6 +47,9 @@ const Search = React.createClass({
   },
 
   componentDidMount: function() {
+
+    console.log('search props are', this.props);
+
     // figure out for automatic geolocation findering without search
     // console.log('mounted...')
     // navigator.geolocation.getCurrentPosition(function(position) {
