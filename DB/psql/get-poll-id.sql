@@ -1,0 +1,1 @@
+SELECT poll_id FROM emails WHERE id = $1;

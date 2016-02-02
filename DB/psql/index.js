@@ -17,5 +17,8 @@ module.exports = {
   getOnePoll: sqlLoad(path.join(__dirname, './get-one-poll')),
   getOneUser: sqlLoad(path.join(__dirname, './get-one-user.sql')),
   insertEmail: sqlLoad(path.join(__dirname, './insert-one-email.sql')),
+  incrementNoVote: sqlLoad(path.join(__dirname, './increment-no-vote.sql')),
+  incrementYesVote: sqlLoad(path.join(__dirname, './increment-yes-vote.sql')),
+  checkVoted: sqlLoad(path.join(__dirname, './check-voted.sql'))
 
 };

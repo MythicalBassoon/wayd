@@ -11,6 +11,9 @@ var nodeMailer = require('../Workers/email').sendNodeMailer
 var insertUser = require('../Models/userModel').insertUser
 
 var request = require('request');
+var incrementYesVote = require('../Models/pollModel').incrementYesVote
+var incrementNoVote = require('../Models/pollModel').incrementNoVote
+var checkVoted = require('../Models/pollModel').checkVoted
 
 
 // ROUTE TO RETRIEVE API(S) DATA 
@@ -24,7 +27,7 @@ router.route('/events/:loc/:timeframe')
 
 		apiController.getEvents(loc, timeframe, function(err, data){
       if(err) {
-        res.statusCode(404).send("did not find events")
+        res.status(404).send("did not find events")
       } else {
         // console.log('data', data)
         res.json(data)
@@ -144,6 +147,59 @@ router.route('/polls/:id')
 
   })
 
+//ROUTE TO INCREMENT YES VOTES FOR A POLL
+
+router.route('/polls/yes/:emailId')
+  .put(function(req,res){
+    checkVoted(req.params.emailId, function(err, pollObj) {
+      if (err) {
+        return res.status(404).send("error finding relevant pollId");
+      }
+
+      console.log('poll Obj is', pollObj);
+
+      if (!pollObj[0].voted === false) {
+        return res.status(409).send("user has already voted!"); 
+      }
+
+
+      incrementYesVote(pollObj[0].poll_id, function(err, voteCount) {
+        if (err) {
+          return res.status(404).send("error incrementing yes vote count");
+        }
+        res.send(voteCount);
+
+      })
+    }.bind(this))
+    
+  }.bind(this));
+
+//ROUTE TO INCREMENT YES VOTES FOR A POLL
+
+router.route('/polls/no/:emailId')
+   .put(function(req,res){
+    checkVoted(req.params.emailId, function(err, pollObj) {
+      if (err) {
+        return res.status(404).send("error finding relevant pollId");
+      }
+
+      console.log('poll Obj is', pollObj);
+
+      if (!pollObj[0].voted === false) {
+        return res.status(409).send("user has already voted!"); 
+      }
+
+
+      incrementNoVote(pollObj[0].poll_id, function(err, voteCount) {
+        if (err) {
+          return res.status(404).send("error incrementing no vote count");
+        }
+        res.send(voteCount);
+
+      })
+    }.bind(this))
+    
+  }.bind(this));
 
 
 
