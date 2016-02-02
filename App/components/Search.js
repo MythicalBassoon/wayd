@@ -1,16 +1,21 @@
 const React = require('react-native')
 const EventRec = require('../containers/EventRec')
+const Moment = require('moment')
+const SearchTabBar = require('./helpers/SearchTabBar.js')
 
 const {
   StyleSheet,
   ListView,
   NetInfo,
   Text,
+  Image,
   TextInput,
   TouchableHighlight,
   DatePickerIOS,
   ActivityIndicatorIOS,
-  View
+  SliderIOS,
+  View,
+  TabBarIOS
 } = React
 
 // Node module import for Google API autocomplete (autocomplete only).
@@ -49,16 +54,33 @@ const Search = React.createClass({
     // }, function(error) {
     //   console.log(error)
     // })
+   console.log('search mounted...');
+   
+
+  },
+
+  getInitialState: function() {
+    return {
+      value: 'today',
+      // active: false
+    }
+  },
+
+  showDatePicker: function() {
+    // console.log('show date picker', )
+    // this.props.datePicker()
 
 
   },
 
+
   render: function() {
+    console.log('search props', this.props)
 
     return (
       <View style={styles.container}>
         <GooglePlacesAutocomplete
-          placeholder='city, please!'
+          placeholder='Where you at, homie?'
           minLength={2} // minimum length of text to search
           autoFocus={false}
           enablePoweredByContainer={false}
@@ -80,21 +102,23 @@ const Search = React.createClass({
             description: {
               fontWeight: 'bold',
             },
+            body: {flex: .8},
             predefinedPlacesDescription: {
               color: '#1faadb',
             },
             textInputContainer: {
               backgroundColor: 'white',
-              height: 44,
+              height: 60,
               borderTopColor: 'white',
               borderBottomColor: 'white',
               borderTopWidth: 0,
               borderBottomWidth: 0,
+              marginTop: 20
             },
             textInput: {
               backgroundColor: 'rgba(125,125,125,0.1)',
-              height: 33,
-              borderRadius: 7,
+              height: 55,
+              borderRadius: 0,
               paddingTop: 1,
               paddingBottom: 1,
               paddingLeft: 6,
@@ -102,7 +126,7 @@ const Search = React.createClass({
               marginTop: 3,
               marginLeft: 8,
               marginRight: 8,
-              fontSize: 15,
+              fontSize: 15
             },
           }}
 
@@ -124,8 +148,54 @@ const Search = React.createClass({
 
         ></GooglePlacesAutocomplete>
 
-       
+        <Text style={styles.bodytext}> when you wanna do it?</Text> 
+    
+
+          <View style={styles.sliderView}>
+            <Text style={styles.bodytext} >
+              {this.state.value}
+            </Text>
+            <SliderIOS
+              ref='slider'
+              style={styles.slider}
+              value={1}
+              minimumValue={1}
+              maximumValue={3}
+              onValueChange={(value) => {
+                var val = JSON.stringify(Math.round(value));
+                console.log(typeof val)
+                var txt = {1: "today", 2: "tomorrow", 3: "this weekend"}
+                var day = txt[val]
+                console.log('slider props', this.state, typeof val)
+
+                //dispatch action on picker
+                if (val === "1") {
+                  console.log('time change to be called')
+                  
+                  this.props.timechange(JSON.parse(JSON.stringify(new Date())))
+
+                } else if (val === '2') {
+                   var tomorrow = JSON.parse(JSON.stringify(Moment(new Date()).add(1, 'days')));
+                  console.log('tomorrow', tomorrow)
+                  this.props.timechange(tomorrow)
+                }
+
+                this.setState({
+                  value: day
+                });
+              }} />
+          </View>  
+
+
+        <TouchableHighlight
+          style={styles.button}
+          onPress={this.showDatePicker}
+          underlayColor = "tranparent">
+          <Text style={styles.buttonText}> show date picker </Text> 
+        </TouchableHighlight>
+        
         <DatePickerIOS
+          style= {styles.datePicker}
           date={this.props.date}
           // timeZoneOffsetInMinutes={(-1) * (new Date()).getTimezoneOffset()}
           mode="date" // changed from 'datetime'
@@ -136,10 +206,13 @@ const Search = React.createClass({
           style={styles.button}
           onPress={this.eventRecView}
           underlayColor = "tranparent">
-          <Text style={styles.buttonText}> FIND ME AN EVENT </Text> 
+          <Text style={styles.buttonText}> find an event </Text> 
         </TouchableHighlight>
+        
+        <SearchTabBar/>
 
       </View>
+
     )
   }
 })
@@ -151,13 +224,10 @@ Search.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0,
+    flex: 1,
     paddingTop: 40,
-    backgroundColor: '#F6F6F6',
-    marginTop: 20,
-  },
-  testContiner: {
-    height: 40,
+    backgroundColor: 'white',
+    marginTop: 40,
   },
   textInput: {
       backgroundColor: 'rgba(125,125,125,0.1)',
@@ -185,30 +255,54 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   buttonText: {
-    fontSize: 18,
+    fontSize: 15,
     color: '#111',
     alignSelf: 'center'
   },
   button: {
     height: 45,
     flexDirection: 'row',
-    backgroundColor: 'purple',
+    backgroundColor: '#ECEFF1',
     borderColor: 'white',
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 0,
     marginBottom: 10,
+    marginLeft: 30,
+    marginRight: 30,
     marginTop: 10,
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
-  offline: {
-    backgroundColor: '#000000',
-    color: '#FFFFFF',
-    textAlign: 'center',
+  footer: {
+    flex: .2,
+    backgroundColor: '#607D8B'
+  },
+  bodytext: {
     marginBottom: 10,
-    paddingTop: 5,
-    paddingBottom: 5
+    marginTop: 10,
+    fontSize: 15,
+    textAlign: 'center',
+    color: '#607D8B'
+  },
+  sliderView: {
+    marginBottom: 10,
+    flex: .5
+  },
+  slider: {
+    marginLeft: 30,
+    marginRight: 30,
+  },
+  slidertext: {
+    marginBottom: 10,
+    marginTop: 10,
+    fontSize: 15,
+    textAlign: 'center',
+    color: '#607D8B'
+  },
+  datePicker: {
+    height: 0 
   }
+
 })
 
 module.exports = Search

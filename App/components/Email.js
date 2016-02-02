@@ -1,4 +1,6 @@
 const React = require('react-native');
+const MK = require('react-native-material-kit')
+const Separator = require('./helpers/separator.js')
 
 const {
   StyleSheet,
@@ -11,6 +13,19 @@ const {
   View,
   ScrollView
 } = React
+
+
+const {
+  MKButton,
+  MKColor,
+  mdl,
+  MKTextField,
+} = MK;
+
+MK.setTheme({
+  primaryColor: MKColor.Blue,
+  accentColor: MKColor.Orange,
+});
 
 const Email = React.createClass({
 
@@ -69,7 +84,10 @@ const Email = React.createClass({
         var emails = this.props.emails;
         var list = emails.map((email, index) => {
           return (
-              <Text style={styles.bodytext}>{email}</Text>
+            <View>
+              <Text key={index} style={styles.bodytext}>{email}</Text>
+              <Separator/>
+            </View>
             )
           });
 
@@ -77,11 +95,7 @@ const Email = React.createClass({
         return (
           <View style = {styles.mainContainer}>
 
-            <TextInput
-              style={styles.emailInput}
-              defaultValue= ''
-              onChangeText={(text) => this.setState({email:text})}
-              placeholder="Enter Email"/>
+           <TextEmail onChangeText={(text) => this.setState({email:text})}/>
 
             <TouchableHighlight
               style={styles.button}
@@ -126,55 +140,43 @@ const styles = StyleSheet.create({
     marginTop: 65,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: '#B3B5B5'
+    backgroundColor: 'white'
   },
-  title: {
-    marginBottom: 20,
-    fontSize: 25,
-    textAlign: 'center',
-    color: '#fff'
-  },
+
   bodytext: {
-    marginBottom: 20,
+    marginBottom: 10,
+    marginTop: 10,
     fontSize: 15,
     textAlign: 'center',
-    color: '#fff'
+    color: '#607D8B'
   },
-  emailInput: {
-    height: 50,
-    padding: 4,
-    marginBottom: 10,
-    marginRight: 5,
-    fontSize: 23,
-    borderWidth: 1,
-    borderColor: 'white',
-    borderRadius: 8,
-    color: 'white'
-  },
+
   buttonText: {
-    fontSize: 18,
-    color: '#111',
+    fontSize: 15,
+    color: '##607D8B',
     alignSelf: 'center'
   },
   button: {
     height: 45,
     flexDirection: 'row',
-    backgroundColor: 'white',
-    borderColor: 'white',
-    borderWidth: 1,
-    borderRadius: 8,
+    backgroundColor: '#ECEFF1',
+    borderRadius: 0,
     marginBottom: 10,
     marginTop: 10,
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
-  image: {
-    height: 125,
-    width: 125,
-    borderRadius: 65,
-    marginTop: 10,
-    alignSelf: 'center'
-  }
+  textfield: {
+    height: 28,  // have to do it on iOS
+    marginTop: 22,
+  },
 });
+
+const TextEmail = MKTextField.textfield()
+  .withPlaceholder('email...')
+  .withStyle(styles.textfield)
+  .build();
+
+
 
 module.exports = Email
