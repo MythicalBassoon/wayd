@@ -1,10 +1,11 @@
 const React = require('react-native');
+const Seach = require('../containers/Search.js');
 
 const {
   StyleSheet,
   Text,
   TouchableHighlight,
-  View,
+  View
 } = React
 
 const Error = React.createClass({
@@ -14,14 +15,31 @@ const Error = React.createClass({
 
   },
 
+  navigateHome: function() {
+
+    this.props.navigator.popN(3);
+
+  },
   
   render: function() {
           console.log('rendering error');
   
-          return <View style = {styles.mainContainer}><Text style={styles.title}>Something went wrong while creating your poll!</Text></View>
-            
+          return (
+            <View style = {styles.mainContainer}>
+              <Text style={styles.title}>Our bad, something went wrong while creating your poll!
+              </Text>
+
+             <TouchableHighlight
+              style={styles.button}
+              onPress = {this.navigateHome}
+              underlayColor = "tranparent">
+              <Text style={styles.buttonText}>Back to Search!</Text> 
+            </TouchableHighlight>
+          </View>
+          )
         }
-      });
+
+    });
 
 
 const styles = StyleSheet.create({

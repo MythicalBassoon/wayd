@@ -66,7 +66,7 @@ const EventRec = React.createClass({
   },
  
   render: function() {
-    console.log('event component render', this.props.apiresults)
+    console.log('event component render', this.props)
 
     switch(this.props.loading){
       case true:

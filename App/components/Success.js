@@ -1,4 +1,5 @@
 const React = require('react-native');
+const Error = require('../components/Error');
 
 const {
   StyleSheet,
@@ -11,15 +12,30 @@ const Success = React.createClass({
 
   componentDidMount: function() {
    console.log('success page loading..');
+   console.log('success props are', this.props);
 
   },
 
+  navigateHome: function() {
+
+  	console.log('about to navigate to Search page...');
+  	console.log('search container is', Error);
+
+    this.props.navigator.popN(3);
+
+  },
   
   render: function() {
   	console.log('rendering success');
           return (
           	<View style = {styles.mainContainer}>
               <Text style={styles.title}>Thank you for setting up a poll! Your friends have now been sent emails. We will let you know when they have all voted.</Text>
+              <TouchableHighlight
+	              style={styles.button}
+	              onPress = {this.navigateHome}
+	              underlayColor = "tranparent">
+              <Text style={styles.buttonText}>Back to Search</Text> 
+              </TouchableHighlight>
             </View>
             )
       	}
