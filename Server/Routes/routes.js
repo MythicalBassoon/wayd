@@ -14,6 +14,7 @@ var request = require('request');
 var incrementYesVote = require('../Models/pollModel').incrementYesVote
 var incrementNoVote = require('../Models/pollModel').incrementNoVote
 var checkVoted = require('../Models/pollModel').checkVoted
+var toggleVoted = require('../Models/pollModel').toggleVoted
 
 
 // ROUTE TO RETRIEVE API(S) DATA 
@@ -153,7 +154,8 @@ router.route('/polls/yes/:emailId')
   .put(function(req,res){
 
     //first check if user has voted
-    checkVoted(req.params.emailId, function(err, pollObj) {
+    var emailId = req.params.emailId
+    checkVoted(emailId, function(err, pollObj) {
       if (err) {
         return res.status(404).send("error finding relevant pollId");
       }
@@ -169,7 +171,13 @@ router.route('/polls/yes/:emailId')
         if (err) {
           return res.status(404).send("error incrementing yes vote count");
         }
-        res.send(voteCount);
+        toggleVoted(emailId, function(err, response) {
+          console.log('toggle voted response is', response)
+          if (err) {
+            return res.status(404).send('error toggling "voted" for email address')
+          }
+          res.send(voteCount);
+        })
 
       })
     }.bind(this))

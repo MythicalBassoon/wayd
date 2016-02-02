@@ -60,13 +60,24 @@ module.exports.checkVoted = function(emailId, callback) {
   return db.query(queryString.checkVoted, [emailId])
           .then(function(pollObj){
             ('in model, pollObj is', pollObj);
-            callback(null, pollObj)
+            callback(null, pollObj[0])
           })
           .catch(function(error) {
             console.log('error querying emails table for poll, error is', error)
             callback(error, null);
           });
 
+}
+
+module.exports.toggleVoted = function(emailId, callback) {
+  return db.query(queryString.toggleVoted, [emailId])
+    .then(function(pollObj){
+      callback(null, pollObj[0])
+    })
+    .catch(function(error) {
+      console.log('error toggling "voted" emails table for poll, error is', error)
+      callback(error, null);
+    })
 }
 
 //this method incremennts the value in the yes_vote comment of specified poll
