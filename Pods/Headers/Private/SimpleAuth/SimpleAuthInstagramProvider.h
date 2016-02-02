@@ -1,0 +1,1 @@
+../../../SimpleAuth/Pod/Providers/Instagram/SimpleAuthInstagramProvider.h

@@ -1,5 +1,6 @@
 const React = require('react-native')
 const Search = require('../containers/Search')
+let simpleAuthClient = require('react-native-simple-auth');
 
 
 const MK = require('react-native-material-kit')
@@ -25,10 +26,33 @@ const {
   View
 } = React
 
+
 const Login = React.createClass({
   getInitialState: function() {
     return {
     }
+  },
+
+  componentDidMount: function(){
+    simpleAuthClient.configure('facebook', {
+      app_id: '538359742991930'
+    }).then(() => {
+      // Twitter is configured.
+      console.log('facebook configured successfully')
+
+    })
+  },
+
+  auth: function(){
+    console.log(simpleAuthClient)
+
+    simpleAuthClient.authorize('facebook').then((info) => {
+  console.log('facebook auth works', info)
+}).catch((error) => {
+  console.log('ERR', error)
+  let errorCode = error.code;
+  let errorDescription = error.description;
+});
   },
 
   //should navigate to search page depending on login status. might need to change this later to be
@@ -52,14 +76,15 @@ const Login = React.createClass({
 
         <Textfield2 value={this.state.username}/>
 
+
         <TouchableHighlight
-          style={styles.button}
-          onPress={this.login}
+          style={styles.facebook}
+          onPress={this.auth}
           underlayColor="tranparent">
-          <Text style={styles.buttonText}> log in </Text> 
+          <Text style={styles.buttonText}> FACEBOOK </Text> 
         </TouchableHighlight>
 
-       
+
       </View>
     )
   }
@@ -91,6 +116,9 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     borderRadius: 8,
     color: 'white'
+  },
+  facebook: {
+    backgroundColor: '#3b5998'
   },
   buttonText: {
     fontSize: 15,

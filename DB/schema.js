@@ -30,8 +30,8 @@ db.query(
     + "long VARCHAR(40)," 
     + "source VARCHAR(50)," 
     + "source_id VARCHAR(50),"
-    + "image_thumb VARCHAR(1000),"
-    + "image_medium VARCHAR(1000),"
+    + "image_thumb VARCHAR(5000),"
+    + "image_medium VARCHAR(5000),"
     + "id SERIAL PRIMARY KEY)"
    )
  })
