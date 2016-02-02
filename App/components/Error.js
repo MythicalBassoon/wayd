@@ -11,18 +11,18 @@ const {
 const Error = React.createClass({
 
   componentDidMount: function() {
-   console.log('error page loading..');
 
   },
 
   navigateHome: function() {
 
+    //navigate back to Search component. 
+    //Note that redux state stays intact from previous search/poll creation!
     this.props.navigator.popN(3);
 
   },
   
   render: function() {
-          console.log('rendering error');
   
           return (
             <View style = {styles.mainContainer}>
