@@ -1,9 +1,11 @@
 var redis = require('redis');
 var Queue = require('./queue.js');
+var template = require('./template').template
 var client = redis.createClient({
   host: '127.0.0.1',
   port: 6379
 });
+
 var emailQueue = new Queue('jobs', client);
 
 var nodemailer = require('nodemailer');
@@ -41,7 +43,7 @@ function runTest() {
 
   mailOptions.to = emailInfo.to;
   mailOptions.subject = 'You have been invited by ' + emailInfo.user;
-  mailOptions.html = '<b> Come kick it at '+ emailInfo.eventInfo.title + ', homie.'
+  mailOptions.html = template(emailInfo.eventInfo.title, emailInfo.to, emailInfo.eventInfo.image_medium, emailInfo.eventInfo.description);
     transporter.sendMail(mailOptions, function(error, info){
     if(error){
         return console.log(error);
