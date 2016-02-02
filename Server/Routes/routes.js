@@ -151,18 +151,20 @@ router.route('/polls/:id')
 
 router.route('/polls/yes/:emailId')
   .put(function(req,res){
+
+    //first check if user has voted
     checkVoted(req.params.emailId, function(err, pollObj) {
       if (err) {
         return res.status(404).send("error finding relevant pollId");
       }
 
-      console.log('poll Obj is', pollObj);
 
+      //send back a 409 is the user has already voted
       if (!pollObj[0].voted === false) {
         return res.status(409).send("user has already voted!"); 
       }
 
-
+      //increment no vote_count for poll in db
       incrementYesVote(pollObj[0].poll_id, function(err, voteCount) {
         if (err) {
           return res.status(404).send("error incrementing yes vote count");
@@ -178,6 +180,8 @@ router.route('/polls/yes/:emailId')
 
 router.route('/polls/no/:emailId')
    .put(function(req,res){
+
+    //first check if user has voted
     checkVoted(req.params.emailId, function(err, pollObj) {
       if (err) {
         return res.status(404).send("error finding relevant pollId");
@@ -185,11 +189,12 @@ router.route('/polls/no/:emailId')
 
       console.log('poll Obj is', pollObj);
 
+      //send back a 409 is the user has already voted
       if (!pollObj[0].voted === false) {
         return res.status(409).send("user has already voted!"); 
       }
 
-
+      //increment no vote_count for poll in db
       incrementNoVote(pollObj[0].poll_id, function(err, voteCount) {
         if (err) {
           return res.status(404).send("error incrementing no vote count");

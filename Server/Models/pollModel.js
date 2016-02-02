@@ -54,6 +54,7 @@ module.exports.getOnePoll = function(pollId, callback, testMode){
     });
 }
 
+//this method checks if a vote has already been recording for email/poll combination
 module.exports.checkVoted = function(emailId, callback) {
   console.log('emailId is', emailId);
   return db.query(queryString.checkVoted, [emailId])
@@ -62,12 +63,13 @@ module.exports.checkVoted = function(emailId, callback) {
             callback(null, pollObj)
           })
           .catch(function(error) {
-            console.log('error querying emails table for votecount, error is', error)
+            console.log('error querying emails table for poll, error is', error)
             callback(error, null);
           });
 
 }
 
+//this method incremennts the value in the yes_vote comment of specified poll
 module.exports.incrementYesVote = function(pollId, callback) {
   console.log('about to increment, pollId is', pollId);
   return db.query(queryString.incrementYesVote, [pollId])
@@ -75,18 +77,19 @@ module.exports.incrementYesVote = function(pollId, callback) {
             callback(null, voteCount)
           })
           .catch(function(error) {
-            console.log('error querying emails table for votecount, error is', error)
+            console.log('error querying polls table for yes votecount, error is', error)
             callback(error, null);
           });
 };
 
+//this method incremennts the value in the no_vote comment of specified poll
 module.exports.incrementNoVote = function(pollId, callback) {
   return db.query(queryString.incrementNoVote, [pollId])
           .then(function(voteCount){
             callback(null, voteCount)
           })
           .catch(function(error) {
-            console.log('error querying emails table for votecount, error is', error)
+            console.log('error querying emails table for no votecount, error is', error)
             callback(error, null);
           });
 
