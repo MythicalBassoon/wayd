@@ -8,6 +8,8 @@ var insertEvent = require('../Models/eventModel').insertEvent
 var insertPoll = require('../Models/pollModel').insertPoll
 var insertEmail = require('../Models/emailModel').insertEmail
 var nodeMailer = require('../Workers/email').sendNodeMailer
+var insertUser = require('../Models/userModel').insertUser
+
 var request = require('request');
 
 
@@ -34,8 +36,17 @@ router.route('/events/:loc/:timeframe')
 // ROUTE TO CREATE USERS
 router.route('/users')
   .post(function(req,res){
-    // add to user table
-    // respond with user token
+    var user = req.body;
+
+    insertUser(user, function(err, userId){
+      if(err){res.send(err)}
+        console.log('successful user insert', userId)
+      res.json(userId)
+    })
+
+    
+
+    //res.json(user)
 
   })
 
@@ -71,7 +82,7 @@ router.route('/polls')
 
             var emailObj = {
               to: pollInfo.emails[i],
-              user: 'RICHARD',
+              user: pollInfo.user.userFirstName + ' '+ pollInfo.user.userLastName,
               eventInfo: eventInfo,
               othersInvited: pollInfo.emails.slice(0,i).concat(pollInfo.emails.slice(i+1))
             }

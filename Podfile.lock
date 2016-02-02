@@ -1,0 +1,49 @@
+PODS:
+  - CMDQueryStringSerialization (0.4.1):
+    - ISO8601
+  - cocoa-oauth (0.0.1):
+    - NSData+Base64 (~> 1.0)
+  - ISO8601 (0.5.0)
+  - NSData+Base64 (1.0.0)
+  - ReactiveCocoa (2.5):
+    - ReactiveCocoa/UI (= 2.5)
+  - ReactiveCocoa/Core (2.5):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.5)
+  - ReactiveCocoa/UI (2.5):
+    - ReactiveCocoa/Core
+  - SimpleAuth/Core (0.3.9):
+    - CMDQueryStringSerialization
+    - ReactiveCocoa
+  - SimpleAuth/Facebook (0.3.9):
+    - SimpleAuth/Core
+  - SimpleAuth/GoogleWeb (0.3.9):
+    - SimpleAuth/Core
+  - SimpleAuth/Instagram (0.3.9):
+    - SimpleAuth/Core
+  - SimpleAuth/LinkedInWeb (0.3.9):
+    - SimpleAuth/Core
+  - SimpleAuth/Tumblr (0.3.9):
+    - cocoa-oauth
+    - SimpleAuth/Core
+  - SimpleAuth/Twitter (0.3.9):
+    - cocoa-oauth
+    - SimpleAuth/Core
+
+DEPENDENCIES:
+  - SimpleAuth/Facebook
+  - SimpleAuth/GoogleWeb
+  - SimpleAuth/Instagram
+  - SimpleAuth/LinkedInWeb
+  - SimpleAuth/Tumblr
+  - SimpleAuth/Twitter
+
+SPEC CHECKSUMS:
+  CMDQueryStringSerialization: 4bb0a2f5e7d8d8678d911d88072274952cbef4e5
+  cocoa-oauth: 1200a2170276a62a975f2786d505dab6e2db1fa8
+  ISO8601: 25d7a973fa8daf31a50bbd0401d2e7b98e8a7df3
+  NSData+Base64: 4e84902c4db907a15673474677e57763ef3903e4
+  ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
+  SimpleAuth: bc7d594f90711a7e6ef7624dce5aa8c8b09770ab
+
+COCOAPODS: 0.39.0

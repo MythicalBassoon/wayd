@@ -16,6 +16,7 @@
     "pg-promise": "^3.0.6",
     "react-native": "^0.18.1",
     "react-native-google-places-autocomplete": "^1.1.6",
+    "react-native-simple-auth": "^0.3.0",
     "react-native-simple-store": "^0.1.0",
     "react-redux": "^4.0.6",
     "redis": "^2.4.2",
