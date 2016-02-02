@@ -12,7 +12,8 @@ const {
   Component,
   AppRegistry,
   NavigatorIOS,
-  StyleSheet
+  StyleSheet, 
+  TabBarIOS
 } = React
 
 const store = configureStore()
@@ -31,6 +32,9 @@ class wayd extends React.Component{
             navigationBarHidden = {false}
             translucent = {true}
           />
+      
+  
+
       </Provider>
     );
   }
@@ -39,7 +43,7 @@ class wayd extends React.Component{
 var styles = StyleSheet.create({
   container:{
     flex: 1
-  },
+  }
 })
 
 AppRegistry.registerComponent('wayd', () => wayd);

@@ -2,7 +2,7 @@ const initialState = {
 	latlng: '0,0',
   date: new Date(),
   loading: false,
-  datePicker: false
+  datePicked: 0
 }
 
 module.exports = function search(state = initialState, action) {
@@ -21,11 +21,20 @@ module.exports = function search(state = initialState, action) {
       ...state,
       date: action.date
     };
-  case 'PICK_DATE':
-    // console.log('TIME_CHANGE BEING CALLED')
+  case 'DATE_PICKER':
+    console.log('"DATE_PICKER BEING CALLED', state)
+      var datePicked;
+      if (state.datePicked === 0) {
+        datePicked = 1;
+      } else if (state.datePicked === 1) {
+        datePicked = 0;
+      } else {
+        // need to add this weekend
+      }
+      
     return {
       ...state,
-      datePicker: action.datePicker
+      datePicked: datePicked
     };
 
   default:

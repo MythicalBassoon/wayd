@@ -11,7 +11,7 @@ function mapStateToProps(state) {
     date: state.search.date, // date OBJECT!!!! not a string. object will have methods like .getDate()
     loading: state.search.loading, //boolean value to show whether server is still handling event request
     apiresults: state.search.apiresults,
-    simpleDate: state.search.simpleDate
+    datePicked: state.search.datePicked
   }
 }
 

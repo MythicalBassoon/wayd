@@ -1,6 +1,7 @@
 const React = require('react-native')
 const Search = require('../containers/Search')
 
+
 const MK = require('react-native-material-kit')
 const {
   MKButton,
@@ -41,10 +42,10 @@ const Login = React.createClass({
 
   render: function() {
 
-
     return (
       <View style = {styles.mainContainer}>
 
+        
         <Text style= {styles.title}> WAYD </Text>
 
         <Textfield1 value={this.state.username}/>
@@ -58,9 +59,7 @@ const Login = React.createClass({
           <Text style={styles.buttonText}> log in </Text> 
         </TouchableHighlight>
 
- 
-
-
+       
       </View>
     )
   }

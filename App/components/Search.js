@@ -1,6 +1,7 @@
 const React = require('react-native')
 const EventRec = require('../containers/EventRec')
 const Moment = require('moment')
+const SearchTabBar = require('./helpers/SearchTabBar.js')
 
 const {
   StyleSheet,
@@ -14,6 +15,7 @@ const {
   ActivityIndicatorIOS,
   SliderIOS,
   View,
+  TabBarIOS
 } = React
 
 // Node module import for Google API autocomplete (autocomplete only).
@@ -53,6 +55,7 @@ const Search = React.createClass({
     //   console.log(error)
     // })
    console.log('search mounted...');
+   
 
   },
 
@@ -63,15 +66,17 @@ const Search = React.createClass({
     }
   },
 
-  showDatePikcer: function() {
-    console.log('show date picker')
-    // this.state.active = !this.state.active
-    // this.props.pickDate(this.state.simpleDate)
+  showDatePicker: function() {
+    // console.log('show date picker', )
+    // this.props.datePicker()
+
+
   },
 
 
   render: function() {
     console.log('search props', this.props)
+
     return (
       <View style={styles.container}>
         <GooglePlacesAutocomplete
@@ -175,8 +180,6 @@ const Search = React.createClass({
                   this.props.timechange(tomorrow)
                 }
 
-
-
                 this.setState({
                   value: day
                 });
@@ -186,12 +189,11 @@ const Search = React.createClass({
 
         <TouchableHighlight
           style={styles.button}
-          onPress={this.showDatePikcer}
+          onPress={this.showDatePicker}
           underlayColor = "tranparent">
           <Text style={styles.buttonText}> show date picker </Text> 
         </TouchableHighlight>
         
-
         <DatePickerIOS
           style= {styles.datePicker}
           date={this.props.date}
@@ -207,10 +209,10 @@ const Search = React.createClass({
           <Text style={styles.buttonText}> find an event </Text> 
         </TouchableHighlight>
         
-  
+        <SearchTabBar/>
 
-        <View style={styles.footer}><Text>  </Text></View>
       </View>
+
     )
   }
 })
@@ -298,10 +300,7 @@ const styles = StyleSheet.create({
     color: '#607D8B'
   },
   datePicker: {
-    height: 0
-  },
-  activeDatePicker: {
-    flex: 1
+    height: 0 
   }
 
 })

@@ -2,12 +2,18 @@ const React = require('react-native')
 const moment = require('moment')
 const Email = require('../containers/Email')
 const EventRect = require('../containers/EventRec')
-
+const EventTabBar = require('./helpers/EventTabBar.js')
 
 const MK = require('react-native-material-kit')
 const {
-  mdl
+  mdl,
+  MKColor
 } = MK;
+
+MK.setTheme({
+  primaryColor: MKColor.Blue,
+  accentColor: MKColor.Orange,
+});
 
 const {
   StyleSheet,
@@ -99,9 +105,7 @@ const EventRec = React.createClass({
               </TouchableHighlight>
             </View>
 
-            <View style={styles.footer}></View>
-
-
+            <EventTabBar/>
           </View>
         )
     }
@@ -157,6 +161,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   spinner: {
+    color: 'blue',
     width: 50,
     height: 50,
     marginLeft: 150,
@@ -171,15 +176,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#ECEFF1'
   },
   body:{
-    flex: .9,
     marginTop: 50,
     marginLeft: 30,
     marginRight: 30
-  },
-  footer:{
-    flex: .1,
-    backgroundColor: '#607D8B'
   }
+
   
 
 });

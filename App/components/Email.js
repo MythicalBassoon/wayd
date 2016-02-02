@@ -23,10 +23,9 @@ const {
 } = MK;
 
 MK.setTheme({
-  primaryColor: MKColor.Teal,
+  primaryColor: MKColor.Blue,
   accentColor: MKColor.Orange,
 });
-
 
 const Email = React.createClass({
 
