@@ -11,16 +11,13 @@ const {
 const Success = React.createClass({
 
   componentDidMount: function() {
-   console.log('success page loading..');
-   console.log('success props are', this.props);
 
   },
 
   navigateHome: function() {
 
-  	console.log('about to navigate to Search page...');
-  	console.log('search container is', Error);
-
+    //navigate back to Search component. 
+    //Note that redux state stays intact from previous search/poll creation!
     this.props.navigator.popN(3);
 
   },
