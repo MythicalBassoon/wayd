@@ -26,6 +26,7 @@ const EventRec = React.createClass({
   submitToServer: function(){
     
     var url = `http://localhost:3000/api/events/${this.props.prevData.latlng}/${JSON.stringify(this.props.prevData.date)}`
+    console.log('MARK', url)
     fetch(url, {method: "GET"})
     .then((response) => response.json())
     .then((responseData) => {

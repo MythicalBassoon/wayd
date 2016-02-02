@@ -1,0 +1,6 @@
+framework module cocoa_oauth {
+  umbrella header "cocoa-oauth-umbrella.h"
+
+  export *
+  module * { export * }
+}

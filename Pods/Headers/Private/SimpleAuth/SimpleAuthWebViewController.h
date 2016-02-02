@@ -1,0 +1,1 @@
+../../../SimpleAuth/Pod/Core/ios/SimpleAuthWebViewController.h
