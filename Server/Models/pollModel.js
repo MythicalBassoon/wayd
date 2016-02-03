@@ -57,13 +57,17 @@ module.exports.getOnePoll = function(pollId, callback, testMode){
 //this method checks if a vote has already been recording for email/poll combination
 module.exports.checkVoted = function(emailId, callback) {
   console.log('emailId is', emailId);
+
+  console.log('about to run checkVoted query:');
+  console.log(queryString.checkVoted);
+  console.log('emailId is', emailId)
   return db.query(queryString.checkVoted, [emailId])
           .then(function(pollObj){
             ('in model, pollObj is', pollObj);
-            callback(null, pollObj[0])
+            callback(null, pollObj)
           })
           .catch(function(error) {
-            console.log('error querying emails table for poll, error is', error)
+            console.log('in model, error querying emails table for poll, error is', error)
             callback(error, null);
           });
 

@@ -155,7 +155,7 @@ router.route('/polls/yes/:emailId')
 
     //first check if user has voted
     var emailId = req.params.emailId
-    checkVoted(emailId, function(err, pollObj) {
+    checkVoted(req.params.emailId, function(err, pollObj) {
       if (err) {
         return res.status(404).send("error finding relevant pollId");
       }
@@ -190,12 +190,12 @@ router.route('/polls/no/:emailId')
    .put(function(req,res){
 
     //first check if user has voted
+    var emailId = req.params.emailId
     checkVoted(req.params.emailId, function(err, pollObj) {
       if (err) {
         return res.status(404).send("error finding relevant pollId");
       }
 
-      console.log('poll Obj is', pollObj);
 
       //send back a 409 is the user has already voted
       if (!pollObj[0].voted === false) {
@@ -205,15 +205,20 @@ router.route('/polls/no/:emailId')
       //increment no vote_count for poll in db
       incrementNoVote(pollObj[0].poll_id, function(err, voteCount) {
         if (err) {
-          return res.status(404).send("error incrementing no vote count");
+          return res.status(404).send("error incrementing yes vote count");
         }
-        res.send(voteCount);
+        toggleVoted(emailId, function(err, response) {
+          console.log('toggle voted response is', response)
+          if (err) {
+            return res.status(404).send('error toggling "voted" for email address')
+          }
+          res.send(voteCount);
+        })
 
       })
     }.bind(this))
     
   }.bind(this));
-
 
 
 
