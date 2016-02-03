@@ -1,6 +1,8 @@
 const React = require('react-native');
 const MK = require('react-native-material-kit')
 const Separator = require('./helpers/separator.js')
+const Error = require('./Error')
+const Success = require('./Success')
 
 const {
   StyleSheet,
@@ -67,11 +69,19 @@ const Email = React.createClass({
     })
     .then(function(res) {
       console.log("Got a response!", res);
-      this.props.loadingPoll(false)
+      this.props.loadingPoll(false);
+      this.props.navigator.push({
+      title: 'Success',
+      component: Success
+      });
     }.bind(this))
     .catch(function(err){
       this.props.loadingPoll(false)
       console.log("got an err!", err);
+      this.props.navigator.push({
+      title: 'Error',
+      component: Error
+      });
     })
   },
   
@@ -120,7 +130,13 @@ const Email = React.createClass({
       case true:
       console.log('throwing up loading screen');
         return (
-          <View style={styles.mainContainer}><Text>Loading!</Text></View>
+         <View style= {styles.mainContainer}>
+             <ActivityIndicatorIOS
+                animating ={this.props.loading}
+                color = '#111'
+                size = 'large'>
+              </ActivityIndicatorIOS>
+          </View>
           )
 
       default:

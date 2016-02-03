@@ -2,6 +2,8 @@
 var request = require('request')
 var shuffle = require('./helpers').shuffle
 var dateFormater = require('./helpers.js').dateFormater
+var eventfulKey = require('../../apikeys').eventfulKey
+var appkey = require('../../apikeys').appkey
 
 /************************************************************/
 // EVENTFUL API QUERY
@@ -23,10 +25,7 @@ module.exports = {
     var eventDate = dateFormater(timeframe)
     console.log('date for api',today, eventDate)
     var time = `t=${today}-${eventDate}` // look between now and the date given
-
-    var eventfulKey = 'bkBjvhD7BjJDSJMC'
     var url ='http://api.eventful.com/json/events/search/?'
-    var appkey = 'app_key=bkBjvhD7BjJDSJMC'
     
     if(latlng.split(",").length !== 2){
       latlng = '0,0'

@@ -1,7 +1,8 @@
 var nodemailer = require('nodemailer');
+var gmail = require('../../apikeys').gmail
 
 // create reusable transporter object using the default SMTP transport
-var transporter = nodemailer.createTransport('smtps://waydhomie%40gmail.com:shafique@smtp.gmail.com');
+var transporter = nodemailer.createTransport(gmail);
 
 module.exports.sendNodeMailer = function nodeMailer(callback){
 
