@@ -40,6 +40,7 @@ const Success = React.createClass({
 })
 
 
+
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
@@ -47,19 +48,19 @@ const styles = StyleSheet.create({
     marginTop: 65,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: '#B3B5B5'
+    backgroundColor: 'white'
   },
   title: {
     marginBottom: 20,
-    fontSize: 25,
+    fontSize: 15,
     textAlign: 'center',
-    color: '#fff'
+    color: '##607D8B'
   },
   bodytext: {
     marginBottom: 20,
     fontSize: 15,
     textAlign: 'center',
-    color: '#fff'
+    color: '#607D8B'
   },
   emailInput: {
     height: 50,
@@ -73,22 +74,23 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   buttonText: {
-    fontSize: 18,
-    color: '#111',
+    fontSize: 15,
+    color: '#607D8B',
     alignSelf: 'center'
   },
   button: {
     height: 45,
     flexDirection: 'row',
-    backgroundColor: 'white',
+    backgroundColor: '#ECEFF1',
     borderColor: 'white',
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 0,
     marginBottom: 10,
-    marginTop: 10,
+    marginTop: 2,
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
+
   image: {
     height: 125,
     width: 125,

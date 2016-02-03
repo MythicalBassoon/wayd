@@ -36,9 +36,12 @@ const EventRec = React.createClass({
   
   //submits date and time information for worker rendering
   submitToServer: function(){
-    
-    var url = `${host}api/events/${this.props.prevData.latlng}/${JSON.stringify(this.props.prevData.date)}`
-    console.log('MARK', url)
+
+    var loc = this.props.prevData.latlng
+    var timeframe = JSON.stringify(this.props.prevData.date)
+
+    var url = `http://localhost:3000/api/events/?loc=${loc}&timeframe=${timeframe}`
+   
     fetch(url, {method: "GET"})
     .then((response) => response.json())
     .then((responseData) => {
@@ -166,8 +169,8 @@ const styles = StyleSheet.create({
     color: 'blue',
     width: 50,
     height: 50,
-    marginLeft: 150,
-    marginRight: 150
+    marginLeft: 180,
+    marginRight: 180
   },
   spinnerContainer: {
     flex: 1,

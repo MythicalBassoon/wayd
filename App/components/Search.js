@@ -3,6 +3,7 @@ const EventRec = require('../containers/EventRec')
 const Moment = require('moment')
 const SearchTabBar = require('./helpers/SearchTabBar.js')
 
+ 
 const {
   StyleSheet,
   ListView,
@@ -26,7 +27,7 @@ var API_KEY_GOOGLE = require('../../apikeys').google_api_key;
 const Search = React.createClass({
   //changes redux.state.date
   onDateChange: function(date){
-    // console.log('datechange', date)
+    // console.log('datechange', JSON.stringify(date))
     this.props.timechange(date);
   },
 
@@ -47,9 +48,6 @@ const Search = React.createClass({
   },
 
   componentDidMount: function() {
-
-    console.log('search props are', this.props);
-
     // figure out for automatic geolocation findering without search
     // console.log('mounted...')
     // navigator.geolocation.getCurrentPosition(function(position) {
@@ -190,11 +188,15 @@ const Search = React.createClass({
           </View>  
 
 
+  
+
+
         <TouchableHighlight
           style={styles.button}
           onPress={this.showDatePicker}
           underlayColor = "tranparent">
           <Text style={styles.buttonText}> show date picker </Text> 
+
         </TouchableHighlight>
         
         <DatePickerIOS
@@ -303,8 +305,13 @@ const styles = StyleSheet.create({
     color: '#607D8B'
   },
   datePicker: {
-    height: 0 
-  }
+    height: 80
+  },
+    facebook: {
+    flex: 1,
+    width: 40,
+    height: 40
+  },
 
 })
 

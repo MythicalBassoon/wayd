@@ -32,7 +32,7 @@ module.exports = {
     }
     var loc = 'where=' + latlng
     var range = 'within=.5'
-    var pageSize = 'page_size=25'
+    var pageSize = 'page_size=30'
 
     var categories = 'c=' + ['music', 'comedy', 'conference', 'learning_education', 'family_fun_kids', 'festival_parades', 'movies_film', 'food', 'fundraisers', 'art', 'support', 'holiday', 'books', 'attractions', 'community', 'singles_social', 'schools_alumni', 'clubs_associations', 'outdoors_recreation', 'performing_arts', 'animals', 'sales', 'science', 'religion_spirituality', 'sports', 'technology'].join(',')
 
@@ -73,7 +73,7 @@ module.exports = {
               image_medium: event.image !== null ? event.image.medium.url : null
             }
 
-          });
+          })
 
           newresults = shuffle(newresults)
           // console.log(newresults)

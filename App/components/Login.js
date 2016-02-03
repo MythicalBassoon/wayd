@@ -3,6 +3,7 @@ const Search = require('../containers/Search')
 let simpleAuthClient = require('react-native-simple-auth');
 const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
 
+
 const MK = require('react-native-material-kit')
 const {
   MKButton,
@@ -23,7 +24,8 @@ const {
   Text,
   TextInput,
   TouchableHighlight,
-  View
+  View,
+  Image
 } = React
 
 
@@ -122,17 +124,23 @@ const Login = React.createClass({
 
         
         <Text style= {styles.title}> WAYD </Text>
-
+        {/*
         <Textfield1 value={this.state.username}/>
 
         <Textfield2 value={this.state.username}/>
+
+
+        <Text style= {styles.buttonText}> or </Text>
+        */}
 
 
         <TouchableHighlight
           style={styles.facebook}
           onPress={this.auth}
           underlayColor="tranparent">
-          <Text style={styles.buttonText}> FACEBOOK </Text> 
+          
+          
+          <Text style= {styles.buttonText}>  </Text>
         </TouchableHighlight>
 
 

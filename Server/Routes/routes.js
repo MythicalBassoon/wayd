@@ -22,11 +22,14 @@ var host = process.env.DEPLOYED ? 'http://104.236.40.104:' : 'http://localhost:'
 
 
 // ROUTE TO RETRIEVE API(S) DATA 
-router.route('/events/:loc/:timeframe')
+router.route('/events/')
 	.get(function(req, res) {
 
-    var loc = req.params.loc
-    var timeframe = req.params.timeframe
+    console.log('query', req.query);
+    var loc = req.query.loc
+    var timeframe = req.query.timeframe
+    // var loc = req.params.loc
+    // var timeframe = req.params.timeframe
     // console.log('loc', loc)
     // console.log('timeframe', timeframe)
 
