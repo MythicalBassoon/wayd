@@ -1,5 +1,5 @@
 var nodemailer = require('nodemailer');
-var gmail = require('../../apikeys').gmail
+var gmail = require('./apikeys').gmail
 
 // create reusable transporter object using the default SMTP transport
 var transporter = nodemailer.createTransport(gmail);

@@ -34,3 +34,6 @@ node_modules/
 npm-debug.log
 
 apikeys.js
+
+dump.rdb
+bashToStart.sh

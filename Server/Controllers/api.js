@@ -2,8 +2,8 @@
 var request = require('request')
 var shuffle = require('./helpers').shuffle
 var dateFormater = require('./helpers.js').dateFormater
-var eventfulKey = require('../../apikeys').eventfulKey
-var appkey = require('../../apikeys').appkey
+var eventfulKey = require('./apikeys').eventfulKey
+var appkey = require('./apikeys').appkey
 
 /************************************************************/
 // EVENTFUL API QUERY

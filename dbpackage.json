@@ -1,0 +1,14 @@
+{
+  "name": "wayd",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+  },
+  "dependencies": {
+    "pg-promise": "^3.0.6",
+    "bluebird": "^2.9.2",
+    "sql-load": "0.0.2"
+  },
+  "devDependencies": {
+  }
+}
