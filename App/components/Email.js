@@ -48,7 +48,7 @@ const Email = React.createClass({
     console.log("sending event:", this.props.currentEvent);
     this.props.loadingPoll(true);
 
-    fetch('http://localhost:3000/api/polls', {
+    fetch('http://192.168.99.100/api/polls', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

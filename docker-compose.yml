@@ -13,7 +13,7 @@ workerserver:
   build: .
   dockerfile: Dockerfile-workerserver
   ports:
-   - 80:4568
+   - 4568:4568
   environment:
     DEPLOYED: "true"
   links:

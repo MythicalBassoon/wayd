@@ -13,7 +13,13 @@ app.listen(4568, serverMessage);
 var jobNumber = 0;
 
 function createHandler (req, res) {
-  var client = redis.createClient();
+  if(process.ENV.DEPLOYED){
+
+  var client = redis.createClient('6379', 'redis');
+  }
+  else{
+    var client = redis.createClient();
+  }
   //var numberOfJobs = req.body.num;
   var data = req.body;
   var jobQueue = new Queue('jobs', client);

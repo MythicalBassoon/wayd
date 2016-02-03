@@ -88,7 +88,7 @@ router.route('/polls')
             }
 
             request({
-              uri: 'http://localhost:4568/jobs',
+              uri: 'http://192.168.99.100:4568/jobs',
               headers: {'Content-type': 'application/json'},
               method: 'POST',
               body: JSON.stringify(emailObj)

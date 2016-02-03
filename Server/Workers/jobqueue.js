@@ -1,10 +1,16 @@
 var redis = require('redis');
 var Queue = require('./queue.js');
 var template = require('./template').template
-var client = redis.createClient({
+if(process.env.DEPLOYED){
+var client = redis.createClient('6379', 'redis');
+
+}
+else{
+  var client = redis.createClient({
   host: '127.0.0.1',
   port: 6379
 });
+}
 
 var emailQueue = new Queue('jobs', client);
 

@@ -37,11 +37,12 @@ const EventRec = React.createClass({
   //submits date and time information for worker rendering
   submitToServer: function(){
     
-    var url = `http://localhost:3000/api/events/${this.props.prevData.latlng}/${JSON.stringify(this.props.prevData.date)}`
+    var url = `http://192.168.99.100/api/events/${this.props.prevData.latlng}/${JSON.stringify(this.props.prevData.date)}`
     console.log('MARK', url)
     fetch(url, {method: "GET"})
     .then((response) => response.json())
     .then((responseData) => {
+      console.log(responseData)
        this.props.getData(responseData)
        this.props.popEvent() 
     })

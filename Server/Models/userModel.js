@@ -1,8 +1,8 @@
 //to be defined once auth is implemented
-var db = require('../../db/config.js');
+var db = require('../../DB/config.js');
 
 //retrieve sql query for inserting poll into polls table
-var queryString = require('../../db/psql/index');
+var queryString = require('../../DB/psql/index');
 
 
 module.exports.insertUser = function(user, callback, testMode){

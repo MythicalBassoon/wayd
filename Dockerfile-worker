@@ -8,9 +8,6 @@ WORKDIR worker
 ADD ./Server/Workers /worker
 ADD package.json /worker
 ADD ./node_modules /worker/node_modules
-ADD ./Server/Workers/jobqueue.js /workerserver/jobserver.js
-ADD ./Server/Workers/template.js /workerserver/template.js
-ADD ./Server/Workers/queue.js /workerserver/queue.js
 
 
 # TODO: RUN `npm install`
