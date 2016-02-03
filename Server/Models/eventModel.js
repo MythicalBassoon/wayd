@@ -5,11 +5,8 @@ var db = require('../../DB/config.js');
 var queryString = require('../../DB/psql/index.js');
 
 
-module.exports.insertEvent = function(eventObj, callback, testMode){
-
-	if (testMode){
-    db = require('../../db/testConfig.js');
-  }
+module.exports.insertEvent = function(eventObj, callback, database){
+  db = database || db;
 
 	//hardcoding below eventObj for test purposes only:
 
@@ -52,34 +49,31 @@ module.exports.insertEvent = function(eventObj, callback, testMode){
   //insert eventObj into eventObjs table
   return db.query(queryString.insertEvent, queryParameters)
   .then(function(eventObjId) {
-    console.log('inserted eventObj id is', eventObjId);
+    //console.log('inserted eventObj id is', eventObjId);
     return callback(null, eventObjId);
   })
   .catch(function(error){
-    console.log('error inserting eventObj to db, error is:', error);
+    //console.log('error inserting eventObj to db, error is:', error);
     return callback(error, null);
   });
 }
 
   //putting this here for future use if we build view component showing details for one eventObj
 
-  module.exports.getOneEvent = function(eventId, callback, testMode){
-
-  	if (testMode){
-   		db = require('../../db/testConfig.js');
-  	}
+  module.exports.getOneEvent = function(eventId, callback, database){
+  	db = database || db;
   	//hardcoding below paramter vales for testing purposes only!
     // callback = function(x) {console.log(x)};
     // eventId = 1;
 
     return db.query(queryString.getOneEvent, eventId)
       .then(function(event) {
-        console.log('retrieved event is', event);
-        return callback(event);
+        //console.log('retrieved event is', event);
+        return callback(null, event);
       })
       .catch(function(error){
-        console.log('error getting event, error is:', error);
-        return callback(err);
+        //console.log('error getting event, error is:', error);
+        return callback(err, null);
       });
   }
 

@@ -5,14 +5,8 @@ var db = require('../../DB/config.js');
 var queryString = require('../../DB/psql/index.js');
 
 
-module.exports.insertEmail = function(email, i, pollId, callback, testMode){
-
-	if (testMode){
-    db = require('../../db/testConfig.js');
-  }
-
-  
-
+module.exports.insertEmail = function(email, i, pollId, callback, database){
+  db = database || db;
 	var queryParameters = [email, pollId]
   
   //insert eventObj into eventObjs table
