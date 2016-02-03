@@ -15,6 +15,8 @@ var incrementYesVote = require('../Models/pollModel').incrementYesVote
 var incrementNoVote = require('../Models/pollModel').incrementNoVote
 var checkVoted = require('../Models/pollModel').checkVoted
 var toggleVoted = require('../Models/pollModel').toggleVoted
+var checkIfComplete = require('../Models/pollModel').checkIfComplete
+var retrievePollEmails = require('../Models/pollModel').retrievePollEmails
 
 
 // ROUTE TO RETRIEVE API(S) DATA 
@@ -176,13 +178,51 @@ router.route('/polls/yes/:emailId')
           if (err) {
             return res.status(404).send('error toggling "voted" for email address')
           }
-          res.send(voteCount);
-        })
 
-      })
-    }.bind(this))
-    
-  }.bind(this));
+          checkIfComplete(pollObj[0].poll_id, function(err, results) {
+            if (err) {
+            return res.status(404).send('error toggling "voted" for email address')
+            }
+
+            if (results.complete) {
+              retrievePollEmails(pollObj[0].poll_id, function(err, emailObjs) {
+                console.log('about to post to emails server, emailObjs are', emailObjs);
+              if(err) {
+                console.log('in controller, issue retrieiving emails, email is:', err)
+                 res.status(404).send(err)
+              }  
+              for(var i = 0; i < emailObjs.length; i++){
+                  var emailObj = {
+                    to: emailObjs[i].email,
+                    final: true,
+                    consensus: results.consensus
+                    // user: pollInfo.user.userFirstName + ' '+ pollInfo.user.userLastName,
+                    // eventInfo: eventInfo,
+                    // othersInvited: pollInfo.emails.slice(0,i).concat(pollInfo.emails.slice(i+1))
+                  }
+                  console.log('about to make individual request to email server', emailObj);
+                  request({
+                    uri: 'http://localhost:4568/jobs',
+                    headers: {'Content-type': 'application/json'},
+                    method: 'POST',
+                    body: JSON.stringify(emailObj)
+
+                  }, function() {
+                    console.log('post to email server made');
+                  })
+                }
+                res.send('poll completed, final emails should be sent')
+              });
+            }
+
+            else {
+              res.send(voteCount);
+            }
+          });
+        });
+      });
+    });
+  }.bind(this))
 
 //ROUTE TO INCREMENT YES VOTES FOR A POLL
 
@@ -212,12 +252,48 @@ router.route('/polls/no/:emailId')
           if (err) {
             return res.status(404).send('error toggling "voted" for email address')
           }
-          res.send(voteCount);
-        })
+          checkIfComplete(pollObj[0].poll_id, function(err, results) {
+            if (err) {
+            return res.status(404).send('error toggling "voted" for email address')
+            }
 
-      })
-    }.bind(this))
-    
+            if (results.complete) {
+              retrievePollEmails(pollObj[0].poll_id, function(err, emailObjs) {
+                console.log('about to post to emails server, emailObjs are', emailObjs);
+              if(err) {
+                console.log('in controller, issue retrieiving emails, email is:', err)
+                 res.status(404).send(err)
+              }  
+              for(var i = 0; i < emailObjs.length; i++){
+                  var emailObj = {
+                    to: emailObjs[i].email,
+                    final: true,
+                    consensus: results.consensus
+                    // user: pollInfo.user.userFirstName + ' '+ pollInfo.user.userLastName,
+                    // eventInfo: eventInfo,
+                    // othersInvited: pollInfo.emails.slice(0,i).concat(pollInfo.emails.slice(i+1))
+                  }
+                  console.log('about to make individual request to email server', emailObj);
+                  request({
+                    uri: 'http://localhost:4568/jobs',
+                    headers: {'Content-type': 'application/json'},
+                    method: 'POST',
+                    body: JSON.stringify(emailObj)
+
+                  }, function() {
+                    console.log('post to email server made');
+                  })
+                }
+                res.send('poll completed, final emails should be sent')
+              });
+            }
+            else {
+              res.send(voteCount);
+            }
+          });
+        });
+      });
+    });
   }.bind(this));
 
 

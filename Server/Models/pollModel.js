@@ -4,10 +4,8 @@ var db = require('../../DB/config.js');
 var queryString = require('../../DB/psql/index');
 
 
-module.exports.insertPoll = function(eventId, pollInfo, callback, testMode){
-  if (testMode){
-    db = require('../../db/testConfig.js');
-  }
+module.exports.insertPoll = function(eventId, pollInfo, callback){
+
   //hardcoding parameter values for testing purposes only!
 
   // eventId = 1;
@@ -35,23 +33,49 @@ module.exports.insertPoll = function(eventId, pollInfo, callback, testMode){
 }
 
   //putting this here for future use if we build view component showing current status of poll
-module.exports.getOnePoll = function(pollId, callback, testMode){
-  if (testMode){
-    db = require('../../db/testConfig.js');
-  }
-  //hadrcoding parameters below for testing purposes only!
-  // callback = function(x) {console.log(x)};
-  // pollId = 1;
+module.exports.checkIfComplete = function(pollId, callback){
 
-  return db.query(queryString.getOnePoll, pollId)
-    .then(function(poll) {
-      console.log('retrieved poll is', poll);
-      return callback(poll);
+  return db.query(queryString.getPollVoteObj, pollId)
+    .then(function(voteObj) {
+      console.log('retrieved voteObj is', voteObj);
+      var yesCount = voteObj[0].yes_count;
+      var noCount = voteObj[0].no_count
+      var participants = voteObj[0].num_participants;
+      var results = {
+        complete: false,
+        consensus: false
+        };
+
+      if (yesCount + noCount >= participants) {
+        console.log('in model, vote should be over');
+        results.complete = true;
+        if (yesCount === participants) {
+          results.consensus = true;;
+        }
+        return callback(null, results);
+      }
+      console.log('in model, vote not over yet');
+      return callback(null, results);
+      
     })
     .catch(function(error){
       console.log('error getting poll, error is:', error);
       return callback(error, null);
     });
+}
+
+module.exports.retrievePollEmails = function(pollId, callback) {
+  console.log('retrieving emails for poll i', pollId);
+  console.log('querystring for emails is', queryString.getPollEmails);
+   return db.query(queryString.getPollEmails, pollId)
+    .then(function(emailObjs){
+      console.log('in model, just retrieved emailObjs')
+      callback(null, emailObjs)
+    })
+    .catch(function(error) {
+      console.log('in model, error retrieiving emails for poll, error is', error)
+      callback(error, null);
+    })
 }
 
 //this method checks if a vote has already been recording for email/poll combination
@@ -70,7 +94,6 @@ module.exports.checkVoted = function(emailId, callback) {
             console.log('in model, error querying emails table for poll, error is', error)
             callback(error, null);
           });
-
 }
 
 module.exports.toggleVoted = function(emailId, callback) {
@@ -108,5 +131,16 @@ module.exports.incrementNoVote = function(pollId, callback) {
             callback(error, null);
           });
 
+};
+
+module.exports.voteObj = function(pollId) {
+  return db.query(queryString.getPollVoteObj, [pollId])
+          .then(function(voteObj){
+            callback(null, voteObj)
+          })
+          .catch(function(error) {
+            console.log('error querying emails table for no votecount, error is', error)
+            callback(error, null);
+          });
 };
 

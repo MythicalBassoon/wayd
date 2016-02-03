@@ -1,0 +1,1 @@
+SELECT yes_count, no_count, num_participants FROM polls WHERE id = $1;
