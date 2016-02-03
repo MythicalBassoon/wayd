@@ -173,12 +173,15 @@ router.route('/polls/yes/:emailId')
         if (err) {
           return res.status(404).send("error incrementing yes vote count");
         }
+
+        //changed 'voted' column to true in emails table
         toggleVoted(emailId, function(err, response) {
           console.log('toggle voted response is', response)
           if (err) {
             return res.status(404).send('error toggling "voted" for email address')
           }
 
+          //check if number of total votes made = number of participants, if so, hit email server
           checkIfComplete(pollObj[0].poll_id, function(err, results) {
             if (err) {
             return res.status(404).send('error toggling "voted" for email address')
@@ -247,11 +250,13 @@ router.route('/polls/no/:emailId')
         if (err) {
           return res.status(404).send("error incrementing yes vote count");
         }
+        //changed 'voted' column to true in emails table
         toggleVoted(emailId, function(err, response) {
           console.log('toggle voted response is', response)
           if (err) {
             return res.status(404).send('error toggling "voted" for email address')
           }
+          //check if number of total votes made = number of participants, if so, hit email server
           checkIfComplete(pollObj[0].poll_id, function(err, results) {
             if (err) {
             return res.status(404).send('error toggling "voted" for email address')
