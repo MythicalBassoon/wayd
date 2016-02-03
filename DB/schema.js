@@ -55,6 +55,7 @@ db.query(
    //create emails
    return db.query("CREATE TABLE IF NOT EXISTS emails (email VARCHAR(40),"
     + "poll_id INTEGER,"
+    + "voted BOOLEAN DEFAULT false,"
     + "id SERIAL PRIMARY KEY,"
     + "FOREIGN KEY (poll_id) REFERENCES polls(id)"
     + ")"
