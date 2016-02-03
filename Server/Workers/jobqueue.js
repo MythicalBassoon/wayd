@@ -1,6 +1,7 @@
 var redis = require('redis');
 var Queue = require('./queue.js');
 var template = require('./template').template
+var gmail = require('./apikeys').gmail
 if(process.env.DEPLOYED){
 var client = redis.createClient('6379', 'redis');
 
@@ -17,7 +18,7 @@ var emailQueue = new Queue('jobs', client);
 var nodemailer = require('nodemailer');
 
 // create reusable transporter object using the default SMTP transport
-var transporter = nodemailer.createTransport('smtps://waydhomie%40gmail.com:shafique@smtp.gmail.com');
+var transporter = nodemailer.createTransport(gmail);
 
 
 

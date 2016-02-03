@@ -56,7 +56,7 @@ const Login = React.createClass({
   
   console.log('facebook data', info)
 
-  var url = `http://192.168.99.100/api/users`;
+  var url = `http://104.236.40.104/api/users`;
 
   var obj = {  
   method: 'POST',
