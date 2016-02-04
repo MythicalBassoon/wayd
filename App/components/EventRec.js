@@ -3,8 +3,8 @@ const moment = require('moment')
 const Email = require('../containers/Email')
 const EventRect = require('../containers/EventRec')
 const EventTabBar = require('./helpers/EventTabBar.js')
-
 const MK = require('react-native-material-kit')
+const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
 const {
   mdl,
   MKColor
@@ -37,7 +37,7 @@ const EventRec = React.createClass({
   //submits date and time information for worker rendering
   submitToServer: function(){
     
-    var url = `http://104.236.40.104/api/events/${this.props.prevData.latlng}/${JSON.stringify(this.props.prevData.date)}`
+    var url = `${host}api/events/${this.props.prevData.latlng}/${JSON.stringify(this.props.prevData.date)}`
     console.log('MARK', url)
     fetch(url, {method: "GET"})
     .then((response) => response.json())

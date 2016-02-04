@@ -3,6 +3,7 @@ const MK = require('react-native-material-kit')
 const Separator = require('./helpers/separator.js')
 const Error = require('./Error')
 const Success = require('./Success')
+const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
 
 const {
   StyleSheet,
@@ -48,7 +49,8 @@ const Email = React.createClass({
     console.log("sending event:", this.props.currentEvent);
     this.props.loadingPoll(true);
 
-    fetch('http://104.236.40.104/api/polls', {
+
+    fetch(host + 'api/polls', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
