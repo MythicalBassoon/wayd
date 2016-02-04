@@ -77,12 +77,10 @@ const Login = React.createClass({
 }
 
    fetch(url, obj)
-    .then((response) => {
-      console.log(response);
-      response.json();
-    })
+    .then((response) => 
+      response.json()
+    )
     .then((responseData) => {
-      console.log('response data is', responseData);
       this.props.user_set(responseData[0]['id'], info['last_name'],info['first_name'], info['email']);
     
 
