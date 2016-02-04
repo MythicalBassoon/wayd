@@ -40,10 +40,21 @@ const Email = React.createClass({
   },
 
   addEmail: function() {
+    var re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+    console.log('re', re)
+    var currentEmail = this.state.email
+
+    if (currentEmail && re.test(currentEmail) ) {
+
     var email = this.state.email;
     console.log('email getting dispatched is...', email)
     this.props.addEmail(email);
+    
+    } else {
+      console.log('invalid email')
+    }
   },
+
 
 
   sendPoll: function() {
@@ -143,7 +154,8 @@ const Email = React.createClass({
               </TouchableHighlight>
             
 
-             <TextEmail onChangeText={(text) => this.setState({email:text})}/>
+             <TextEmail 
+             onChangeText={(text) => this.setState({email:text})}/>
 
               <TouchableHighlight
                 style={styles.button}
