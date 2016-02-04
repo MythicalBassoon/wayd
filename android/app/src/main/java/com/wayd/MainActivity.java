@@ -1,6 +1,8 @@
 package com.wayd;
 
 import com.facebook.react.ReactActivity;
+import com.github.xinthink.rnmk.ReactMaterialKitPackage;
+import com.AirMaps.AirPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 
@@ -34,6 +36,8 @@ public class MainActivity extends ReactActivity {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-        new MainReactPackage());
+        new MainReactPackage(),
+        new ReactMaterialKitPackage(),
+        new AirPackage());
     }
 }

@@ -22,9 +22,8 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		3435F01D4A89D09DBB105C71 /* Pods_wayd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2E095BB5339588E13CFDBDC /* Pods_wayd.framework */; };
-		40F1AC951C61BBBF00672160 /* libReactNativeIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40F1AC941C61BB4400672160 /* libReactNativeIcons.a */; };
-		40F1AC971C61C94100672160 /* FontAwesomeKit in Resources */ = {isa = PBXBuildFile; fileRef = 40F1AC961C61C94100672160 /* FontAwesomeKit */; };
 		795FDBD01C602BAB00CB8EE0 /* SimpleAuthWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 795FDBCE1C602BAB00CB8EE0 /* SimpleAuthWrapper.m */; };
+		798A59B01C62FB4A003B227C /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 798A59A41C62FB37003B227C /* libAirMaps.a */; };
 		799FE60A1C6145A300D41B5D /* libRCTMaterialKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 799FE6031C61458100D41B5D /* libRCTMaterialKit.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 /* End PBXBuildFile section */
@@ -93,19 +92,19 @@
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
 		};
-		40F1AC931C61BB4400672160 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 40F1AC841C61BB4400672160 /* ReactNativeIcons.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 2F5A3EB81ACDBF8000439386;
-			remoteInfo = ReactNativeIcons;
-		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RCTLinking;
+		};
+		798A59A31C62FB37003B227C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 798A599F1C62FB36003B227C /* AirMaps.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 11FA5C511C4A1296003AC2EE;
+			remoteInfo = AirMaps;
 		};
 		799FE6021C61458100D41B5D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -143,12 +142,11 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = wayd/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = wayd/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
-		40F1AC841C61BB4400672160 /* ReactNativeIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeIcons.xcodeproj; path = "../node_modules/react-native-icons/ios/ReactNativeIcons.xcodeproj"; sourceTree = "<group>"; };
-		40F1AC961C61C94100672160 /* FontAwesomeKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FontAwesomeKit; path = "../node_modules/react-native-icons/ios/ReactNativeIcons/Libraries/FontAwesomeKit"; sourceTree = "<group>"; };
 		70BF00093D88F27CAE986521 /* Pods-wayd.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wayd.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-wayd/Pods-wayd.debug.xcconfig"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		795FDBCE1C602BAB00CB8EE0 /* SimpleAuthWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SimpleAuthWrapper.m; path = "../node_modules/react-native-simple-auth/iOS/SimpleAuthWrapper.m"; sourceTree = "<group>"; };
 		795FDBCF1C602BAB00CB8EE0 /* SimpleAuthWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleAuthWrapper.h; path = "../node_modules/react-native-simple-auth/iOS/SimpleAuthWrapper.h"; sourceTree = "<group>"; };
+		798A599F1C62FB36003B227C /* AirMaps.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		799FE5FA1C61458000D41B5D /* RCTMaterialKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTMaterialKit.xcodeproj; path = "../node_modules/react-native-material-kit/iOS/RCTMaterialKit.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		C2E095BB5339588E13CFDBDC /* Pods_wayd.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wayd.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,7 +165,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40F1AC951C61BBBF00672160 /* libReactNativeIcons.a in Frameworks */,
+				798A59B01C62FB4A003B227C /* libAirMaps.a in Frameworks */,
 				799FE60A1C6145A300D41B5D /* libRCTMaterialKit.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -290,18 +288,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		40F1AC851C61BB4400672160 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				40F1AC941C61BB4400672160 /* libReactNativeIcons.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				78C398B91ACF4ADC00677621 /* libRCTLinking.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		798A59A01C62FB36003B227C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				798A59A41C62FB37003B227C /* libAirMaps.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -317,7 +315,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				40F1AC841C61BB4400672160 /* ReactNativeIcons.xcodeproj */,
+				798A599F1C62FB36003B227C /* AirMaps.xcodeproj */,
 				799FE5FA1C61458000D41B5D /* RCTMaterialKit.xcodeproj */,
 				795FDBCE1C602BAB00CB8EE0 /* SimpleAuthWrapper.m */,
 				795FDBCF1C602BAB00CB8EE0 /* SimpleAuthWrapper.h */,
@@ -346,7 +344,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				40F1AC961C61C94100672160 /* FontAwesomeKit */,
 				13B07FAE1A68108700A75B9A /* wayd */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* waydTests */,
@@ -445,6 +442,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 798A59A01C62FB36003B227C /* Products */;
+					ProjectRef = 798A599F1C62FB36003B227C /* AirMaps.xcodeproj */;
+				},
+				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
 				},
@@ -487,10 +488,6 @@
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
-				},
-				{
-					ProductGroup = 40F1AC851C61BB4400672160 /* Products */;
-					ProjectRef = 40F1AC841C61BB4400672160 /* ReactNativeIcons.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -558,18 +555,18 @@
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		40F1AC941C61BB4400672160 /* libReactNativeIcons.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libReactNativeIcons.a;
-			remoteRef = 40F1AC931C61BB4400672160 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRCTLinking.a;
 			remoteRef = 78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		798A59A41C62FB37003B227C /* libAirMaps.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAirMaps.a;
+			remoteRef = 798A59A31C62FB37003B227C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		799FE6031C61458100D41B5D /* libRCTMaterialKit.a */ = {
@@ -600,7 +597,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40F1AC971C61C94100672160 /* FontAwesomeKit in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);

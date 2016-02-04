@@ -87,6 +87,7 @@ const Search = React.createClass({
           enablePoweredByContainer={false}
           fetchDetails={true}
           onPress={(data, details) => { // 'details' is provided when fetchDetails = true
+          console.log('STUFF HAPPENING')
             var lat = details.geometry.location.lat;
             var lng = details.geometry.location.lng;
             this.props.latlngadd(lat,lng);

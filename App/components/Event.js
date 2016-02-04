@@ -41,6 +41,8 @@ class Event extends React.Component{
         <Image style={styles.image} source={{uri: this.props.apiresults[0].image_medium}}/>
         <Text style={styles.name}> {this.props.apiresults[0].title} </Text>
         <Text style={styles.handle}> {this.props.apiresults[0].address} </Text>
+
+            
       </View>
     )
   }
