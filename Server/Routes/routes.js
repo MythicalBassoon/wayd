@@ -17,7 +17,7 @@ var checkVoted = require('../Models/pollModel').checkVoted
 var toggleVoted = require('../Models/pollModel').toggleVoted
 var checkIfComplete = require('../Models/pollModel').checkIfComplete
 var retrievePollEmails = require('../Models/pollModel').retrievePollEmails
-var host = process.env.DEPLOYED ? 'http://104.236.40.10:' : 'http://localhost:'
+var host = process.env.DEPLOYED ? 'http://104.236.40.104:' : 'http://localhost:'
 
 
 

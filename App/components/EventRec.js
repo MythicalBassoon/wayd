@@ -4,7 +4,7 @@ const Email = require('../containers/Email')
 const EventRect = require('../containers/EventRec')
 const EventTabBar = require('./helpers/EventTabBar.js')
 const MK = require('react-native-material-kit')
-const host = process.env.DEPLOYED ? 'http://104.236.40.10/' : 'http://localhost:3000/'
+const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
 const {
   mdl,
   MKColor
