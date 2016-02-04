@@ -3,6 +3,7 @@ const EventRec = require('../containers/EventRec')
 const Moment = require('moment')
 const SearchTabBar = require('./helpers/SearchTabBar.js')
 
+ 
 const {
   StyleSheet,
   ListView,
@@ -26,7 +27,7 @@ var API_KEY_GOOGLE = require('../../apikeys').google_api_key;
 const Search = React.createClass({
   //changes redux.state.date
   onDateChange: function(date){
-    // console.log('datechange', date)
+    // console.log('datechange', JSON.stringify(date))
     this.props.timechange(date);
   },
 
@@ -47,9 +48,6 @@ const Search = React.createClass({
   },
 
   componentDidMount: function() {
-
-    console.log('search props are', this.props);
-
     // figure out for automatic geolocation findering without search
     // console.log('mounted...')
     // navigator.geolocation.getCurrentPosition(function(position) {
@@ -116,7 +114,7 @@ const Search = React.createClass({
               borderBottomColor: 'white',
               borderTopWidth: 0,
               borderBottomWidth: 0,
-              marginTop: 20
+              marginTop: 10
             },
             textInput: {
               backgroundColor: 'rgba(125,125,125,0.1)',
@@ -151,52 +149,7 @@ const Search = React.createClass({
 
         ></GooglePlacesAutocomplete>
 
-        <Text style={styles.bodytext}> when you wanna do it?</Text> 
-    
-
-          <View style={styles.sliderView}>
-            <Text style={styles.bodytext} >
-              {this.state.value}
-            </Text>
-            <SliderIOS
-              ref='slider'
-              style={styles.slider}
-              value={1}
-              minimumValue={1}
-              maximumValue={3}
-              onValueChange={(value) => {
-                var val = JSON.stringify(Math.round(value));
-                console.log(typeof val)
-                var txt = {1: "today", 2: "tomorrow", 3: "this weekend"}
-                var day = txt[val]
-                console.log('slider props', this.state, typeof val)
-
-                //dispatch action on picker
-                if (val === "1") {
-                  console.log('time change to be called')
-                  
-                  this.props.timechange(JSON.parse(JSON.stringify(new Date())))
-
-                } else if (val === '2') {
-                   var tomorrow = JSON.parse(JSON.stringify(Moment(new Date()).add(1, 'days')));
-                  console.log('tomorrow', tomorrow)
-                  this.props.timechange(tomorrow)
-                }
-
-                this.setState({
-                  value: day
-                });
-              }} />
-          </View>  
-
-
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.showDatePicker}
-          underlayColor = "tranparent">
-          <Text style={styles.buttonText}> show date picker </Text> 
-        </TouchableHighlight>
-        
+        <Text style={styles.bodytext}> When you wanna do stuff? </Text>
         <DatePickerIOS
           style= {styles.datePicker}
           date={this.props.date}
@@ -212,7 +165,7 @@ const Search = React.createClass({
           <Text style={styles.buttonText}> find an event </Text> 
         </TouchableHighlight>
         
-        <SearchTabBar/>
+        
 
       </View>
 
@@ -269,7 +222,8 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 1,
     borderRadius: 0,
-    marginBottom: 10,
+    marginBottom: 20,
+    marginTop: 20,
     marginLeft: 30,
     marginRight: 30,
     marginTop: 10,
@@ -291,19 +245,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     flex: .5
   },
-  slider: {
-    marginLeft: 30,
-    marginRight: 30,
-  },
-  slidertext: {
-    marginBottom: 10,
-    marginTop: 10,
-    fontSize: 15,
-    textAlign: 'center',
-    color: '#607D8B'
-  },
   datePicker: {
-    height: 0 
+    height: 10,
+    marginBottom: 150
   }
 
 })

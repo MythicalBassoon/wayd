@@ -4,7 +4,7 @@ const Email = require('../containers/Email')
 const EventRect = require('../containers/EventRec')
 const EventTabBar = require('./helpers/EventTabBar.js')
 const MK = require('react-native-material-kit')
-const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
+const host = process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
 const {
   mdl,
   MKColor
@@ -36,9 +36,13 @@ const EventRec = React.createClass({
   
   //submits date and time information for worker rendering
   submitToServer: function(){
-    
-    var url = `${host}api/events/${this.props.prevData.latlng}/${JSON.stringify(this.props.prevData.date)}`
-    console.log('MARK', url)
+
+    var loc = this.props.prevData.latlng
+    var timeframe = JSON.stringify(this.props.prevData.date)
+
+    var url = `${host}api/events/?loc=${loc}&timeframe=${timeframe}`
+    console.log('url', url)
+
     fetch(url, {method: "GET"})
     .then((response) => response.json())
     .then((responseData) => {
@@ -54,7 +58,13 @@ const EventRec = React.createClass({
   },
 
   no: function() {
-    this.props.popEvent() 
+    if (this.props.apiresults.length === 0) {
+      this.props.loadingscreen(true);
+      this.submitToServer()
+    } else {
+
+      this.props.popEvent() 
+    }
   },
 
   yes: function() {
@@ -73,6 +83,7 @@ const EventRec = React.createClass({
       case true:
         return(
           <View style= {styles.spinnerContainer}>
+              <Text style={styles.title}> Looking for cool things to do... </Text>
               <SingleColorSpinner/>
           </View>
         )
@@ -90,6 +101,7 @@ const EventRec = React.createClass({
               <Image style={styles.image} source={{uri: event.image_medium}}/>
               <Text style={styles.title}> {event.title} </Text>
               <Text style={styles.bodytext}> {event.address} </Text>
+              <Text style={styles.bodytext}> {event.city} </Text>
               <Text style={styles.bodytext}> { moment(event.start_time).calendar() } </Text>
 
               <TouchableHighlight
@@ -107,7 +119,7 @@ const EventRec = React.createClass({
               </TouchableHighlight>
             </View>
 
-            <EventTabBar/>
+            
           </View>
         )
     }
@@ -166,8 +178,8 @@ const styles = StyleSheet.create({
     color: 'blue',
     width: 50,
     height: 50,
-    marginLeft: 150,
-    marginRight: 150
+    marginLeft: 170,
+    marginRight: 170
   },
   spinnerContainer: {
     flex: 1,

@@ -3,6 +3,7 @@ const MK = require('react-native-material-kit')
 const Separator = require('./helpers/separator.js')
 const Error = require('./Error')
 const Success = require('./Success')
+
 const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
 
 const {
@@ -105,6 +106,7 @@ const Email = React.createClass({
 
         console.log(list);
         return (
+          <View style={styles.Container}>
           <View style = {styles.mainContainer}>
 
            <TextEmail onChangeText={(text) => this.setState({email:text})}/>
@@ -126,7 +128,11 @@ const Email = React.createClass({
               underlayColor = "tranparent">
               <Text style={styles.buttonText}>Send to Friends!</Text> 
             </TouchableHighlight>
+          
           </View>
+          
+          </View>
+
           )
 
       case true:
@@ -138,6 +144,7 @@ const Email = React.createClass({
                 color = '#111'
                 size = 'large'>
               </ActivityIndicatorIOS>
+
           </View>
           )
 
@@ -159,6 +166,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     backgroundColor: 'white'
+  },
+  Container: {
+    flex: 1,
+    padding: 0
   },
 
   bodytext: {

@@ -20,11 +20,11 @@ module.exports = {
         // var eventDate = moment(timeframe).format('YYYYMMDD').toString()
 
     //using non-moment formatting
-    var today = dateFormater(new Date())
+    // var today = dateFormater(new Date())
     // console.log('today', today)
     var eventDate = dateFormater(timeframe)
-    console.log('date for api',today, eventDate)
-    var time = `t=${today}-${eventDate}` // look between now and the date given
+    console.log('date for api', eventDate)
+    var time = `t=${eventDate}-${eventDate}` // look between now and the date given
     var url ='http://api.eventful.com/json/events/search/?'
     
     if(latlng.split(",").length !== 2){
@@ -32,7 +32,7 @@ module.exports = {
     }
     var loc = 'where=' + latlng
     var range = 'within=.5'
-    var pageSize = 'page_size=25'
+    var pageSize = 'page_size=30'
 
     var categories = 'c=' + ['music', 'comedy', 'conference', 'learning_education', 'family_fun_kids', 'festival_parades', 'movies_film', 'food', 'fundraisers', 'art', 'support', 'holiday', 'books', 'attractions', 'community', 'singles_social', 'schools_alumni', 'clubs_associations', 'outdoors_recreation', 'performing_arts', 'animals', 'sales', 'science', 'religion_spirituality', 'sports', 'technology'].join(',')
 
@@ -73,7 +73,7 @@ module.exports = {
               image_medium: event.image !== null ? event.image.medium.url : null
             }
 
-          });
+          })
 
           newresults = shuffle(newresults)
           // console.log(newresults)
