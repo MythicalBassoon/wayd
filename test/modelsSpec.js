@@ -148,15 +148,6 @@ describe('Database Models', function(){
     console.log("Testing Complete");
   });
 
-  describe('Poll Model', function(){
-    it('should insert a poll into the database', function(){
-      expect(2).to.equal(2);
-    });
-    it('should retrieve one poll from the database', function(){
-      expect(2).to.equal(2);
-    });
-  });
-
   describe('Event Model', function(){
     it('should insert an event to the database and return an id', function(done){
       eventModel.insertEvent(sampleEventObj, function(err, eventid){
