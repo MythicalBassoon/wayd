@@ -23,11 +23,11 @@ module.exports.insertUser = function(user, callback, database){
   //insert poll into polls table
   return db.query(queryString.insertUser, queryParameters)
     .then(function(userId) {
-      console.log('inserted user id is', userId);
+      //console.log('inserted user id is', userId);
       return callback(null, userId);
     })
     .catch(function(error){
-      console.log('error inserting user to db, error is:', error);
-      return callback(error);
+      //console.log('error inserting user to db, error is:', error);
+      return callback(error, null);
     });
 }

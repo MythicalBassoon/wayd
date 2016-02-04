@@ -43,31 +43,31 @@ var sampleEventObj = {
   image_thumb: 'http://image_thumb', 
   image_medium: 'http://image_medium'
  }
-
+// this is something to look into and check
 var sampleUserObj = {
-  first_name: 'TestUserFirst',
-  last_name: 'TestUserLast',
-  user_name: 'TestUserName',
-  password: 'TestPassword',
+  user_first_name: 'TestUserFirst',
+  user_last_name: 'TestUserLast',
+  user_email: 'TestUserName',
+  user_id: 'TestPassword',
   access_token: '12345'
 }
 
 var existingUserObj = {
-  first_name: 'initFirstName', 
-  last_name: 'initLastName', 
-  user_name: 'initUserName', 
-  password: 'password', 
+  user_first_name: 'initFirstName', 
+  user_last_name: 'initLastName', 
+  user_email: 'initUserName', 
+  user_id: 'password', 
   access_token: 'access'
 }
 
-var sampleEmail = {
+var sampleEmailObj = {
   email: 'testemail@gmail.com',
-  poll_id: 1
+  poll_id: existingPollID
 }
 
-var samplePoll = {
-  event_id: 1,
-  user_id: 1,
+var samplePollObj = {
+  event_id: existingEventID,
+  user_id: existingUserID,
   num_participants: 5,
   yes_count: 2,
   no_count: 3
@@ -203,7 +203,6 @@ describe('Database Models', function(){
         expect(userid).to.exist;
         return db.query('select * from users')
         .then(function(rows) {
-          console.log(rows);
           expect(rows.length).to.equal(2);
         }).then(function(){
           done();
@@ -216,8 +215,22 @@ describe('Database Models', function(){
       userModel.insertUser(existingUserObj, function(err, userid){
         return db.query('select * from users')
         .then(function(rows) {
-          console.log(rows);
           expect(rows.length).to.equal(1);
+        }).then(function(){
+          done();
+        }).catch(function(err){
+          console.log(err);
+        })
+      }, db)
+    });
+  });
+  describe('Email Model', function(){
+    it('should insert an email to the database and return an id', function(done){
+      emailModel.insertEmail(sampleEmailObj['email'], 1, sampleEmailObj['poll_id'], function(err, emailid){
+        expect(emailid).to.exist;
+        return db.query('select * from emails')
+        .then(function(rows) {
+          expect(rows.length).to.equal(2);
         }).then(function(){
           done();
         }).catch(function(err){
