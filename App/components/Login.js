@@ -1,5 +1,6 @@
 const React = require('react-native')
 const Search = require('../containers/Search')
+const LoginError = require('./LoginError')
 let simpleAuthClient = require('react-native-simple-auth');
 const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
 
@@ -76,11 +77,11 @@ const Login = React.createClass({
 }
 
    fetch(url, obj)
-    .then((response) => response.json())
+    .then((response) => 
+      response.json()
+    )
     .then((responseData) => {
-      console.log('response data is', responseData);
       this.props.user_set(responseData[0]['id'], info['last_name'],info['first_name'], info['email']);
-    
 
           this.props.navigator.push({
               title: 'Search',
@@ -91,6 +92,12 @@ const Login = React.createClass({
           let errorCode = error.code;
           let errorDescription = error.description;
         });
+    }).catch((error) =>{
+      console.log('outter error', error);
+      this.props.navigator.push({
+              title: 'LoginError',
+              component: LoginError
+            });
     })
     
     .done();
