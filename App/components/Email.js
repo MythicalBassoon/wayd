@@ -93,7 +93,7 @@ const Email = React.createClass({
   },
   
   render: function() {
-    console.log('email component render..')
+    console.log('email component render.. props are', this)
     console.log('props are', this);
 
     var that = this;
@@ -115,12 +115,12 @@ const Email = React.createClass({
 
                     onPress = {function() {
                       var child = this.children.props.children
-                      console.log('delete email',child)
-                      that.props.delEmail(child)
+                      console.log('delete email',this.children.key)
+                      that.props.delEmail(this.children.key)
                     }}
 
                     underlayColor = "tranparent">
-                    <Text style={styles.emailHide}>{email}</Text>
+                    <Text key={index}style={styles.fakeBtn}>x</Text>
                   </TouchableHighlight>
       
                 </View>
@@ -129,11 +129,19 @@ const Email = React.createClass({
             )
           });
 
-        console.log(list);
+      
         return (
           <View style={styles.Container}>
             <View style = {styles.mainContainer}>
+              <View style={styles.topSection}>
 
+               <TouchableHighlight
+                style={styles.button}
+                onPress = {this.sendPoll}
+                underlayColor = "tranparent">
+                <Text style={styles.buttonText}>Send to Friends!</Text> 
+              </TouchableHighlight>
+            
 
              <TextEmail onChangeText={(text) => this.setState({email:text})}/>
 
@@ -144,17 +152,14 @@ const Email = React.createClass({
                 <Text style={styles.buttonText}> Add Email </Text> 
               </TouchableHighlight>
 
-              <ScrollView style={styles.container}>
+            </View>
+
+              <ScrollView style={styles.bottomSection}  
+              onScroll={() => { console.log('onScroll!'); }}>
                 {list.length > 0 ? list : <View></View>}
               </ScrollView>
 
-              <TouchableHighlight
-                style={styles.button}
-                onPress = {this.sendPoll}
-                underlayColor = "tranparent">
-                <Text style={styles.buttonText}>Send to Friends!</Text> 
-              </TouchableHighlight>
-            
+           
             </View>
           </View>
           )
@@ -233,9 +238,16 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
   },
-  emailHide: {
+  fakeBtn: {
     backgroundColor: '#ECEFF1',
-    color:  '#ECEFF1'
+    color: '#ECEFF1',
+    height: 40,
+  },
+  topSection: {
+    flex: .3
+  },
+  bottomSection: {
+    flex: .7
   }
 
   

@@ -26,27 +26,16 @@ module.exports = function addEmail(state = initialState, action) {
 
   case 'DEL_EMAIL':
     console.log('deleting email in reducer', action.emailAddress,' email arr', state.emails);
-    
-    //     var currentEvent = state.apiresults.slice(-1)[0]
-    // var newApiRes = state.apiresults.slice(1, state.apiresults.length-1)
-
-    var idx = state.emails.indexOf(action.emailAddress);
-    console.log('i',idx)
+    var idx = Number(action.emailAddress)
     var newemails = state.emails.slice(0, idx)
     var rest = state.emails.slice(idx+1)
+    console.log('rest', rest)
     var revised = newemails.concat(rest)
-    console.log('newemails 1', newemails, 'rest', rest, 'new', revised)
-
-
+    console.log('newemails', newemails, 'revised', revised)
     return {
       ...state,
         emails: revised
     };
-
-
-
-
-
 
   default:
     return state
