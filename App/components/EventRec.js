@@ -41,7 +41,8 @@ const EventRec = React.createClass({
     var timeframe = JSON.stringify(this.props.prevData.date)
 
     var url = `http://localhost:3000/api/events/?loc=${loc}&timeframe=${timeframe}`
-   
+    console.log('url', url)
+
     fetch(url, {method: "GET"})
     .then((response) => response.json())
     .then((responseData) => {
@@ -110,7 +111,7 @@ const EventRec = React.createClass({
               </TouchableHighlight>
             </View>
 
-            <EventTabBar/>
+            
           </View>
         )
     }

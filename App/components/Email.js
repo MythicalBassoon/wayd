@@ -130,7 +130,7 @@ const Email = React.createClass({
             </TouchableHighlight>
           
           </View>
-          <EmailTabBar/>
+          
           </View>
 
           )

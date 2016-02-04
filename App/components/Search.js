@@ -149,55 +149,6 @@ const Search = React.createClass({
 
         ></GooglePlacesAutocomplete>
 
-        <Text style={styles.bodytext}> when you wanna do it?</Text> 
-    
-
-          <View style={styles.sliderView}>
-            <Text style={styles.bodytext} >
-              {this.state.value}
-            </Text>
-            <SliderIOS
-              ref='slider'
-              style={styles.slider}
-              value={1}
-              minimumValue={1}
-              maximumValue={3}
-              onValueChange={(value) => {
-                var val = JSON.stringify(Math.round(value));
-                console.log(typeof val)
-                var txt = {1: "today", 2: "tomorrow", 3: "this weekend"}
-                var day = txt[val]
-                console.log('slider props', this.state, typeof val)
-
-                //dispatch action on picker
-                if (val === "1") {
-                  console.log('time change to be called')
-                  
-                  this.props.timechange(JSON.parse(JSON.stringify(new Date())))
-
-                } else if (val === '2') {
-                   var tomorrow = JSON.parse(JSON.stringify(Moment(new Date()).add(1, 'days')));
-                  console.log('tomorrow', tomorrow)
-                  this.props.timechange(tomorrow)
-                }
-
-                this.setState({
-                  value: day
-                });
-              }} />
-          </View>  
-
-
-  
-
-
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.showDatePicker}
-          underlayColor = "tranparent">
-          <Text style={styles.buttonText}> show date picker </Text> 
-
-        </TouchableHighlight>
         
         <DatePickerIOS
           style= {styles.datePicker}
@@ -214,8 +165,7 @@ const Search = React.createClass({
           <Text style={styles.buttonText}> find an event </Text> 
         </TouchableHighlight>
         
-        <SearchTabBar/>
-
+      
       </View>
 
     )
@@ -271,7 +221,7 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 1,
     borderRadius: 0,
-    marginBottom: 10,
+    marginBottom: 100,
     marginLeft: 30,
     marginRight: 30,
     marginTop: 10,
@@ -305,7 +255,8 @@ const styles = StyleSheet.create({
     color: '#607D8B'
   },
   datePicker: {
-    height: 80
+    height: 80,
+    marginBottom: 150
   },
     facebook: {
     flex: 1,
