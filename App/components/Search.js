@@ -181,7 +181,7 @@ Search.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 0,
     paddingTop: 40,
     backgroundColor: 'white',
     marginTop: 40,
@@ -213,6 +213,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 15,
+    paddingTop: 10,
     color: '#111',
     alignSelf: 'center'
   },
