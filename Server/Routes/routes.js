@@ -17,6 +17,8 @@ var checkVoted = require('../Models/pollModel').checkVoted
 var toggleVoted = require('../Models/pollModel').toggleVoted
 var checkIfComplete = require('../Models/pollModel').checkIfComplete
 var retrievePollEmails = require('../Models/pollModel').retrievePollEmails
+var host = process.env.DEPLOYED ? 'http://104.236.40.10:' : 'http://localhost:'
+
 
 
 // ROUTE TO RETRIEVE API(S) DATA 
@@ -94,7 +96,7 @@ router.route('/polls')
             }
 
             request({
-              uri: 'http://104.236.40.104:4568/jobs',
+              uri: host + '4568/jobs',
               headers: {'Content-type': 'application/json'},
               method: 'POST',
               body: JSON.stringify(emailObj)
@@ -205,7 +207,7 @@ router.route('/polls/yes/:emailId')
                   }
                   console.log('about to make individual request to email server', emailObj);
                   request({
-                    uri: 'http://localhost:4568/jobs',
+                    uri: host + '4568/jobs',
                     headers: {'Content-type': 'application/json'},
                     method: 'POST',
                     body: JSON.stringify(emailObj)
@@ -280,7 +282,7 @@ router.route('/polls/no/:emailId')
                   }
                   console.log('about to make individual request to email server', emailObj);
                   request({
-                    uri: 'http://localhost:4568/jobs',
+                    uri: host + '4568/jobs',
                     headers: {'Content-type': 'application/json'},
                     method: 'POST',
                     body: JSON.stringify(emailObj)

@@ -1,7 +1,7 @@
 const React = require('react-native')
 const Search = require('../containers/Search')
 let simpleAuthClient = require('react-native-simple-auth');
-
+const host = process.env.DEPLOYED ? 'http://104.236.40.10/' : 'http://localhost:3000/'
 
 const MK = require('react-native-material-kit')
 const {
@@ -56,7 +56,8 @@ const Login = React.createClass({
   
   console.log('facebook data', info)
 
-  var url = `http://104.236.40.104/api/users`;
+  var url = `${host}api/users`;
+  console.log(url);
 
   var obj = {  
   method: 'POST',
