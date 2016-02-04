@@ -2,6 +2,7 @@
 
 var express = require('express');
 var router = express.Router();
+var path = require('path');
 var apiController = require('../Controllers/api.js')
 
 var insertEvent = require('../Models/eventModel').insertEvent
@@ -86,7 +87,7 @@ router.route('/polls')
           res.send(404)
         }
         for(var i = 0;i<pollInfo.emails.length;i++){
-          insertEmail(pollInfo.emails[i], i, pollId[pollId.length-1]['id'], function(err, emailId, i){
+          insertEmail(pollInfo.emails[i], i, pollId[pollId.length-1]['id'], function(err, email, i){
             if(err){
               res.send(404)
             }
@@ -95,7 +96,8 @@ router.route('/polls')
               to: pollInfo.emails[i],
               user: pollInfo.user.userFirstName + ' '+ pollInfo.user.userLastName,
               eventInfo: eventInfo,
-              othersInvited: pollInfo.emails.slice(0,i).concat(pollInfo.emails.slice(i+1))
+              othersInvited: pollInfo.emails.slice(0,i).concat(pollInfo.emails.slice(i+1)),
+              emailId: email[0].id
             }
 
             request({
@@ -148,7 +150,7 @@ router.route('/polls')
 
 // ROUTE TO CALCULATE POLL STATUS
 router.route('/polls/:id')
-  .put(function(req, res){
+  .post(function(req, res){
     // updated poll count in poll table
       // if poll complete, send email to everyone
       // or send poll results to everyone as of now
@@ -158,7 +160,9 @@ router.route('/polls/:id')
 //ROUTE TO INCREMENT YES VOTES FOR A POLL
 
 router.route('/polls/yes/:emailId')
-  .put(function(req,res){
+  .get(function(req,res){
+
+    console.log('yes vote recieved');
 
     //first check if user has voted
     var emailId = req.params.emailId
@@ -219,12 +223,12 @@ router.route('/polls/yes/:emailId')
                     console.log('post to email server made');
                   })
                 }
-                res.send('poll completed, final emails should be sent')
+                res.sendFile(path.join(__dirname, '../vote.html'));
               });
             }
 
             else {
-              res.send(voteCount);
+              res.sendFile(path.join(__dirname, '../vote.html'));
             }
           });
         });
@@ -235,7 +239,9 @@ router.route('/polls/yes/:emailId')
 //ROUTE TO INCREMENT YES VOTES FOR A POLL
 
 router.route('/polls/no/:emailId')
-   .put(function(req,res){
+   .get(function(req,res){
+
+    console.log('no vote recieved');
 
     //first check if user has voted
     var emailId = req.params.emailId
@@ -259,7 +265,7 @@ router.route('/polls/no/:emailId')
         toggleVoted(emailId, function(err, response) {
           console.log('toggle voted response is', response)
           if (err) {
-            return res.status(404).send('error toggling "voted" for email address')
+            return res.status(404).send('error toggling "voted" for email address, error is', err)
           }
           //check if number of total votes made = number of participants, if so, hit email server
           checkIfComplete(pollObj[0].poll_id, function(err, results) {
@@ -294,11 +300,11 @@ router.route('/polls/no/:emailId')
                     console.log('post to email server made');
                   })
                 }
-                res.send('poll completed, final emails should be sent')
+                res.sendFile(path.join(__dirname, '../vote.html'));
               });
             }
             else {
-              res.send(voteCount);
+              res.sendFile(path.join(__dirname, '../vote.html'));
             }
           });
         });
