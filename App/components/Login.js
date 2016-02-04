@@ -82,7 +82,6 @@ const Login = React.createClass({
     )
     .then((responseData) => {
       this.props.user_set(responseData[0]['id'], info['last_name'],info['first_name'], info['email']);
-    
 
           this.props.navigator.push({
               title: 'Search',
