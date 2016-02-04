@@ -131,7 +131,7 @@ const Email = React.createClass({
                     }}
 
                     underlayColor = "tranparent">
-                    <Text key={index}style={styles.fakeBtn}>x</Text>
+                    <Text key={index}style={styles.fakeBtn}></Text>
                   </TouchableHighlight>
       
                 </View>
@@ -252,8 +252,8 @@ const styles = StyleSheet.create({
   },
   fakeBtn: {
     backgroundColor: '#ECEFF1',
-    color: '#ECEFF1',
-    height: 40,
+    color: 'white',
+    height: 40
   },
   topSection: {
     flex: .3

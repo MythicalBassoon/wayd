@@ -49,7 +49,14 @@ const EventRec = React.createClass({
     fetch(url, {method: "GET"})
     .then((response) => response.json())
     .then((responseData) => {
-      console.log(responseData)
+    //testing for client side filtering
+      // console.log('res data time', responseData[0])
+      // console.log('res data time2', new Date(responseData[0].start_time))
+      // console.log('search date', new Date(this.props.prevData.date))
+      // var resData = responseData.filter(function(event){
+      //   if(event.start_time) 
+      // })
+
        this.props.getData(responseData)
        this.props.popEvent() 
     })
