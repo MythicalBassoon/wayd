@@ -59,6 +59,73 @@ getInitialState: function() {
   
   },
 
+  componentDidMount: function(){
+    simpleAuthClient.configure('facebook', {
+      app_id: API_KEY_FACEBOOK_APP
+    }).then(() => {
+      // Twitter is configured.
+      console.log('facebook configured successfully')
+
+    })
+
+ 
+  },
+
+  auth: function(){
+    console.log(simpleAuthClient)
+
+    simpleAuthClient.authorize('facebook').then((info) => {
+  
+  console.log('facebook data', info)
+
+  var url = `http://104.236.40.104/api/users`;
+
+  var obj = {  
+  method: 'POST',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    'user_id': info['id'],
+    'user_first_name': info['first_name'],
+    'user_last_name': info['last_name'],
+    'user_email': info['email']
+  })
+}
+
+   fetch(url, obj)
+    .then((response) => response.json())
+    .then((responseData) => {
+      this.props.user_set(responseData[0]['id'], info['last_name'],info['first_name'], info['email']);
+    
+
+          this.props.navigator.push({
+              title: 'Search',
+              component: Search
+            });
+        }).catch((error) => {
+          console.log('ERR', error)
+          let errorCode = error.code;
+          let errorDescription = error.description;
+        });
+    })
+    
+    .done();
+
+
+
+ 
+
+//     simpleAuthClient.authorize('google-web').then((info) => {
+//   console.log('google auth works', info)
+// }).catch((error) => {
+//   console.log('ERR', error)
+//   let errorCode = error.code;
+//   let errorDescription = error.description;
+// });
+  },
+
    onRegionChange: function(region){
     this.setState({ region: region });
   },
