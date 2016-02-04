@@ -114,7 +114,7 @@ const Search = React.createClass({
               borderBottomColor: 'white',
               borderTopWidth: 0,
               borderBottomWidth: 0,
-              marginTop: 20
+              marginTop: 10
             },
             textInput: {
               backgroundColor: 'rgba(125,125,125,0.1)',
@@ -149,7 +149,7 @@ const Search = React.createClass({
 
         ></GooglePlacesAutocomplete>
 
-        
+        <Text style={styles.bodytext}> When you wanna do stuff? </Text>
         <DatePickerIOS
           style= {styles.datePicker}
           date={this.props.date}
@@ -222,7 +222,8 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 1,
     borderRadius: 0,
-    marginBottom: 100,
+    marginBottom: 20,
+    marginTop: 20,
     marginLeft: 30,
     marginRight: 30,
     marginTop: 10,
@@ -244,26 +245,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     flex: .5
   },
-  slider: {
-    marginLeft: 30,
-    marginRight: 30,
-  },
-  slidertext: {
-    marginBottom: 10,
-    marginTop: 10,
-    fontSize: 15,
-    textAlign: 'center',
-    color: '#607D8B'
-  },
   datePicker: {
-    height: 80,
-    marginBottom: 250
-  },
-    facebook: {
-    flex: 1,
-    width: 40,
-    height: 40
-  },
+    height: 10,
+    marginBottom: 150
+  }
 
 })
 

@@ -58,7 +58,13 @@ const EventRec = React.createClass({
   },
 
   no: function() {
-    this.props.popEvent() 
+    if (this.props.apiresults.length === 0) {
+      this.props.loadingscreen(true);
+      this.submitToServer()
+    } else {
+
+      this.props.popEvent() 
+    }
   },
 
   yes: function() {
@@ -77,6 +83,7 @@ const EventRec = React.createClass({
       case true:
         return(
           <View style= {styles.spinnerContainer}>
+              <Text style={styles.title}> Looking for cool things to do... </Text>
               <SingleColorSpinner/>
           </View>
         )
@@ -94,6 +101,7 @@ const EventRec = React.createClass({
               <Image style={styles.image} source={{uri: event.image_medium}}/>
               <Text style={styles.title}> {event.title} </Text>
               <Text style={styles.bodytext}> {event.address} </Text>
+              <Text style={styles.bodytext}> {event.city} </Text>
               <Text style={styles.bodytext}> { moment(event.start_time).calendar() } </Text>
 
               <TouchableHighlight
@@ -170,8 +178,8 @@ const styles = StyleSheet.create({
     color: 'blue',
     width: 50,
     height: 50,
-    marginLeft: 180,
-    marginRight: 180
+    marginLeft: 170,
+    marginRight: 170
   },
   spinnerContainer: {
     flex: 1,
