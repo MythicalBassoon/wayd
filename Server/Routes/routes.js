@@ -243,7 +243,6 @@ router.route('/polls/yes/:emailId')
                     console.log('post to email server made');
                   })
                 }
-
                 res.send(voteTemplate(event.title, event.image_medium, event.description));
               });
   }
@@ -345,6 +344,7 @@ router.route('/polls/no/:emailId')
   }
 
             else {
+
               res.send(voteTemplate(event.title, event.image_medium, event.description));
             }
             });
