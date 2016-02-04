@@ -4,7 +4,8 @@ var db = require('../../DB/config.js');
 var queryString = require('../../DB/psql/index');
 
 
-module.exports.insertPoll = function(eventId, pollInfo, callback){
+module.exports.insertPoll = function(eventId, pollInfo, callback, database){
+  db = database || db;
 
   //hardcoding parameter values for testing purposes only!
 
@@ -33,6 +34,7 @@ module.exports.insertPoll = function(eventId, pollInfo, callback){
 }
 
   //putting this here for future use if we build view component showing current status of poll
+
 module.exports.checkIfComplete = function(pollId, callback){
 
   return db.query(queryString.getPollVoteObj, pollId)
@@ -143,4 +145,26 @@ module.exports.voteObj = function(pollId) {
             callback(error, null);
           });
 };
+
+  module.exports.getOnePoll = function(pollId, callback, database){
+    db = database || db;
+    //hadrcoding parameters below for testing purposes only!
+    // callback = function(x) {console.log(x)};
+    // pollId = 1;
+
+    return db.query(queryString.getOnePoll, pollId)
+      .then(function(poll) {
+        console.log('retrieved poll is', poll);
+        return callback(poll);
+      })
+      .catch(function(error){
+        console.log('error getting poll, error is:', error);
+        return callback(error, null);
+      });
+  }
+
+
+//module.exports.insertPoll();
+//module.exports.getOnePoll();
+
 

@@ -16,7 +16,9 @@ const {
   ActivityIndicatorIOS,
   SliderIOS,
   View,
-  TabBarIOS
+  TabBarIOS,
+  Modal,
+  Animated
 } = React
 
 // Node module import for Google API autocomplete (autocomplete only).
@@ -63,6 +65,9 @@ const Search = React.createClass({
   getInitialState: function() {
     return {
       value: 'today',
+      animated: true,
+      visible: false,
+      transparent: true
       // active: false
     }
   },
@@ -72,6 +77,14 @@ const Search = React.createClass({
     // this.props.datePicker()
 
 
+  },
+
+  showModal: function(){
+    this.setState({visible: true})
+  },
+
+  hideModal: function(){
+    this.setState({visible: false})
   },
 
 
@@ -151,13 +164,7 @@ const Search = React.createClass({
         ></GooglePlacesAutocomplete>
 
         <Text style={styles.bodytext}> When you wanna do stuff? </Text>
-        <DatePickerIOS
-          style= {styles.datePicker}
-          date={this.props.date}
-          // timeZoneOffsetInMinutes={(-1) * (new Date()).getTimezoneOffset()}
-          mode="date" // changed from 'datetime'
-          onDateChange={this.onDateChange}>
-        </DatePickerIOS>
+        
 
         <TouchableHighlight
           style={styles.button}
@@ -165,9 +172,34 @@ const Search = React.createClass({
           underlayColor = "tranparent">
           <Text style={styles.buttonText}> find an event </Text> 
         </TouchableHighlight>
-        
-        
-
+        <TouchableHighlight
+          style={styles.button}
+          onPress={this.showModal}
+          underlayColor = "tranparent">
+          <Text style={styles.buttonText}> Display Timepicker </Text> 
+        </TouchableHighlight>
+        <View>
+          <Modal
+            animated={this.state.animated}
+            transparent={this.state.transparent}
+            visible={this.state.visible}>
+            <View style={styles.datePickerContainer}>
+              <DatePickerIOS
+                style= {styles.datePicker}
+                date={this.props.date}
+                // timeZoneOffsetInMinutes={(-1) * (new Date()).getTimezoneOffset()}
+                mode="date" // changed from 'datetime'
+                onDateChange={this.onDateChange}>
+              </DatePickerIOS>
+              <TouchableHighlight
+                style={styles.button}
+                onPress={this.hideModal}
+                underlayColor = "tranparent">
+                <Text style={styles.buttonText}> Cancel </Text> 
+              </TouchableHighlight>
+            </View>
+          </Modal>
+        </View>
       </View>
 
     )
@@ -198,6 +230,12 @@ const styles = StyleSheet.create({
       marginLeft: 8,
       marginRight: 8,
       fontSize: 15,
+    },
+    datePicker:{
+      //flex: 1,
+      //flexDirection: 'column',
+      //alignItems:'flex-end',
+      backgroundColor: 'white'
     },
   newItem: {
     backgroundColor: '#FFFFFF',
@@ -247,11 +285,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     flex: .5
   },
-  datePicker: {
-    height: 10,
-    marginBottom: 150
+  datePickerContainer:{
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-end'
   }
-
 })
 
 module.exports = Search
