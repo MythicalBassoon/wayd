@@ -2,9 +2,11 @@ const React = require('react-native')
 const moment = require('moment')
 const Email = require('../containers/Email')
 const EventRect = require('../containers/EventRec')
+const Map = require('./Map')
+
 const EventTabBar = require('./helpers/EventTabBar.js')
 const MK = require('react-native-material-kit')
-const host = process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
+const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
 const {
   mdl,
   MKColor
@@ -67,6 +69,13 @@ const EventRec = React.createClass({
     }
   },
 
+   map: function() {
+    this.props.navigator.push({
+      title: 'Map',
+      component: Map
+    });
+  },
+
   yes: function() {
     console.log('yes')
     this.props.navigator.push({
@@ -117,6 +126,13 @@ const EventRec = React.createClass({
                 underlayColor = "tranparent">
                 <Text style={styles.buttonText}> no </Text> 
               </TouchableHighlight>
+
+              <TouchableHighlight
+          style={styles.button}
+          onPress={this.map}
+          underlayColor="tranparent">
+          <Text style={styles.buttonText}> FACEBOOK </Text> 
+        </TouchableHighlight>
             </View>
 
             

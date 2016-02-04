@@ -1,7 +1,6 @@
 const React = require('react-native')
 const Search = require('../containers/Search')
 let simpleAuthClient = require('react-native-simple-auth');
-const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
 
 
 const MK = require('react-native-material-kit')
@@ -24,19 +23,40 @@ const {
   Text,
   TextInput,
   TouchableHighlight,
-  View,
-  Image
+  View
 } = React
 
+var MapView = require('react-native-maps')
+console.log(MapView)
+
+
+//import MapView from 'react-native-maps';
 
 
 var API_KEY_FACEBOOK_APP = require('../../apikeys').facebook_app_api_key;
 
 
-const Login = React.createClass({
-  getInitialState: function() {
+const Map = React.createClass({
+getInitialState: function() {
     return {
-    }
+      region: {
+        latitude: 0,
+        longitude: 0,
+        latitudeDelta: 0,
+        longitudeDelta: 0,
+      }
+    };
+  },
+
+  componentWillMount: function(){
+
+
+    navigator.geolocation.getCurrentPosition(
+      (initialPosition) => console.log('GETTING CURRENT POSITION: ', initialPosition), // success callback
+      (error) => console.log('ERROR CURRENT POSITION', error), // failure callback
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000} // options
+    );
+  
   },
 
   componentDidMount: function(){
@@ -58,8 +78,7 @@ const Login = React.createClass({
   
   console.log('facebook data', info)
 
-  var url = `${host}api/users`;
-  console.log(url);
+  var url = `http://104.236.40.104/api/users`;
 
   var obj = {  
   method: 'POST',
@@ -78,7 +97,6 @@ const Login = React.createClass({
    fetch(url, obj)
     .then((response) => response.json())
     .then((responseData) => {
-      console.log('response data is', responseData);
       this.props.user_set(responseData[0]['id'], info['last_name'],info['first_name'], info['email']);
     
 
@@ -108,6 +126,10 @@ const Login = React.createClass({
 // });
   },
 
+   onRegionChange: function(region){
+    this.setState({ region: region });
+  },
+
   //should navigate to search page depending on login status. might need to change this later to be
   //a call of {{this.login()}} should happen in render, making a check to redux state.
   login: function(){
@@ -117,36 +139,15 @@ const Login = React.createClass({
     });
   },
 
-  render: function() {
-
-    return (
-      <View style = {styles.mainContainer}>
-
-        
-        <Text style= {styles.title}> WAYD </Text>
-        {/*
-        <Textfield1 value={this.state.username}/>
-
-        <Textfield2 value={this.state.username}/>
-
-
-        <Text style= {styles.buttonText}> or </Text>
-        */}
-
-
-        <TouchableHighlight
-          style={styles.facebook}
-          onPress={this.auth}
-          underlayColor="tranparent">
-          
-          
-          <Text style= {styles.buttonText}>  </Text>
-        </TouchableHighlight>
-
-
-      </View>
-    )
-  }
+  render() {
+  return (
+    <MapView 
+      style={styles.map}
+      region={this.state.region}
+      onRegionChange={this.onRegionChange}
+    />
+  );
+}
 })
 
 
@@ -158,6 +159,13 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     backgroundColor: 'white'
+  },
+  map: {
+    position: 'absolute',
+    top: 10,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
   title: {
     marginBottom: 20,
@@ -218,4 +226,4 @@ const Textfield2 = MKTextField.textfield()
 //   .build();
 //
 
-module.exports = Login
+module.exports = Map
