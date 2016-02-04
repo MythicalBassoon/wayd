@@ -20,11 +20,11 @@ module.exports = {
         // var eventDate = moment(timeframe).format('YYYYMMDD').toString()
 
     //using non-moment formatting
-    var today = dateFormater(new Date())
+    // var today = dateFormater(new Date())
     // console.log('today', today)
     var eventDate = dateFormater(timeframe)
-    console.log('date for api',today, eventDate)
-    var time = `t=${today}-${eventDate}` // look between now and the date given
+    console.log('date for api', eventDate)
+    var time = `t=${eventDate}-${eventDate}` // look between now and the date given
     var url ='http://api.eventful.com/json/events/search/?'
     
     if(latlng.split(",").length !== 2){

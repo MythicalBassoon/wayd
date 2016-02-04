@@ -165,7 +165,8 @@ const Search = React.createClass({
           <Text style={styles.buttonText}> find an event </Text> 
         </TouchableHighlight>
         
-      
+        
+
       </View>
 
     )
@@ -256,7 +257,7 @@ const styles = StyleSheet.create({
   },
   datePicker: {
     height: 80,
-    marginBottom: 150
+    marginBottom: 250
   },
     facebook: {
     flex: 1,
