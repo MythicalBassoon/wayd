@@ -113,19 +113,22 @@ const EventRec = React.createClass({
   render: function() {
     console.log('event component render', this.props)
 
-    var action = (<Text> My action</Text>);
     var menu = (
        <MKIconToggle
         checked={true}
         onCheckedChange={this._onIconChecked}
-        onPress={this._onIconClicked}
+        onPress={() =>{
+          console.log('toggle')
+          this.openPage()
+          this._onIconClicked
+        }}
         >
 
         <Text pointerEvents="none"
-              style={styles.toggleTextOff}>Off</Text>
+              style={styles.toggleTextOff}>details</Text>
         <Text state_checked={true}
               pointerEvents="none"
-              style={[styles.toggleText, styles.toggleTextOn]}>more...</Text>
+              style={[styles.toggleText, styles.toggleTextOn]}>details</Text>
 
 
       </MKIconToggle>
@@ -147,15 +150,27 @@ const EventRec = React.createClass({
 
         var event = this.props.currentEvent;
 
-        var url = `https://maps.googleapis.com/maps/api/staticmap?center=${this.props.currentEvent.lat},${this.props.currentEvent.long}2&zoom=15&size=600x400&key=AIzaSyA4rAT0fdTZLNkJ5o0uaAwZ89vVPQpr_Kc`
+        var url = `https://maps.googleapis.com/maps/api/staticmap?markers=size:small%7Ccolor:red%7C${this.props.currentEvent.lat},${this.props.currentEvent.long}2&zoom=15&size=640x400&key=AIzaSyA4rAT0fdTZLNkJ5o0uaAwZ89vVPQpr_Kc`
 
         return (
           <View style = {styles.mainContainer}>
             
-
           <View style={MKCardStyles.card}>
-            <Image source={{uri : url}} style={MKCardStyles.image}/>
-            <Text style={MKCardStyles.title}>{event.title} </Text>
+
+            <TouchableHighlight
+
+              style={[MKCardStyles.image, { opacity: .8}]}
+              onPress={this.map}
+              underlayColor="tranparent">
+              
+              <Image source={{uri : url}}  style={MKCardStyles.image}/>
+              
+            </TouchableHighlight>
+
+
+
+            <Text style={[MKCardStyles.title, {color: '#263238'}]}>{event.title} </Text>
+            
             <View  style={{ padding : 15 }} >
               <Text style={[MKCardStyles.content, {padding:0}]}>
                 {event.address} 
@@ -173,33 +188,29 @@ const EventRec = React.createClass({
 
               <TouchableHighlight
                 style={styles.webBtn}
-                onPress={this.openPage}
                 underlayColor = "tranparent">
-                <Text style={styles.title}> more info.. </Text> 
+                <Text style={styles.title}>  </Text> 
               </TouchableHighlight>
 
                  <TouchableHighlight
                 style={styles.button}
                 onPress={this.yes}
                 underlayColor = "tranparent">
-                <Text style={styles.buttonText}> yes </Text> 
+                <Text style={styles.buttonText}> Im down </Text> 
               </TouchableHighlight>
 
               <TouchableHighlight
                 style={styles.button}
                 onPress={this.no}
                 underlayColor = "tranparent">
-                <Text style={styles.buttonText}> no </Text> 
+                <Text style={styles.buttonText}> Im not down </Text> 
               </TouchableHighlight>
 
 
-              <TouchableHighlight
-                style={styles.button}
-                onPress={this.map}
-                underlayColor="tranparent">
-                <Text style={styles.buttonText}> map </Text> 
-              </TouchableHighlight>
             
+            
+    
+
             </View>
           </View>
 
@@ -240,17 +251,22 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   button: {
-    height: 45,
+    height: 50,
     flexDirection: 'row',
-    backgroundColor: '#ECEFF1',
-    borderColor: 'white',
-    borderWidth: 1,
-    borderRadius: 0,
+    backgroundColor: '#536DFE',
     marginBottom: 10,
     marginTop: 10,
     alignSelf: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    shadowColor: "#000000",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0
+    }
   },
+
   image: {
     height: 150,
     width: 150,
@@ -281,7 +297,9 @@ const styles = StyleSheet.create({
    webBtn: {
     fontSize: 15,
     backgroundColor: 'white',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    
+
   },
 
   
