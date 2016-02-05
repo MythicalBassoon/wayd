@@ -53,7 +53,7 @@ function runTest() {
   if (!emailInfo.final) {
   console.log('handling initial email');
   mailOptions.subject = 'You have been invited by ' + emailInfo.user;
-  mailOptions.html = template(emailInfo.eventInfo.title, emailInfo.to, emailInfo.eventInfo.image_medium, emailInfo.eventInfo.description);
+  mailOptions.html = template(emailInfo.eventInfo.title, emailInfo.to, emailInfo.eventInfo.image_medium, emailInfo.eventInfo.description, emailInfo.emailId);
   transporter.sendMail(mailOptions, function(error, info){
     if(error){
         return console.log(error);
