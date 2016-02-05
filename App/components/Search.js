@@ -29,7 +29,7 @@ var API_KEY_GOOGLE = require('../../apikeys').google_api_key;
 const Search = React.createClass({
   getInitialState: function(){
     return {
-      richard: 0
+      richard: 0,
     }
   },
   //changes redux.state.date
@@ -55,6 +55,7 @@ const Search = React.createClass({
     });
     }
     else{
+      this.setState({errorShow: true})
 
     }
     
@@ -89,9 +90,22 @@ const Search = React.createClass({
       value: 'today',
       animated: true,
       visible: false,
-      transparent: true
+      transparent: true,
+      errorShow: false
+
       // active: false
     }
+  },
+
+    renderError: function(){
+     if(this.state.errorShow){
+      console.log('renderError called')
+
+      return(
+           <Text style={styles.errortext}>Please choose a location or set it to Current location</Text>
+           )
+         }
+   
   },
 
   wayd: function(text){
@@ -100,6 +114,7 @@ const Search = React.createClass({
       console.log('not curent location')
     }
     else{
+      this.setState({errorShow: false})
       console.log('current location activated')
       this.props.searchDisabled(true);
       navigator.geolocation.getCurrentPosition(
@@ -146,6 +161,7 @@ const Search = React.createClass({
           fetchDetails={true}
           onPress={(data, details) => { // 'details' is provided when fetchDetails = true
           console.log('STUFF HAPPENING')
+          this.setState({errorShow: false})
             var lat = details.geometry.location.lat;
             var lng = details.geometry.location.lng;
             this.props.searchDisabled(true)
@@ -226,6 +242,9 @@ const Search = React.createClass({
           underlayColor = "tranparent">
           <Text style={styles.buttonText}> Display Timepicker </Text> 
         </TouchableHighlight>
+
+        {this.renderError()}
+
         <View>
           <Modal
             animated={this.state.animated}
@@ -243,7 +262,7 @@ const Search = React.createClass({
                 style={styles.button}
                 onPress={this.hideModal}
                 underlayColor = "tranparent">
-                <Text style={styles.buttonText}> Cancel </Text> 
+                <Text style={styles.buttonText}> OK! </Text> 
               </TouchableHighlight>
             </View>
           </Modal>
@@ -330,6 +349,13 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textAlign: 'center',
     color: '#607D8B'
+  },
+  errortext: {
+    marginBottom: 10,
+    marginTop: 10,
+    fontSize: 15,
+    textAlign: 'center',
+    color: '#C62828'
   },
   sliderView: {
     marginBottom: 10,
