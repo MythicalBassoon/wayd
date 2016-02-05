@@ -27,6 +27,11 @@ var API_KEY_GOOGLE = require('../../apikeys').google_api_key;
 
 
 const Search = React.createClass({
+  getInitialState: function(){
+    return {
+      richard: 0,
+    }
+  },
   //changes redux.state.date
   onDateChange: function(date){
     // console.log('datechange', JSON.stringify(date))
@@ -35,7 +40,9 @@ const Search = React.createClass({
 
   eventRecView: function() {
     // console.log('eventrectview', this.props)
-    var message = {
+    console.log(this.props.searchButton, 'VALUE OF SEARCHBUTTON')
+    if(this.props.searchButton){
+      var message = {
       latlng: this.props.latlng,
       date: this.props.date
     }
@@ -46,6 +53,21 @@ const Search = React.createClass({
       title: 'Event',
       component: EventRec
     });
+    }
+    else{
+      this.setState({errorShow: true})
+
+    }
+    
+
+  },
+
+  componentWillMount: function(){
+    navigator.geolocation.getCurrentPosition(
+                (initialPosition) => {this.props.latlngadd(initialPosition.coords.latitude,initialPosition.coords.longitude); console.log('GETTING CURRENT POSITION: ', initialPosition)}, // success callback
+                (error) => console.log('ERROR CURRENT POSITION', error), // failure callback
+                {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000} // options
+                );
 
   },
 
@@ -58,6 +80,7 @@ const Search = React.createClass({
     //   console.log(error)
     // })
    console.log('search mounted...');
+
    
 
   },
@@ -67,9 +90,45 @@ const Search = React.createClass({
       value: 'today',
       animated: true,
       visible: false,
-      transparent: true
+      transparent: true,
+      errorShow: false
+
       // active: false
     }
+  },
+
+    renderError: function(){
+     if(this.state.errorShow){
+      console.log('renderError called')
+
+      return(
+           <Text style={styles.errortext}>Please choose a location or set it to Current location</Text>
+           )
+         }
+   
+  },
+
+  wayd: function(text){
+    if(text !== 'Current location'){
+      this.props.searchDisabled(false);
+      console.log('not curent location')
+    }
+    else{
+      this.setState({errorShow: false})
+      console.log('current location activated')
+      this.props.searchDisabled(true);
+      navigator.geolocation.getCurrentPosition(
+                (initialPosition) => {this.props.latlngadd(initialPosition.coords.latitude,initialPosition.coords.longitude);
+                 console.log('GETTING CURRENT POSITION: ', initialPosition)}, // success callback
+                (error) => console.log('ERROR CURRENT POSITION', error), // failure callback
+                {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000} // options
+                );
+      
+    }
+   
+
+    
+
   },
 
   showDatePicker: function() {
@@ -97,14 +156,20 @@ const Search = React.createClass({
           placeholder='Where you at, homie?'
           minLength={2} // minimum length of text to search
           autoFocus={false}
+          onChangeText={this.functionTest}
           enablePoweredByContainer={false}
           fetchDetails={true}
           onPress={(data, details) => { // 'details' is provided when fetchDetails = true
           console.log('STUFF HAPPENING')
+          this.setState({errorShow: false})
             var lat = details.geometry.location.lat;
             var lng = details.geometry.location.lng;
+            this.props.searchDisabled(true)
+
             this.props.latlngadd(lat,lng);
+            
           }}
+          wayd = {this.wayd}
           getDefaultValue={() => {
             return ''; // text input default value
           }}
@@ -164,12 +229,11 @@ const Search = React.createClass({
         ></GooglePlacesAutocomplete>
 
         <Text style={styles.bodytext}> When you wanna do stuff? </Text>
-        
 
         <TouchableHighlight
           style={styles.button}
           onPress={this.eventRecView}
-          underlayColor = "tranparent">
+          underlayColor = "#6495ed">
           <Text style={styles.buttonText}> find an event </Text> 
         </TouchableHighlight>
         <TouchableHighlight
@@ -178,6 +242,9 @@ const Search = React.createClass({
           underlayColor = "tranparent">
           <Text style={styles.buttonText}> Display Timepicker </Text> 
         </TouchableHighlight>
+
+        {this.renderError()}
+
         <View>
           <Modal
             animated={this.state.animated}
@@ -195,11 +262,13 @@ const Search = React.createClass({
                 style={styles.button}
                 onPress={this.hideModal}
                 underlayColor = "tranparent">
-                <Text style={styles.buttonText}> Cancel </Text> 
+                <Text style={styles.buttonText}> OK! </Text> 
               </TouchableHighlight>
             </View>
           </Modal>
         </View>
+
+ 
       </View>
 
     )
@@ -280,6 +349,13 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textAlign: 'center',
     color: '#607D8B'
+  },
+  errortext: {
+    marginBottom: 10,
+    marginTop: 10,
+    fontSize: 15,
+    textAlign: 'center',
+    color: '#C62828'
   },
   sliderView: {
     marginBottom: 10,
