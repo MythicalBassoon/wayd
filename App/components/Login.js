@@ -11,6 +11,7 @@ const {
   MKColor,
   mdl,
   MKTextField,
+  MKCardStyles
 } = MK;
 
 MK.setTheme({
@@ -26,17 +27,19 @@ const {
   TextInput,
   TouchableHighlight,
   View,
-  Image
+  Image,
+  Modal,
+  Animated
 } = React
 
-
-
 var API_KEY_FACEBOOK_APP = require('../../apikeys').facebook_app_api_key;
-
 
 const Login = React.createClass({
   getInitialState: function() {
     return {
+      // animated: false,
+      // visible: true,
+      // transparent: true
     }
   },
 
@@ -57,26 +60,26 @@ const Login = React.createClass({
 
     simpleAuthClient.authorize('facebook').then((info) => {
   
-  console.log('facebook data', info)
+    console.log('facebook data', info)
 
-  var url = `${host}api/users`;
-  console.log(url);
+    var url = `${host}api/users`;
+    console.log(url);
 
-  var obj = {  
-  method: 'POST',
-  headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    'user_id': info['id'],
-    'user_first_name': info['first_name'],
-    'user_last_name': info['last_name'],
-    'user_email': info['email']
-  })
-}
+    var obj = {  
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        'user_id': info['id'],
+        'user_first_name': info['first_name'],
+        'user_last_name': info['last_name'],
+        'user_email': info['email']
+      })
+    }
 
-   fetch(url, obj)
+    fetch(url, obj)
     .then((response) => 
       response.json()
     )
@@ -95,13 +98,11 @@ const Login = React.createClass({
     }).catch((error) =>{
       console.log('outter error', error);
       this.props.navigator.push({
-              title: 'LoginError',
-              component: LoginError
-            });
+        title: 'LoginError',
+        component: LoginError
+      });
     })
-    
     .done();
-
 
 
  
@@ -127,29 +128,29 @@ const Login = React.createClass({
   render: function() {
 
     return (
-      <View style = {styles.mainContainer}>
 
-        
-        <Text style= {styles.title}> WAYD </Text>
-        {/*
-        <Textfield1 value={this.state.username}/>
+        <View style = {styles.mainContainer}>
 
-        <Textfield2 value={this.state.username}/>
-
-        <Text style= {styles.buttonText}> or </Text>
-        */}
-
-        <TouchableHighlight
-          style={styles.facebook}
-          onPress={this.auth}
-          underlayColor="#6495ed">
-          
-          
-          <Text style= {styles.buttonText}>  </Text>
-        </TouchableHighlight>
+          <Text style= {styles.title}> WAYD </Text>
+          {/*
+          <Textfield1 value={this.state.username}/>
+          <Textfield2 value={this.state.username}/>
+          <Text style= {styles.buttonText}> or </Text>
+          */}
 
 
-      </View>
+
+
+
+          <TouchableHighlight
+            style={styles.facebook}
+            onPress={this.auth}
+            underlayColor="tranparent">
+            
+            
+            <Text style= {styles.buttonText}>  </Text>
+          </TouchableHighlight>
+         </View>
     )
   }
 })
@@ -182,7 +183,15 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   facebook: {
-    backgroundColor: '#3b5998'
+    height: 50,
+    backgroundColor: '#536DFE',
+     shadowColor: "#000000",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0
+    }
   },
   buttonText: {
     fontSize: 15,
@@ -190,9 +199,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   button: {
-    height: 45,
+    height: 80,
     flexDirection: 'row',
-    backgroundColor: '#ECEFF1',
+    backgroundColor: '#304FFE',
     borderColor: 'white',
     borderWidth: 1,
     borderRadius: 0,

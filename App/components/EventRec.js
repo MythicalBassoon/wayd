@@ -4,13 +4,18 @@ const Email = require('../containers/Email')
 const EventRect = require('../containers/EventRec')
 const Map = require('./Map')
 
-const EventTabBar = require('./helpers/EventTabBar.js')
-const Web_View = require('./helpers/web');
+// const EventTabBar = require('./helpers/EventTabBar.js')
+const Web_View = require('../containers/Web.js');
+
 const MK = require('react-native-material-kit')
 const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
 const {
+    MKButton,
+  MKColor,
   mdl,
-  MKColor
+  MKTextField,
+  MKCardStyles,
+  MKIconToggle
 } = MK;
 
 MK.setTheme({
@@ -94,16 +99,38 @@ const EventRec = React.createClass({
   },
 
   //almost works; throws an error when navigate back...
-  // openPage: function(url){
-  //   this.props.navigator.push({
-  //     title: 'Web View',
-  //     component: Web_View,
-  //     passProps: {url}
-  //   });
-  // },
+  openPage: function(){
+    var url = this.props.currentEvent.image_medium
+    // console.log('page', url)
+
+    this.props.navigator.push({
+      title: 'Web View',
+      component: Web_View,
+      passProps: {url}
+    });
+  },
  
   render: function() {
     console.log('event component render', this.props)
+
+    var action = (<Text> My action</Text>);
+    var menu = (
+       <MKIconToggle
+        checked={true}
+        onCheckedChange={this._onIconChecked}
+        onPress={this._onIconClicked}
+        >
+
+        <Text pointerEvents="none"
+              style={styles.toggleTextOff}>Off</Text>
+        <Text state_checked={true}
+              pointerEvents="none"
+              style={[styles.toggleText, styles.toggleTextOn]}>more...</Text>
+
+
+      </MKIconToggle>
+    );
+    //
 
     switch(this.props.loading){
       case true:
@@ -115,22 +142,43 @@ const EventRec = React.createClass({
         )
       case false:
 
-        console.log('api results', this.props)
-        console.log('api current img', this.props.currentEvent)
+        // console.log('api results', this.props)
+        // console.log('api current img', this.props.currentEvent)
 
-        // var eventTime = moment(event.start_time).format('MMM Do YY')
         var event = this.props.currentEvent;
+
+        var url = `https://maps.googleapis.com/maps/api/staticmap?center=${this.props.currentEvent.lat},${this.props.currentEvent.long}2&zoom=15&size=600x400&key=AIzaSyA4rAT0fdTZLNkJ5o0uaAwZ89vVPQpr_Kc`
 
         return (
           <View style = {styles.mainContainer}>
-            <View style={styles.body}>
-              <Image style={styles.image} source={{uri: event.image_medium}}/>
-              <Text style={styles.title}> {event.title} </Text>
-              <Text style={styles.bodytext}> {event.address} </Text>
-              <Text style={styles.bodytext}> {event.city} </Text>
-              <Text style={styles.bodytext}> { moment(event.start_time).calendar() } </Text>
+            
+
+          <View style={MKCardStyles.card}>
+            <Image source={{uri : url}} style={MKCardStyles.image}/>
+            <Text style={MKCardStyles.title}>{event.title} </Text>
+            <View  style={{ padding : 15 }} >
+              <Text style={[MKCardStyles.content, {padding:0}]}>
+                {event.address} 
+              </Text>
+                <Text style={[MKCardStyles.content, {padding:0}]}>
+                {event.city}
+              </Text>
+              <Text style={[MKCardStyles.content, {padding:0}]}>
+                { moment(event.start_time).calendar() } 
+              </Text>
+            </View>
+            
+            <View style={MKCardStyles.action}>
+              <View style={MKCardStyles.menu}>{menu}</View>
 
               <TouchableHighlight
+                style={styles.webBtn}
+                onPress={this.openPage}
+                underlayColor = "tranparent">
+                <Text style={styles.title}> more info.. </Text> 
+              </TouchableHighlight>
+
+                 <TouchableHighlight
                 style={styles.button}
                 onPress={this.yes}
                 underlayColor = "tranparent">
@@ -151,8 +199,9 @@ const EventRec = React.createClass({
                 underlayColor="tranparent">
                 <Text style={styles.buttonText}> map </Text> 
               </TouchableHighlight>
-
+            
             </View>
+          </View>
 
             
           </View>
@@ -167,8 +216,8 @@ const EventRec = React.createClass({
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    padding: 0,
-    marginTop: 0,
+    padding: 10,
+    marginTop: 50,
     flexDirection: 'column',
     justifyContent: 'center',
     backgroundColor: 'white'
@@ -228,7 +277,12 @@ const styles = StyleSheet.create({
     marginTop: 50,
     marginLeft: 30,
     marginRight: 30
-  }
+  },
+   webBtn: {
+    fontSize: 15,
+    backgroundColor: 'white',
+    alignSelf: 'center'
+  },
 
   
 

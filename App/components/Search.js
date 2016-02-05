@@ -246,11 +246,14 @@ const Search = React.createClass({
         {this.renderError()}
 
         <View>
-          <Modal
+
+          <Modal style={styles.modal}
             animated={this.state.animated}
             transparent={this.state.transparent}
             visible={this.state.visible}>
+
             <View style={styles.datePickerContainer}>
+
               <DatePickerIOS
                 style= {styles.datePicker}
                 date={this.props.date}
@@ -265,6 +268,7 @@ const Search = React.createClass({
                 <Text style={styles.buttonText}> OK! </Text> 
               </TouchableHighlight>
             </View>
+
           </Modal>
         </View>
 
@@ -275,10 +279,10 @@ const Search = React.createClass({
   }
 })
 
-Search.propTypes = {
-  latlng: React.PropTypes.string.isRequired,
-  date: React.PropTypes.object.isRequired
-}
+// Search.propTypes = {
+//   latlng: React.PropTypes.string.isRequired,
+//   date: React.PropTypes.object.isRequired
+// }
 
 const styles = StyleSheet.create({
   container: {
@@ -301,23 +305,12 @@ const styles = StyleSheet.create({
       fontSize: 15,
     },
     datePicker:{
-      //flex: 1,
-      //flexDirection: 'column',
+      // flex: .5,
+      // flexDirection: 'row',
       //alignItems:'flex-end',
       backgroundColor: 'white'
     },
-  newItem: {
-    backgroundColor: '#FFFFFF',
-    height: 40,
-    borderColor: '#CCCCCC',
-    borderWidth: 1,
-    marginBottom: 10,
-    marginLeft: 20,
-    marginRight: 20,
-    paddingLeft: 10,
-    borderRadius: 5,
-    fontSize: 20
-  },
+
   buttonText: {
     fontSize: 15,
     paddingTop: 10,
@@ -339,10 +332,6 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
-  footer: {
-    flex: .2,
-    backgroundColor: '#607D8B'
-  },
   bodytext: {
     marginBottom: 10,
     marginTop: 10,
@@ -350,6 +339,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#607D8B'
   },
+
   errortext: {
     marginBottom: 10,
     marginTop: 10,
@@ -361,11 +351,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     flex: .5
   },
+
   datePickerContainer:{
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    backgroundColor: 'black',
+    opacity: .8
   }
 })
 
