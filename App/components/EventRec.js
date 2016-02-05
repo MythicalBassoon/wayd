@@ -2,7 +2,7 @@ const React = require('react-native')
 const moment = require('moment')
 const Email = require('../containers/Email')
 const EventRect = require('../containers/EventRec')
-const Map = require('./Map')
+const Map = require('../containers/Map')
 
 // const EventTabBar = require('./helpers/EventTabBar.js')
 const Web_View = require('../containers/Web.js');
