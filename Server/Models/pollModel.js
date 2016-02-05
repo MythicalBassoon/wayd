@@ -45,8 +45,8 @@ module.exports.checkIfComplete = function(pollId, callback){
       var participants = voteObj[0].num_participants;
       var results = {
         complete: false,
-        consensus: false
-        eventId: voteObj.event_id
+        consensus: false,
+        eventId: voteObj[0].event_id
         };
 
       if (yesCount + noCount >= participants) {
@@ -90,7 +90,7 @@ module.exports.checkVoted = function(emailId, callback) {
   console.log('emailId is', emailId)
   return db.query(queryString.checkVoted, [emailId])
           .then(function(pollObj){
-            ('in model, pollObj is', pollObj);
+            console.log('in model, pollObj is', pollObj);
             callback(null, pollObj)
           })
           .catch(function(error) {

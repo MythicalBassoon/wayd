@@ -10,6 +10,8 @@ var insertPoll = require('../Models/pollModel').insertPoll
 var insertEmail = require('../Models/emailModel').insertEmail
 var nodeMailer = require('../Workers/email').sendNodeMailer
 var insertUser = require('../Models/userModel').insertUser
+var getOneEvent = require('../Models/eventModel').getOneEvent
+var yesTemplate = require('../Vote_templates/yes').template
 
 var request = require('request');
 var incrementYesVote = require('../Models/pollModel').incrementYesVote
@@ -196,15 +198,23 @@ router.route('/polls/yes/:emailId')
             return res.status(404).send('error toggling "voted" for email address')
             }
 
-            if (results.complete) {
-              //retrieve event details here first using
-              // getOneEvent(results.)
+            console.log('results obj is', results);
 
+             //retrieving event details to insert into html template to be served up
+
+            console.log('about to retrieve event');
+            getOneEvent(results.eventId, function(err, event) {
+              var event = event[0];
+              console.log('get one event just ran, the event is', event);
+              if (err) {
+                return res.status(404).send('error finding event details', err);
+              }
+              if (results.complete) {
               retrievePollEmails(pollObj[0].poll_id, function(err, emailObjs) {
                 console.log('about to post to emails server, emailObjs are', emailObjs);
               if(err) {
                 console.log('in controller, issue retrieiving emails, email is:', err)
-                 res.status(404).send(err)
+                 res.status(404).send('error retrieving emails, error is', err)
               }  
               for(var i = 0; i < emailObjs.length; i++){
                   var emailObj = {
@@ -226,13 +236,22 @@ router.route('/polls/yes/:emailId')
                     console.log('post to email server made');
                   })
                 }
-                res.sendFile(path.join(__dirname, '../vote.html'));
+
+                console.log('event is',  event);
+                console.log('paramaters are:', event.title, event.image_medium, event.description);
+                console.log('html template, second time, type is:', (typeof yesTemplate(event.title, event.image_medium, event.description)));
+                res.send(yesTemplate(event.title, event.image_medium, event.description));
               });
   }
 
             else {
-              res.sendFile(path.join(__dirname, '../vote.html'));
+              //console.log('html template, first time:', yesTemplate(event.title, event.image_medium, event.description));
+              console.log('event is',  event);
+              console.log('paramaters are:', event.title, event.image_medium, event.description);
+              console.log('html template, first time, type is :', (typeof yesTemplate(event.title, event.image_medium, event.description)));
+              res.send(yesTemplate(event.title, event.image_medium, event.description));
             }
+            });
           });
         });
       });
