@@ -197,6 +197,9 @@ router.route('/polls/yes/:emailId')
             }
 
             if (results.complete) {
+              //retrieve event details here first using
+              // getOneEvent(results.)
+
               retrievePollEmails(pollObj[0].poll_id, function(err, emailObjs) {
                 console.log('about to post to emails server, emailObjs are', emailObjs);
               if(err) {
@@ -225,7 +228,7 @@ router.route('/polls/yes/:emailId')
                 }
                 res.sendFile(path.join(__dirname, '../vote.html'));
               });
-            }
+  }
 
             else {
               res.sendFile(path.join(__dirname, '../vote.html'));

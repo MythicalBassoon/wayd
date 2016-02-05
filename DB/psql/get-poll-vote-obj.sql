@@ -1,1 +1,1 @@
-SELECT yes_count, no_count, num_participants FROM polls WHERE id = $1;
+SELECT yes_count, no_count, num_participants, event_id FROM polls WHERE id = $1;

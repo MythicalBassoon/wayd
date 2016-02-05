@@ -46,6 +46,7 @@ module.exports.checkIfComplete = function(pollId, callback){
       var results = {
         complete: false,
         consensus: false
+        eventId: voteObj.event_id
         };
 
       if (yesCount + noCount >= participants) {
