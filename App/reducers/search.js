@@ -2,7 +2,8 @@ const initialState = {
 	latlng: '0,0',
   date: new Date(),
   loading: false,
-  datePicked: 0
+  datePicked: 0,
+  searchButton: false
 }
 
 module.exports = function search(state = initialState, action) {
@@ -15,6 +16,12 @@ module.exports = function search(state = initialState, action) {
       ...state,
       latlng: action.latlong
     };
+    case 'SEARCH_DISABLED':
+       console.log('searchdisabled BEING CALLED ', action.searchDisabled )
+      return {
+        ...state,
+        searchButton: action.searchDisabled
+      };
   case 'TIME_CHANGE':
     console.log('TIME_CHANGE BEING CALLED', action)
     return {

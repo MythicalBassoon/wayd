@@ -6,7 +6,7 @@ const initialState = {
 
 module.exports = function addEmail(state = initialState, action) {
   // console.log('event reducer called: ', state)
-  console.log('in emaili reducer, action is', action);
+  //console.log('in emaili reducer, action is', action);
   switch (action.type) {
   case 'ADD_EMAIL':
 

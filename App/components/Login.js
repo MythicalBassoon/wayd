@@ -142,7 +142,7 @@ const Login = React.createClass({
         <TouchableHighlight
           style={styles.facebook}
           onPress={this.auth}
-          underlayColor="tranparent">
+          underlayColor="#6495ed">
           
           
           <Text style= {styles.buttonText}>  </Text>
