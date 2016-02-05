@@ -26,7 +26,8 @@ const Success = React.createClass({
   	console.log('rendering success');
           return (
           	<View style = {styles.mainContainer}>
-              <Text style={styles.title}>Thank you for setting up a poll! Your friends have now been sent emails. We will let you know when they have all voted.</Text>
+              <Text style={styles.title}> Thank you for setting up a poll! </Text>
+              <Text style={styles.title}> Your friends have now been sent emails. We will let you know when they have all voted.</Text>
               <TouchableHighlight
 	              style={styles.button}
 	              onPress = {this.navigateHome}

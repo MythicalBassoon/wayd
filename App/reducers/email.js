@@ -24,6 +24,17 @@ module.exports = function addEmail(state = initialState, action) {
   			loading: action.loading
   	};
 
+  case 'DEL_EMAIL':
+    var idx = Number(action.emailAddress)
+    var newemails = state.emails.slice(0, idx)
+    var rest = state.emails.slice(idx+1)
+    var revised = newemails.concat(rest)
+  
+    return {
+      ...state,
+        emails: revised
+    };
+
   default:
     return state
   }

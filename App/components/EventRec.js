@@ -5,6 +5,7 @@ const EventRect = require('../containers/EventRec')
 const Map = require('./Map')
 
 const EventTabBar = require('./helpers/EventTabBar.js')
+const Web_View = require('./helpers/web');
 const MK = require('react-native-material-kit')
 const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
 const {
@@ -48,7 +49,14 @@ const EventRec = React.createClass({
     fetch(url, {method: "GET"})
     .then((response) => response.json())
     .then((responseData) => {
-      console.log(responseData)
+    //testing for client side filtering
+      // console.log('res data time', responseData[0])
+      // console.log('res data time2', new Date(responseData[0].start_time))
+      // console.log('search date', new Date(this.props.prevData.date))
+      // var resData = responseData.filter(function(event){
+      //   if(event.start_time) 
+      // })
+
        this.props.getData(responseData)
        this.props.popEvent() 
     })
@@ -84,6 +92,15 @@ const EventRec = React.createClass({
     });
    
   },
+
+  //almost works; throws an error when navigate back...
+  // openPage: function(url){
+  //   this.props.navigator.push({
+  //     title: 'Web View',
+  //     component: Web_View,
+  //     passProps: {url}
+  //   });
+  // },
  
   render: function() {
     console.log('event component render', this.props)
@@ -127,12 +144,14 @@ const EventRec = React.createClass({
                 <Text style={styles.buttonText}> no </Text> 
               </TouchableHighlight>
 
+
               <TouchableHighlight
-          style={styles.button}
-          onPress={this.map}
-          underlayColor="tranparent">
-          <Text style={styles.buttonText}> FACEBOOK </Text> 
-        </TouchableHighlight>
+                style={styles.button}
+                onPress={this.map}
+                underlayColor="tranparent">
+                <Text style={styles.buttonText}> map </Text> 
+              </TouchableHighlight>
+
             </View>
 
             

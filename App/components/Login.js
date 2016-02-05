@@ -136,10 +136,8 @@ const Login = React.createClass({
 
         <Textfield2 value={this.state.username}/>
 
-
         <Text style= {styles.buttonText}> or </Text>
         */}
-
 
         <TouchableHighlight
           style={styles.facebook}
@@ -206,6 +204,14 @@ const styles = StyleSheet.create({
   textfield: {
     height: 28,  // have to do it on iOS
     marginTop: 22,
+  },
+    spinnerContainer: {
+    flex: 1,
+    padding: 0,
+    marginTop: 0,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    backgroundColor: '#ECEFF1'
   },
 });
 
