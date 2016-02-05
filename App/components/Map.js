@@ -39,12 +39,10 @@ var API_KEY_FACEBOOK_APP = require('../../apikeys').facebook_app_api_key;
 const Map = React.createClass({
 getInitialState: function() {
     return {
-      region: {
-        latitude: 0,
-        longitude: 0,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-      }
+      latitude: 37.78825,
+    longitude: -122.4324,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421
     };
   },
 
@@ -52,10 +50,11 @@ getInitialState: function() {
 
 
     navigator.geolocation.getCurrentPosition(
-      (initialPosition) => console.log('GETTING CURRENT POSITION: ', initialPosition), // success callback
-      (error) => console.log('ERROR CURRENT POSITION', error), // failure callback
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000} // options
-    );
+                (initialPosition) => {this.setState({latitude: initialPosition.coords.latitude,longitude: initialPosition.coords.longitude});
+                 console.log('GETTING CURRENT POSITION: ', initialPosition)}, // success callback
+                (error) => console.log('ERROR CURRENT POSITION', error), // failure callback
+                {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000} // options
+                );
   
   },
 
@@ -143,6 +142,12 @@ getInitialState: function() {
   return (
     <MapView 
       style={styles.map}
+       initialRegion={{
+      latitude: this.state.latitude,
+      longitude: this.state.longitude,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    }}
       region={this.state.region}
       onRegionChange={this.onRegionChange}
     />
