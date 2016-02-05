@@ -1,5 +1,6 @@
 
 const initialState = {
+  contacts: [],
   emails:[],
   loading: false
 }
@@ -33,6 +34,12 @@ module.exports = function addEmail(state = initialState, action) {
     return {
       ...state,
         emails: revised
+    };
+
+  case 'ADD_CONTACTS':
+    return {
+      ...state,
+      contacts: action.contacts
     };
 
   default:

@@ -24,3 +24,10 @@ exports.delEmail = function delEmail(emailAddress) {
   }
 }
 
+exports.addContacts = function addContacts(contacts){
+  return {
+    type: 'ADD_CONTACTS',
+    contacts: contacts
+  }
+}
+
