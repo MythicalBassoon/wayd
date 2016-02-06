@@ -22,6 +22,7 @@ const {
   NetInfo,
   Text,
   TextInput,
+  LinkingIOS,
   TouchableHighlight,
   View
 } = React
@@ -139,6 +140,7 @@ getInitialState: function() {
   },
 
   render() {
+    console.log('EVENT DETAILSSSSS', this.props.currentEvent)
   return (
     <MapView 
       style={styles.map}
@@ -150,7 +152,29 @@ getInitialState: function() {
     }}
       region={this.state.region}
       onRegionChange={this.onRegionChange}
+    >
+
+    <MapView.Marker 
+      coordinate={{latitude: this.state.latitude, longitude: this.state.longitude}}
+      title='Current Position'
+      pinColor='#81C784'
     />
+
+    <MapView.Marker 
+      coordinate={{latitude: this.props.currentEvent.lat, longitude: this.props.currentEvent.long}}
+      title='Destination'
+      description={this.props.currentEvent.title}
+    >
+    <MapView.Callout>
+    <Text> Destination: {this.props.currentEvent.title}</Text>
+    <Text style={{color: 'blue'}}
+      onPress={() => LinkingIOS.openURL('http://maps.google.com/maps?daddr='+this.props.currentEvent.lat+','+this.props.currentEvent.long+'&saddr='+this.state.latitude+','+this.state.longitude)}>
+  See route on Google Maps App
+</Text>
+
+  </MapView.Callout>
+    </MapView.Marker>
+    </MapView>
   );
 }
 })
