@@ -3,7 +3,7 @@ const MK = require('react-native-material-kit')
 const Separator = require('./helpers/separator.js')
 const Error = require('./Error')
 const Success = require('./Success')
-
+const Contacts = require('react-native-contacts')
 const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
 
 const {
@@ -15,7 +15,8 @@ const {
   TouchableHighlight,
   ActivityIndicatorIOS,
   View,
-  ScrollView
+  ScrollView,
+  Modal
 } = React
 
 
@@ -33,10 +34,26 @@ MK.setTheme({
 
 const Email = React.createClass({
 
-  componentDidMount: function() {
-   console.log('email mounted...');
+  componentDidMount: function() { 
    this.setState({email: ''});
+  },
 
+  componentWillMount: function() {
+    Contacts.getAll((err, contacts) => {
+      if(err && err.type === 'permissionDenied'){
+        console.log("No contacts")
+      } else {
+        this.props.addContacts(contacts);
+      }
+    });
+  },
+
+  getInitialState: function() {
+    return {
+      animated: true,
+      visible: false,
+      transparent: false
+    }
   },
 
   addEmail: function() {
@@ -52,6 +69,20 @@ const Email = React.createClass({
     
     } else {
       console.log('invalid email')
+    }
+  },
+
+  addContactEmail: function(contactEmail){
+    var re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+      console.log('re', re)
+    var currentEmail = contactEmail;
+
+    if (currentEmail && re.test(currentEmail) ) {
+      var email = contactEmail;
+      console.log('email getting dispatched is...', email)
+      this.props.addEmail(email);
+    } else {
+      console.log('invalid email');
     }
   },
 
@@ -102,6 +133,14 @@ const Email = React.createClass({
     }
 
   },
+
+  contactsView: function(){
+    this.setState({visible: true});
+  },
+
+  closeContactsView: function(){
+    this.setState({visible: false});
+  },
   
   render: function() {
     console.log('email component render.. props are', this)
@@ -111,8 +150,24 @@ const Email = React.createClass({
     switch (this.props.loading) {
       
       case false:
+
         var emails = this.props.emails;
-        console.log('email arr', emails)
+        console.log('email arr', emails);
+        var allContacts = this.props.contacts;
+        var contactList = allContacts.map(function (contact, index) {
+          return (
+              <TouchableHighlight style={styles.button} 
+                key={index}
+                onPress= {function(){
+                  if (contact.emailAddresses.length > 0){
+                    that.addContactEmail(contact.emailAddresses[0].email);
+                    that.closeContactsView();
+                  }
+                }}>
+                <Text style={styles.buttonText}>{contact.givenName} {contact.familyName}</Text>
+              </TouchableHighlight>
+          )
+        });
         var list = emails.map(function(email, index) {
           return (
             <View style={styles.btnContainer} key={index} >
@@ -138,7 +193,7 @@ const Email = React.createClass({
               <Separator/>
               </View>
             )
-          });
+        });
 
       
         return (
@@ -152,6 +207,7 @@ const Email = React.createClass({
                 underlayColor = "tranparent">
                 <Text style={styles.buttonText}>Send to Friends!</Text> 
               </TouchableHighlight>
+              
             
 
              <TextEmail 
@@ -165,13 +221,35 @@ const Email = React.createClass({
               </TouchableHighlight>
 
             </View>
+              <TouchableHighlight
+                style={styles.button}
+                onPress = {this.contactsView}
+                underlayColor = "tranparent">
+                <Text style={styles.buttonText}>Search Contacts</Text> 
+              </TouchableHighlight>
 
               <ScrollView style={styles.bottomSection}  
               onScroll={() => { console.log('onScroll!'); }}>
                 {list.length > 0 ? list : <View></View>}
               </ScrollView>
-
            
+            </View>
+            <View>
+            <Modal 
+            animated={this.state.animated}
+            transparent={this.state.transparent}
+            visible={this.state.visible}>
+            <ScrollView style={styles.bottomSection}
+            onScroll={() => { console.log('onScroll!'); }}>
+              {contactList.length > 0 ? contactList : <View></View>}
+            </ScrollView>
+              <TouchableHighlight
+                style={styles.button}
+                onPress = {this.closeContactsView}
+                underlayColor = "tranparent">
+                <Text style={styles.buttonText}>Close contacts</Text> 
+              </TouchableHighlight>
+            </Modal>
             </View>
           </View>
           )
@@ -260,6 +338,9 @@ const styles = StyleSheet.create({
   },
   bottomSection: {
     flex: .7
+  },
+  contacts: {
+
   }
 
   
