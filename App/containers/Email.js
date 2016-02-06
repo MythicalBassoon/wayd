@@ -14,7 +14,8 @@ function mapStateToProps(state) {
     loading: state.email.loading,
     user_id: state.login.user_id,
     user_first_name: state.login.user_first_name,
-    user_last_name: state.login.user_last_name
+    user_last_name: state.login.user_last_name,
+    user_email: state.login.user_email,
 
   }
 }

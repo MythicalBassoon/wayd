@@ -484,7 +484,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = PG978XEX66;
+						DevelopmentTeam = P47Z5GLX75;
 					};
 				};
 			};
@@ -849,7 +849,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				NODE_ENV = production;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.wayd2;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.wayd4;
 				PRODUCT_NAME = wayd;
 				PROVISIONING_PROFILE = "";
 			};
@@ -871,7 +871,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				NODE_ENV = production;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.wayd2;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.wayd4;
 				PRODUCT_NAME = wayd;
 				PROVISIONING_PROFILE = "";
 			};

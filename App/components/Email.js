@@ -4,7 +4,7 @@ const Separator = require('./helpers/separator.js')
 const Error = require('./Error')
 const Success = require('./Success')
 const Contacts = require('react-native-contacts')
-const host = process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
+const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
 
 const {
   StyleSheet,
@@ -102,7 +102,7 @@ const Email = React.createClass({
         },
         body: JSON.stringify({
           pollInfo: {
-            emails: this.props.emails,
+            emails: this.props.emails.concat(this.props.user_email),
             //Note tha the userId is hardcoded until Auth gets implemted!!
             user: {
               userId: this.props.user_id,
