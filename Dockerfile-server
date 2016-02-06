@@ -13,6 +13,7 @@ ADD ./Server/Workers/apikeys.js /server/Workers/apikeys.js
 
 
 ADD ./Server/server.js /server/server.js
+ADD ./Server/Templates /server/Templates
 
 ADD ./DB /DB
 ADD ./Server/Routes/ /server/routes

@@ -6,6 +6,7 @@ WORKDIR worker
 
 # TODO: ADD all the application code into /worker
 ADD ./Server/Workers /worker
+ADD ./Server/Templates /Templates
 ADD package.json /worker
 ADD ./node_modules /worker/node_modules
 
