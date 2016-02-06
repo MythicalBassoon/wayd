@@ -53,9 +53,17 @@ module.exports = {
             results = [];
           }
           
-          // console.log(results)
+          
 
-          var newresults = results.map(function(event){
+          var newresults = results.filter(function(event){
+
+            console.log('time', eventDate, dateFormater(JSON.stringify(new Date(event.start_time))))
+            if (eventDate === dateFormater(JSON.stringify(new Date(event.start_time)))){
+              return event
+            }
+
+          }).map(function(event){
+
             return {
               title: event.title,
               description: event.description,
@@ -69,7 +77,7 @@ module.exports = {
               long: event.longitude,
               source: 'eventful',
               source_id: event.id,
-              image_thumb: event.image !== null ? event.image.thumb.url : null ,
+              image_thumb: event.venue_url !== null ? event.venue_url : null ,
               image_medium: event.image !== null ? event.image.medium.url : null
             }
 

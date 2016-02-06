@@ -100,7 +100,7 @@ const EventRec = React.createClass({
 
   //almost works; throws an error when navigate back...
   openPage: function(){
-    var url = this.props.currentEvent.image_medium
+    var url = this.props.currentEvent.image_thumb
     // console.log('page', url)
 
     this.props.navigator.push({
