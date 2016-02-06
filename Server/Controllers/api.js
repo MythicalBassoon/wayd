@@ -45,6 +45,7 @@ module.exports = {
 
           //take resposne from eventful api and map it to data schema for db
           //Richard: handles if there's no events in area or bad time
+          // console.log('body', body)
           if(JSON.parse(body).events){
 
             var results = JSON.parse(body).events.event
@@ -56,8 +57,7 @@ module.exports = {
           
 
           var newresults = results.filter(function(event){
-
-            console.log('time', eventDate, dateFormater(JSON.stringify(new Date(event.start_time))))
+            // console.log('time', eventDate, dateFormater(JSON.stringify(new Date(event.start_time))))
             if (eventDate === dateFormater(JSON.stringify(new Date(event.start_time)))){
               return event
             }
