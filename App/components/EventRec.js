@@ -167,8 +167,6 @@ const EventRec = React.createClass({
               
             </TouchableHighlight>
 
-
-
             <Text style={[MKCardStyles.title, {color: '#263238'}]}>{event.title} </Text>
             
             <View  style={{ padding : 15 }} >
@@ -187,27 +185,23 @@ const EventRec = React.createClass({
               <View style={MKCardStyles.menu}>{menu}</View>
 
               <TouchableHighlight
-                style={styles.webBtn}
-                underlayColor = "tranparent">
+                style={styles.webBtn}>
                 <Text style={styles.title}>  </Text> 
               </TouchableHighlight>
 
                  <TouchableHighlight
                 style={styles.button}
-                onPress={this.yes}
-                underlayColor = "tranparent">
+                onPress={this.yes}>
                 <Text style={styles.buttonText}> Im down </Text> 
               </TouchableHighlight>
 
               <TouchableHighlight
                 style={styles.button}
-                onPress={this.no}
-                underlayColor = "tranparent">
+                onPress={this.no}>
                 <Text style={styles.buttonText}> Im not down </Text> 
               </TouchableHighlight>
 
-
-            
+      
             
     
 
@@ -235,7 +229,7 @@ const styles = StyleSheet.create({
   },
   title: {
     marginBottom: 20,
-    fontSize: 20,
+    fontSize: 17,
     textAlign: 'center',
     color: '#607D8B'
   },

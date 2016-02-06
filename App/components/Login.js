@@ -3,7 +3,7 @@ const Search = require('../containers/Search')
 const LoginError = require('./LoginError')
 let simpleAuthClient = require('react-native-simple-auth');
 const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
-
+var { Icon, } = require('react-native-icons');
 
 const MK = require('react-native-material-kit')
 const {
@@ -18,6 +18,9 @@ MK.setTheme({
   primaryColor: MKColor.Blue,
   accentColor: MKColor.Orange,
 });
+
+
+
 
 const {
   StyleSheet,
@@ -132,24 +135,36 @@ const Login = React.createClass({
         <View style = {styles.mainContainer}>
 
           <Text style= {styles.title}> WAYD </Text>
-          {/*
+          {/*  
           <Textfield1 value={this.state.username}/>
           <Textfield2 value={this.state.username}/>
           <Text style= {styles.buttonText}> or </Text>
           */}
 
 
-
-
-
-          <TouchableHighlight
+          <MKButton
+            backgroundColor={MKColor.blue1}
             style={styles.facebook}
-            onPress={this.auth}
-            underlayColor="tranparent">
+            shadowRadius={2}
+            shadowOffset={{width:0, height:1}}
+            shadowOpacity={.7}
+            shadowColor="black"
+            onPress={() => {
+              this.auth()
+              console.log('login btn!');
+            }}
+            >
+
+            <Icon
+              name='material|facebook'
+              size={44}
+              color='white'
+              style={styles.facebook}
+            />
             
-            
-            <Text style= {styles.buttonText}>  </Text>
-          </TouchableHighlight>
+          </MKButton>
+
+
          </View>
     )
   }
@@ -184,7 +199,7 @@ const styles = StyleSheet.create({
   },
   facebook: {
     height: 50,
-    backgroundColor: '#536DFE',
+    backgroundColor: '#304FFE',
      shadowColor: "#000000",
     shadowOpacity: 0.3,
     shadowRadius: 2,
@@ -221,7 +236,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     backgroundColor: '#ECEFF1'
-  },
+  }
 });
 
 
@@ -235,9 +250,5 @@ const Textfield2 = MKTextField.textfield()
   .withStyle(styles.textfield)
   .build();
 
-// const FlatButton = MKButton.flatButton()
-//   .withText('log in')
-//   .build();
-//
 
 module.exports = Login

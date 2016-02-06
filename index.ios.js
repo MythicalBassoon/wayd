@@ -32,7 +32,7 @@ class wayd extends React.Component{
             }}
 
             navigationBarHidden = {false}
-            barTintColor = {'#304FFE'}
+            barTintColor = {'#536DFE'}
             titleTextColor= {'white'}
             tintColor = {'white'}
             shadowHidden ={false}
