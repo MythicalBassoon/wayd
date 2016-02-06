@@ -74,7 +74,7 @@ const Email = React.createClass({
 
   addContactEmail: function(contactEmail){
     var re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-      console.log('re', re)
+      console.log('re', re);
     var currentEmail = contactEmail;
 
     if (currentEmail && re.test(currentEmail) ) {
@@ -154,9 +154,22 @@ const Email = React.createClass({
         var emails = this.props.emails;
         console.log('email arr', emails);
         var allContacts = this.props.contacts;
+        var prevLastName = " ";
+        var currLastName = " ";
+
         var contactList = allContacts.map(function (contact, index) {
+          prevLastName  = currLastName;
+          currLastName = contact.familyName || contact.givenName;
+          var letterBar;
+          if (prevLastName.charAt(0) !== currLastName.charAt(0)){
+            letterBar = (<Text style={styles.buttonText}>{currLastName.charAt(0)}</Text>)
+          } else {
+            letterBar = null;
+          }
           return (
-              <TouchableHighlight style={styles.button} 
+            <View>
+            {letterBar}
+            <TouchableHighlight style={styles.button} 
                 key={index}
                 onPress= {function(){
                   if (contact.emailAddresses.length > 0){
@@ -166,6 +179,7 @@ const Email = React.createClass({
                 }}>
                 <Text style={styles.buttonText}>{contact.givenName} {contact.familyName}</Text>
               </TouchableHighlight>
+              </View>
           )
         });
         var list = emails.map(function(email, index) {
@@ -221,6 +235,7 @@ const Email = React.createClass({
               </TouchableHighlight>
 
             </View>
+            
               <TouchableHighlight
                 style={styles.button}
                 onPress = {this.contactsView}
@@ -337,7 +352,8 @@ const styles = StyleSheet.create({
     flex: .3
   },
   bottomSection: {
-    flex: .7
+    flex: .7,
+    marginTop: 20
   },
   contacts: {
 
