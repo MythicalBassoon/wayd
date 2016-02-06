@@ -17,37 +17,17 @@ exports.loadingPoll = function loadingPoll(bool) {
   }
 }
 
-// exports.timechange = function timechange(date) {
-//   return {
-//     type: 'TIME_CHANGE',
-//     date: date
-//   }
-// }
+exports.delEmail = function delEmail(emailAddress) {
+  return {
+    type: 'DEL_EMAIL',
+    emailAddress: emailAddress
+  }
+}
 
-
-
-
-// exports.eventView = function eventView(data) {
-//   return {
-//     type: "PASS_SEARCH_QUERY",
-//     prevData: data
-//   }
-// }
-
-
-// exports.getData = function getData(data){
-//   // console.log('get data dispatch', data)
-//   return{
-//     type: "GET_DATA",
-//     apiresults: data
-//   }
-// }
-
-// exports.popEvent = function popEvent(){
-//   console.log('pop event')
-//   return{
-//     type: "POP_EVENT"
-
-//   }
-// }
+exports.addContacts = function addContacts(contacts){
+  return {
+    type: 'ADD_CONTACTS',
+    contacts: contacts
+  }
+}
 

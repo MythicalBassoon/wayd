@@ -12,6 +12,7 @@ const {
   Component,
   AppRegistry,
   NavigatorIOS,
+  Navigator,
   StyleSheet, 
   TabBarIOS
 } = React
@@ -23,14 +24,19 @@ class wayd extends React.Component{
   render() {
     return (
       <Provider store={store}>
+
           <NavigatorIOS
             style={styles.container}
             initialRoute = {{
-              title: "Login",
               component: Login
             }}
+
             navigationBarHidden = {false}
-            translucent = {true}
+            barTintColor = {'#536DFE'}
+            titleTextColor= {'white'}
+            tintColor = {'white'}
+            shadowHidden ={false}
+
           />
       
   

@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "./bashToStart.sh && node node_modules/react-native/local-cli/cli.js start"
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "mocha test/modelsSpec.js"
   },
   "dependencies": {
     "body-parser": "^1.14.2",
@@ -15,6 +16,7 @@
     "path": "^0.12.7",
     "pg-promise": "^3.0.6",
     "react-native": "^0.18.1",
+    "react-native-contacts": "^0.2.1",
     "react-native-google-places-autocomplete": "^1.1.6",
     "react-native-icons": "^0.7.1",
     "react-native-maps": "^0.2.3",

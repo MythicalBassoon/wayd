@@ -5,6 +5,7 @@ server:
    - 80:3000
   environment:
     DEPLOYED: "true"
+    NODE_ENV: "production"
   links:
    # - redis
    - postgres
@@ -16,6 +17,7 @@ workerserver:
    - 4568:4568
   environment:
     DEPLOYED: "true"
+    NODE_ENV: "production"
   links:
    - redis
    - postgres
@@ -25,6 +27,7 @@ worker:
   dockerfile: Dockerfile-worker
   environment:
     DEPLOYED: "true"
+    NODE_ENV: "production"
   links:
    - redis
    # - postgres

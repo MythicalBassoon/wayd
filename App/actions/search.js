@@ -15,6 +15,12 @@ exports.timechange = function timechange(date) {
     date: date
   }
 }
+exports.searchDisabled = function searchDisabled(bl) {
+  return {
+    type: 'SEARCH_DISABLED',
+    searchDisabled: bl
+  }
+}
 
 exports.loadingscreen = function loadingscreen(bool) {
   console.log('load screen action', bool)

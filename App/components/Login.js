@@ -1,8 +1,9 @@
 const React = require('react-native')
 const Search = require('../containers/Search')
+const LoginError = require('./LoginError')
 let simpleAuthClient = require('react-native-simple-auth');
-const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
-
+const host = process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
+var { Icon, } = require('react-native-icons');
 
 const MK = require('react-native-material-kit')
 const {
@@ -10,12 +11,16 @@ const {
   MKColor,
   mdl,
   MKTextField,
+  MKCardStyles
 } = MK;
 
 MK.setTheme({
   primaryColor: MKColor.Blue,
   accentColor: MKColor.Orange,
 });
+
+
+
 
 const {
   StyleSheet,
@@ -25,17 +30,19 @@ const {
   TextInput,
   TouchableHighlight,
   View,
-  Image
+  Image,
+  Modal,
+  Animated
 } = React
 
-
-
 var API_KEY_FACEBOOK_APP = require('../../apikeys').facebook_app_api_key;
-
 
 const Login = React.createClass({
   getInitialState: function() {
     return {
+      // animated: false,
+      // visible: true,
+      // transparent: true
     }
   },
 
@@ -56,31 +63,31 @@ const Login = React.createClass({
 
     simpleAuthClient.authorize('facebook').then((info) => {
   
-  console.log('facebook data', info)
+    console.log('facebook data', info)
 
-  var url = `${host}api/users`;
-  console.log(url);
+    var url = `${host}api/users`;
+    console.log(url);
 
-  var obj = {  
-  method: 'POST',
-  headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    'user_id': info['id'],
-    'user_first_name': info['first_name'],
-    'user_last_name': info['last_name'],
-    'user_email': info['email']
-  })
-}
+    var obj = {  
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        'user_id': info['id'],
+        'user_first_name': info['first_name'],
+        'user_last_name': info['last_name'],
+        'user_email': info['email']
+      })
+    }
 
-   fetch(url, obj)
-    .then((response) => response.json())
+    fetch(url, obj)
+    .then((response) => 
+      response.json()
+    )
     .then((responseData) => {
-      console.log('response data is', responseData);
       this.props.user_set(responseData[0]['id'], info['last_name'],info['first_name'], info['email']);
-    
 
           this.props.navigator.push({
               title: 'Search',
@@ -91,10 +98,14 @@ const Login = React.createClass({
           let errorCode = error.code;
           let errorDescription = error.description;
         });
+    }).catch((error) =>{
+      console.log('outter error', error);
+      this.props.navigator.push({
+        title: 'LoginError',
+        component: LoginError
+      });
     })
-    
     .done();
-
 
 
  
@@ -120,31 +131,41 @@ const Login = React.createClass({
   render: function() {
 
     return (
-      <View style = {styles.mainContainer}>
 
-        
-        <Text style= {styles.title}> WAYD </Text>
-        {/*
-        <Textfield1 value={this.state.username}/>
+        <View style = {styles.mainContainer}>
 
-        <Textfield2 value={this.state.username}/>
-
-
-        <Text style= {styles.buttonText}> or </Text>
-        */}
+          <Text style= {styles.title}> WAYD </Text>
+          {/*  
+          <Textfield1 value={this.state.username}/>
+          <Textfield2 value={this.state.username}/>
+          <Text style= {styles.buttonText}> or </Text>
+          */}
 
 
-        <TouchableHighlight
-          style={styles.facebook}
-          onPress={this.auth}
-          underlayColor="tranparent">
-          
-          
-          <Text style= {styles.buttonText}>  </Text>
-        </TouchableHighlight>
+          <MKButton
+            backgroundColor={MKColor.blue1}
+            style={styles.facebook}
+            shadowRadius={2}
+            shadowOffset={{width:0, height:1}}
+            shadowOpacity={.7}
+            shadowColor="black"
+            onPress={() => {
+              this.auth()
+              console.log('login btn!');
+            }}
+            >
+
+            <Icon
+              name='material|facebook'
+              size={44}
+              color='white'
+              style={styles.facebook}
+            />
+            
+          </MKButton>
 
 
-      </View>
+         </View>
     )
   }
 })
@@ -177,7 +198,15 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   facebook: {
-    backgroundColor: '#3b5998'
+    height: 50,
+    backgroundColor: '#304FFE',
+     shadowColor: "#000000",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0
+    }
   },
   buttonText: {
     fontSize: 15,
@@ -185,9 +214,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   button: {
-    height: 45,
+    height: 80,
     flexDirection: 'row',
-    backgroundColor: '#ECEFF1',
+    backgroundColor: '#304FFE',
     borderColor: 'white',
     borderWidth: 1,
     borderRadius: 0,
@@ -200,6 +229,14 @@ const styles = StyleSheet.create({
     height: 28,  // have to do it on iOS
     marginTop: 22,
   },
+    spinnerContainer: {
+    flex: 1,
+    padding: 0,
+    marginTop: 0,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    backgroundColor: '#ECEFF1'
+  }
 });
 
 
@@ -213,9 +250,5 @@ const Textfield2 = MKTextField.textfield()
   .withStyle(styles.textfield)
   .build();
 
-// const FlatButton = MKButton.flatButton()
-//   .withText('log in')
-//   .build();
-//
 
 module.exports = Login

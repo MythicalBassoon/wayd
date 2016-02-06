@@ -1,1 +1,1 @@
-select * from polls where id = $1
+select * from polls where id = $1;

@@ -3,7 +3,15 @@ const EventRec = require('../containers/EventRec')
 const Moment = require('moment')
 const SearchTabBar = require('./helpers/SearchTabBar.js')
 
- 
+ const MK = require('react-native-material-kit')
+const {
+  MKButton,
+  MKColor,
+  mdl,
+  MKTextField,
+  MKCardStyles
+} = MK;
+
 const {
   StyleSheet,
   ListView,
@@ -16,7 +24,9 @@ const {
   ActivityIndicatorIOS,
   SliderIOS,
   View,
-  TabBarIOS
+  TabBarIOS,
+  Modal,
+  Animated
 } = React
 
 // Node module import for Google API autocomplete (autocomplete only).
@@ -25,6 +35,11 @@ var API_KEY_GOOGLE = require('../../apikeys').google_api_key;
 
 
 const Search = React.createClass({
+  getInitialState: function(){
+    return {
+      richard: 0,
+    }
+  },
   //changes redux.state.date
   onDateChange: function(date){
     // console.log('datechange', JSON.stringify(date))
@@ -33,7 +48,9 @@ const Search = React.createClass({
 
   eventRecView: function() {
     // console.log('eventrectview', this.props)
-    var message = {
+    console.log(this.props.searchButton, 'VALUE OF SEARCHBUTTON')
+    if(this.props.searchButton){
+      var message = {
       latlng: this.props.latlng,
       date: this.props.date
     }
@@ -44,6 +61,21 @@ const Search = React.createClass({
       title: 'Event',
       component: EventRec
     });
+    }
+    else{
+      this.setState({errorShow: true})
+
+    }
+    
+
+  },
+
+  componentWillMount: function(){
+    navigator.geolocation.getCurrentPosition(
+                (initialPosition) => {this.props.latlngadd(initialPosition.coords.latitude,initialPosition.coords.longitude); console.log('GETTING CURRENT POSITION: ', initialPosition)}, // success callback
+                (error) => console.log('ERROR CURRENT POSITION', error), // failure callback
+                {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000} // options
+                );
 
   },
 
@@ -56,6 +88,7 @@ const Search = React.createClass({
     //   console.log(error)
     // })
    console.log('search mounted...');
+
    
 
   },
@@ -63,8 +96,47 @@ const Search = React.createClass({
   getInitialState: function() {
     return {
       value: 'today',
+      animated: true,
+      visible: false,
+      transparent: true,
+      errorShow: false
+
       // active: false
     }
+  },
+
+    renderError: function(){
+     if(this.state.errorShow){
+      console.log('renderError called')
+
+      return(
+           <Text style={styles.errortext}>Please choose a location or set it to Current location</Text>
+           )
+         }
+   
+  },
+
+  wayd: function(text){
+    if(text !== 'Current location'){
+      this.props.searchDisabled(false);
+      console.log('not curent location')
+    }
+    else{
+      this.setState({errorShow: false})
+      console.log('current location activated')
+      this.props.searchDisabled(true);
+      navigator.geolocation.getCurrentPosition(
+                (initialPosition) => {this.props.latlngadd(initialPosition.coords.latitude,initialPosition.coords.longitude);
+                 console.log('GETTING CURRENT POSITION: ', initialPosition)}, // success callback
+                (error) => console.log('ERROR CURRENT POSITION', error), // failure callback
+                {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000} // options
+                );
+      
+    }
+   
+
+    
+
   },
 
   showDatePicker: function() {
@@ -72,6 +144,14 @@ const Search = React.createClass({
     // this.props.datePicker()
 
 
+  },
+
+  showModal: function(){
+    this.setState({visible: true})
+  },
+
+  hideModal: function(){
+    this.setState({visible: false})
   },
 
 
@@ -84,14 +164,20 @@ const Search = React.createClass({
           placeholder='Where you at, homie?'
           minLength={2} // minimum length of text to search
           autoFocus={false}
+          onChangeText={this.functionTest}
           enablePoweredByContainer={false}
           fetchDetails={true}
           onPress={(data, details) => { // 'details' is provided when fetchDetails = true
           console.log('STUFF HAPPENING')
+          this.setState({errorShow: false})
             var lat = details.geometry.location.lat;
             var lng = details.geometry.location.lng;
+            this.props.searchDisabled(true)
+
             this.props.latlngadd(lat,lng);
+            
           }}
+          wayd = {this.wayd}
           getDefaultValue={() => {
             return ''; // text input default value
           }}
@@ -151,33 +237,65 @@ const Search = React.createClass({
         ></GooglePlacesAutocomplete>
 
         <Text style={styles.bodytext}> When you wanna do stuff? </Text>
-        <DatePickerIOS
-          style= {styles.datePicker}
-          date={this.props.date}
-          // timeZoneOffsetInMinutes={(-1) * (new Date()).getTimezoneOffset()}
-          mode="date" // changed from 'datetime'
-          onDateChange={this.onDateChange}>
-        </DatePickerIOS>
 
         <TouchableHighlight
           style={styles.button}
           onPress={this.eventRecView}
-          underlayColor = "tranparent">
+          underlayColor = "#6495ed">
           <Text style={styles.buttonText}> find an event </Text> 
         </TouchableHighlight>
-        
-        
+        <TouchableHighlight
+          style={styles.button}
+          onPress={this.showModal}
+          underlayColor = "tranparent">
+          <Text style={styles.buttonText}> Display Timepicker </Text> 
+        </TouchableHighlight>
 
+
+        {this.renderError()}
+
+
+        <View>
+
+          <Modal style={styles.modal}
+            animated={this.state.animated}
+            transparent={this.state.transparent}
+            visible={this.state.visible}>
+
+            <View style={styles.datePickerContainer}>
+
+            
+              <DatePickerIOS
+                style= {styles.datePicker}
+                date={this.props.date}
+                // timeZoneOffsetInMinutes={(-1) * (new Date()).getTimezoneOffset()}
+                mode="date" // changed from 'datetime'
+                onDateChange={this.onDateChange}>
+              </DatePickerIOS>
+
+              <TouchableHighlight
+                style={styles.button}
+                onPress={this.hideModal}
+                underlayColor = "tranparent">
+                <Text style={styles.buttonText}> OK! </Text> 
+              </TouchableHighlight>
+
+            </View>
+
+          </Modal>
+        </View>
+
+ 
       </View>
 
     )
   }
 })
 
-Search.propTypes = {
-  latlng: React.PropTypes.string.isRequired,
-  date: React.PropTypes.object.isRequired
-}
+// Search.propTypes = {
+//   latlng: React.PropTypes.string.isRequired,
+//   date: React.PropTypes.object.isRequired
+// }
 
 const styles = StyleSheet.create({
   container: {
@@ -199,18 +317,10 @@ const styles = StyleSheet.create({
       marginRight: 8,
       fontSize: 15,
     },
-  newItem: {
-    backgroundColor: '#FFFFFF',
-    height: 40,
-    borderColor: '#CCCCCC',
-    borderWidth: 1,
-    marginBottom: 10,
-    marginLeft: 20,
-    marginRight: 20,
-    paddingLeft: 10,
-    borderRadius: 5,
-    fontSize: 20
-  },
+    datePicker:{
+      backgroundColor: 'white'
+    },
+
   buttonText: {
     fontSize: 15,
     paddingTop: 10,
@@ -218,23 +328,22 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   button: {
-    height: 45,
-    flexDirection: 'row',
-    backgroundColor: '#ECEFF1',
-    borderColor: 'white',
-    borderWidth: 1,
-    borderRadius: 0,
-    marginBottom: 20,
-    marginTop: 20,
-    marginLeft: 30,
     marginRight: 30,
+    marginLeft: 30,
+    height: 50,
+    flexDirection: 'row',
+    backgroundColor: '#536DFE',
+    marginBottom: 10,
     marginTop: 10,
     alignSelf: 'stretch',
-    justifyContent: 'center'
-  },
-  footer: {
-    flex: .2,
-    backgroundColor: '#607D8B'
+    justifyContent: 'center',
+    shadowColor: "#000000",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0
+    }
   },
   bodytext: {
     marginBottom: 10,
@@ -243,15 +352,30 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#607D8B'
   },
+
+  errortext: {
+    marginBottom: 10,
+    marginTop: 10,
+    fontSize: 15,
+    textAlign: 'center',
+    color: '#C62828'
+  },
   sliderView: {
     marginBottom: 10,
     flex: .5
   },
-  datePicker: {
-    height: 10,
-    marginBottom: 150
-  }
 
+  datePickerContainer:{
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    backgroundColor: 'black',
+    opacity: .8
+  }, 
+  modal: {
+    flexDirection: 'row',
+  }
 })
 
 module.exports = Search

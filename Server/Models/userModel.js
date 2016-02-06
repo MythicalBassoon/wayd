@@ -5,10 +5,8 @@ var db = require('../../DB/config.js');
 var queryString = require('../../DB/psql/index');
 
 
-module.exports.insertUser = function(user, callback, testMode){
-  if (testMode){
-    db = require('../../db/testConfig.js');
-  }
+module.exports.insertUser = function(user, callback, database){
+  db = database || db;
   //hardcoding parameter values for testing purposes only!
 
   // eventId = 1;
@@ -25,11 +23,11 @@ module.exports.insertUser = function(user, callback, testMode){
   //insert poll into polls table
   return db.query(queryString.insertUser, queryParameters)
     .then(function(userId) {
-      console.log('inserted user id is', userId);
+      //console.log('inserted user id is', userId);
       return callback(null, userId);
     })
     .catch(function(error){
-      console.log('error inserting user to db, error is:', error);
-      return callback(error);
+      //console.log('error inserting user to db, error is:', error);
+      return callback(error, null);
     });
 }

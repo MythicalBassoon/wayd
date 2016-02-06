@@ -2,14 +2,20 @@ const React = require('react-native')
 const moment = require('moment')
 const Email = require('../containers/Email')
 const EventRect = require('../containers/EventRec')
-const Map = require('./Map')
+const Map = require('../containers/Map')
 
-const EventTabBar = require('./helpers/EventTabBar.js')
+// const EventTabBar = require('./helpers/EventTabBar.js')
+const Web_View = require('../containers/Web.js');
+
 const MK = require('react-native-material-kit')
-const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
+const host = process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
 const {
+    MKButton,
+  MKColor,
   mdl,
-  MKColor
+  MKTextField,
+  MKCardStyles,
+  MKIconToggle
 } = MK;
 
 MK.setTheme({
@@ -48,7 +54,14 @@ const EventRec = React.createClass({
     fetch(url, {method: "GET"})
     .then((response) => response.json())
     .then((responseData) => {
-      console.log(responseData)
+    //testing for client side filtering
+      // console.log('res data time', responseData[0])
+      // console.log('res data time2', new Date(responseData[0].start_time))
+      // console.log('search date', new Date(this.props.prevData.date))
+      // var resData = responseData.filter(function(event){
+      //   if(event.start_time) 
+      // })
+
        this.props.getData(responseData)
        this.props.popEvent() 
     })
@@ -84,9 +97,43 @@ const EventRec = React.createClass({
     });
    
   },
+
+  //almost works; throws an error when navigate back...
+  openPage: function(){
+    var url = this.props.currentEvent.image_thumb
+    // console.log('page', url)
+
+    this.props.navigator.push({
+      title: 'Web View',
+      component: Web_View,
+      passProps: {url}
+    });
+  },
  
   render: function() {
     console.log('event component render', this.props)
+
+    var menu = (
+       <MKIconToggle
+        checked={true}
+        onCheckedChange={this._onIconChecked}
+        onPress={() =>{
+          console.log('toggle')
+          this.openPage()
+          this._onIconClicked
+        }}
+        >
+
+        <Text pointerEvents="none"
+              style={styles.toggleTextOff}>details</Text>
+        <Text state_checked={true}
+              pointerEvents="none"
+              style={[styles.toggleText, styles.toggleTextOn]}>details</Text>
+
+
+      </MKIconToggle>
+    );
+    //
 
     switch(this.props.loading){
       case true:
@@ -98,42 +145,68 @@ const EventRec = React.createClass({
         )
       case false:
 
-        console.log('api results', this.props)
-        console.log('api current img', this.props.currentEvent)
+        // console.log('api results', this.props)
+        // console.log('api current img', this.props.currentEvent)
 
-        // var eventTime = moment(event.start_time).format('MMM Do YY')
         var event = this.props.currentEvent;
+
+        var url = `https://maps.googleapis.com/maps/api/staticmap?markers=size:small%7Ccolor:red%7C${this.props.currentEvent.lat},${this.props.currentEvent.long}2&zoom=15&size=640x400&key=AIzaSyA4rAT0fdTZLNkJ5o0uaAwZ89vVPQpr_Kc`
 
         return (
           <View style = {styles.mainContainer}>
-            <View style={styles.body}>
-              <Image style={styles.image} source={{uri: event.image_medium}}/>
-              <Text style={styles.title}> {event.title} </Text>
-              <Text style={styles.bodytext}> {event.address} </Text>
-              <Text style={styles.bodytext}> {event.city} </Text>
-              <Text style={styles.bodytext}> { moment(event.start_time).calendar() } </Text>
+            
+          <View style={MKCardStyles.card}>
 
-              <TouchableHighlight
-                style={styles.button}
-                onPress={this.yes}
-                underlayColor = "tranparent">
-                <Text style={styles.buttonText}> yes </Text> 
-              </TouchableHighlight>
+            <TouchableHighlight
 
-              <TouchableHighlight
-                style={styles.button}
-                onPress={this.no}
-                underlayColor = "tranparent">
-                <Text style={styles.buttonText}> no </Text> 
-              </TouchableHighlight>
+              style={[MKCardStyles.image, { opacity: .8}]}
+              onPress={this.map}
+              underlayColor="tranparent">
+              
+              <Image source={{uri : url}}  style={MKCardStyles.image}/>
+              
+            </TouchableHighlight>
 
-              <TouchableHighlight
-          style={styles.button}
-          onPress={this.map}
-          underlayColor="tranparent">
-          <Text style={styles.buttonText}> FACEBOOK </Text> 
-        </TouchableHighlight>
+            <Text style={[MKCardStyles.title, {color: '#263238'}]}>{event.title} </Text>
+            
+            <View  style={{ padding : 15 }} >
+              <Text style={[MKCardStyles.content, {padding:0}]}>
+                {event.address} 
+              </Text>
+                <Text style={[MKCardStyles.content, {padding:0}]}>
+                {event.city}
+              </Text>
+              <Text style={[MKCardStyles.content, {padding:0}]}>
+                { moment(event.start_time).calendar() } 
+              </Text>
             </View>
+            
+            <View style={MKCardStyles.action}>
+              <View style={MKCardStyles.menu}>{menu}</View>
+
+              <TouchableHighlight
+                style={styles.webBtn}>
+                <Text style={styles.title}>  </Text> 
+              </TouchableHighlight>
+
+                 <TouchableHighlight
+                style={styles.button}
+                onPress={this.yes}>
+                <Text style={styles.buttonText}> Im down </Text> 
+              </TouchableHighlight>
+
+              <TouchableHighlight
+                style={styles.button}
+                onPress={this.no}>
+                <Text style={styles.buttonText}> Im not down </Text> 
+              </TouchableHighlight>
+
+      
+            
+    
+
+            </View>
+          </View>
 
             
           </View>
@@ -148,15 +221,15 @@ const EventRec = React.createClass({
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    padding: 0,
-    marginTop: 0,
+    padding: 10,
+    marginTop: 50,
     flexDirection: 'column',
     justifyContent: 'center',
     backgroundColor: 'white'
   },
   title: {
     marginBottom: 20,
-    fontSize: 20,
+    fontSize: 17,
     textAlign: 'center',
     color: '#607D8B'
   },
@@ -172,17 +245,22 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   button: {
-    height: 45,
+    height: 50,
     flexDirection: 'row',
-    backgroundColor: '#ECEFF1',
-    borderColor: 'white',
-    borderWidth: 1,
-    borderRadius: 0,
+    backgroundColor: '#536DFE',
     marginBottom: 10,
     marginTop: 10,
     alignSelf: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    shadowColor: "#000000",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0
+    }
   },
+
   image: {
     height: 150,
     width: 150,
@@ -209,7 +287,14 @@ const styles = StyleSheet.create({
     marginTop: 50,
     marginLeft: 30,
     marginRight: 30
-  }
+  },
+   webBtn: {
+    fontSize: 15,
+    backgroundColor: 'white',
+    alignSelf: 'center',
+    
+
+  },
 
   
 
