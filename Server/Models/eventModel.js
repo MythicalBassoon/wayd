@@ -66,14 +66,17 @@ module.exports.insertEvent = function(eventObj, callback, database){
     // callback = function(x) {console.log(x)};
     // eventId = 1;
 
+    console.log('running getOneEvent');
+
     return db.query(queryString.getOneEvent, eventId)
       .then(function(event) {
-        //console.log('retrieved event is', event);
+        console.log('retrieved event is', event);
         return callback(null, event);
       })
       .catch(function(error){
-        //console.log('error getting event, error is:', error);
-        return callback(err, null);
+        console.log('in getOneEvent, id is', eventId);
+        console.log('error getting event, error is:', error);
+        return callback(error, null);
       });
   }
 

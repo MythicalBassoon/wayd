@@ -1,6 +1,8 @@
 var redis = require('redis');
 var Queue = require('./queue.js');
-var template = require('./template').template
+var template = require('../Templates/invite').template
+var attendingTemplate = require('../Templates/attending').template
+var rejectedTemplate = require('../Templates/rejecting').template
 var gmail = require('./apikeys').gmail
 if(process.env.DEPLOYED){
 var client = redis.createClient('6379', 'redis');
@@ -69,12 +71,12 @@ else {
   console.log('handling final email');
   if (emailInfo.consensus){
     mailOptions.subject = 'Poll results are in, set your calendar!';
-    mailOptions.html = '<b>Get ready to go</b>'; 
+    mailOptions.html = attendingTemplate(emailInfo.event.title, emailInfo.event.image_medium, emailInfo.event.description); 
   }
 
   else {
     mailOptions.subject = 'Poll results are in, people don\'t want to go to go!';
-    mailOptions.html = '<b>Download wyd to suggest other events!</b>'; 
+    mailOptions.html = rejectedTemplate(emailInfo.event.title, emailInfo.event.image_medium, emailInfo.event.description); 
   }
   transporter.sendMail(mailOptions, function(error, info){
     if(error){
