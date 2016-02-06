@@ -3,11 +3,7 @@ const MK = require('react-native-material-kit')
 const Separator = require('./helpers/separator.js')
 const Error = require('./Error')
 const Success = require('./Success')
-<<<<<<< Updated upstream
-
-=======
 const Contacts = require('react-native-contacts')
->>>>>>> Stashed changes
 const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
 
 const {
@@ -38,10 +34,8 @@ MK.setTheme({
 
 const Email = React.createClass({
 
-  componentDidMount: function() {
-   console.log('email mounted...');
+  componentDidMount: function() { 
    this.setState({email: ''});
-
   },
 
   componentWillMount: function() {
@@ -49,10 +43,8 @@ const Email = React.createClass({
       if(err && err.type === 'permissionDenied'){
         console.log("No contacts")
       } else {
-        //this.setState({contacts: contacts})
         this.props.addContacts(contacts);
       }
-      console.log("REDUXXX", this.props.contacts);
     });
   },
 
@@ -81,7 +73,17 @@ const Email = React.createClass({
   },
 
   addContactEmail: function(contactEmail){
-    this.props.addEmail(contactEmail);
+    var re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+      console.log('re', re)
+    var currentEmail = contactEmail;
+
+    if (currentEmail && re.test(currentEmail) ) {
+      var email = contactEmail;
+      console.log('email getting dispatched is...', email)
+      this.props.addEmail(email);
+    } else {
+      console.log('invalid email');
+    }
   },
 
 
@@ -155,13 +157,13 @@ const Email = React.createClass({
         var contactList = allContacts.map(function (contact, index) {
           return (
               <TouchableHighlight style={styles.button} 
-              key={index}
-              onPress= {function(){
-                if (contact.emailAddresses.length > 0){
-                  that.addContactEmail(contact.emailAddresses[0].email);
-                  that.closeContactsView();
-                }
-              }}>
+                key={index}
+                onPress= {function(){
+                  if (contact.emailAddresses.length > 0){
+                    that.addContactEmail(contact.emailAddresses[0].email);
+                    that.closeContactsView();
+                  }
+                }}>
                 <Text style={styles.buttonText}>{contact.givenName} {contact.familyName}</Text>
               </TouchableHighlight>
           )
@@ -219,19 +221,17 @@ const Email = React.createClass({
               </TouchableHighlight>
 
             </View>
-
               <TouchableHighlight
                 style={styles.button}
                 onPress = {this.contactsView}
                 underlayColor = "tranparent">
-                <Text style={styles.buttonText}>Contacts!</Text> 
+                <Text style={styles.buttonText}>Search Contacts</Text> 
               </TouchableHighlight>
 
               <ScrollView style={styles.bottomSection}  
               onScroll={() => { console.log('onScroll!'); }}>
                 {list.length > 0 ? list : <View></View>}
               </ScrollView>
-
            
             </View>
             <View>
