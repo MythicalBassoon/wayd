@@ -15,12 +15,7 @@ function mapStateToProps(state) {
     user_id: state.login.user_id,
     user_first_name: state.login.user_first_name,
     user_last_name: state.login.user_last_name,
-<<<<<<< HEAD
     user_email: state.login.user_email,
-=======
-    user_email: state.login.user_email
->>>>>>> 758d4acf52aed71789934936e70929782517a3a9
-
   }
 }
 
