@@ -32,9 +32,9 @@ module.exports = function search(state = initialState, action) {
     // console.log('pop reducer BEING CALLED', state)
 
     var currentEvent = state.apiresults.slice(-1)[0]
-    var newApiRes = state.apiresults.slice(1, state.apiresults.length-1)
-    // console.log('cur img', currentEvent)
-    // console.log('new api results', state.apiresults)
+    var newApiRes = state.apiresults.slice(0, state.apiresults.length-1)
+    console.log('cur event', currentEvent)
+     console.log('new api results', newApiRes[newApiRes.length-1])
     return {
       ...state,
       apiresults: newApiRes,

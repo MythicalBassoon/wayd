@@ -16,6 +16,7 @@
     "path": "^0.12.7",
     "pg-promise": "^3.0.6",
     "react-native": "^0.18.1",
+    "react-native-contacts": "^0.2.1",
     "react-native-google-places-autocomplete": "^1.1.6",
     "react-native-icons": "^0.7.1",
     "react-native-maps": "^0.2.3",

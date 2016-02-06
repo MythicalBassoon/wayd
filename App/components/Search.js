@@ -3,7 +3,15 @@ const EventRec = require('../containers/EventRec')
 const Moment = require('moment')
 const SearchTabBar = require('./helpers/SearchTabBar.js')
 
- 
+ const MK = require('react-native-material-kit')
+const {
+  MKButton,
+  MKColor,
+  mdl,
+  MKTextField,
+  MKCardStyles
+} = MK;
+
 const {
   StyleSheet,
   ListView,
@@ -243,14 +251,20 @@ const Search = React.createClass({
           <Text style={styles.buttonText}> Display Timepicker </Text> 
         </TouchableHighlight>
 
+
         {this.renderError()}
 
+
         <View>
-          <Modal
+
+          <Modal style={styles.modal}
             animated={this.state.animated}
             transparent={this.state.transparent}
             visible={this.state.visible}>
+
             <View style={styles.datePickerContainer}>
+
+            
               <DatePickerIOS
                 style= {styles.datePicker}
                 date={this.props.date}
@@ -258,13 +272,16 @@ const Search = React.createClass({
                 mode="date" // changed from 'datetime'
                 onDateChange={this.onDateChange}>
               </DatePickerIOS>
+
               <TouchableHighlight
                 style={styles.button}
                 onPress={this.hideModal}
                 underlayColor = "tranparent">
                 <Text style={styles.buttonText}> OK! </Text> 
               </TouchableHighlight>
+
             </View>
+
           </Modal>
         </View>
 
@@ -275,10 +292,10 @@ const Search = React.createClass({
   }
 })
 
-Search.propTypes = {
-  latlng: React.PropTypes.string.isRequired,
-  date: React.PropTypes.object.isRequired
-}
+// Search.propTypes = {
+//   latlng: React.PropTypes.string.isRequired,
+//   date: React.PropTypes.object.isRequired
+// }
 
 const styles = StyleSheet.create({
   container: {
@@ -301,23 +318,9 @@ const styles = StyleSheet.create({
       fontSize: 15,
     },
     datePicker:{
-      //flex: 1,
-      //flexDirection: 'column',
-      //alignItems:'flex-end',
       backgroundColor: 'white'
     },
-  newItem: {
-    backgroundColor: '#FFFFFF',
-    height: 40,
-    borderColor: '#CCCCCC',
-    borderWidth: 1,
-    marginBottom: 10,
-    marginLeft: 20,
-    marginRight: 20,
-    paddingLeft: 10,
-    borderRadius: 5,
-    fontSize: 20
-  },
+
   buttonText: {
     fontSize: 15,
     paddingTop: 10,
@@ -325,23 +328,22 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   button: {
-    height: 45,
-    flexDirection: 'row',
-    backgroundColor: '#ECEFF1',
-    borderColor: 'white',
-    borderWidth: 1,
-    borderRadius: 0,
-    marginBottom: 20,
-    marginTop: 20,
-    marginLeft: 30,
     marginRight: 30,
+    marginLeft: 30,
+    height: 50,
+    flexDirection: 'row',
+    backgroundColor: '#536DFE',
+    marginBottom: 10,
     marginTop: 10,
     alignSelf: 'stretch',
-    justifyContent: 'center'
-  },
-  footer: {
-    flex: .2,
-    backgroundColor: '#607D8B'
+    justifyContent: 'center',
+    shadowColor: "#000000",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0
+    }
   },
   bodytext: {
     marginBottom: 10,
@@ -350,6 +352,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#607D8B'
   },
+
   errortext: {
     marginBottom: 10,
     marginTop: 10,
@@ -361,11 +364,17 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     flex: .5
   },
+
   datePickerContainer:{
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    backgroundColor: 'black',
+    opacity: .8
+  }, 
+  modal: {
+    flexDirection: 'row',
   }
 })
 
