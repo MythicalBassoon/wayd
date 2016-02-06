@@ -167,7 +167,7 @@ const Email = React.createClass({
             letterBar = null;
           }
           return (
-            <View>
+            <View key={index}>
             {letterBar}
             <TouchableHighlight style={styles.button} 
                 key={index}
