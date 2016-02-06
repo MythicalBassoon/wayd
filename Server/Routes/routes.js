@@ -11,7 +11,8 @@ var insertEmail = require('../Models/emailModel').insertEmail
 var nodeMailer = require('../Workers/email').sendNodeMailer
 var insertUser = require('../Models/userModel').insertUser
 var getOneEvent = require('../Models/eventModel').getOneEvent
-var yesTemplate = require('../Vote_templates/yes').template
+var voteTemplate = require('../Templates/vote').template
+var alreadyVotedTemplate = require('../Templates/alreadyVoted').template
 
 var request = require('request');
 var incrementYesVote = require('../Models/pollModel').incrementYesVote
@@ -176,7 +177,7 @@ router.route('/polls/yes/:emailId')
 
       //send back a 409 is the user has already voted
       if (!pollObj[0].voted === false) {
-        return res.status(409).send("user has already voted!"); 
+        return res.status(409).send(alreadyVotedTemplate()); 
       }
 
       //increment no vote_count for poll in db
@@ -200,10 +201,11 @@ router.route('/polls/yes/:emailId')
 
             console.log('results obj is', results);
 
-             //retrieving event details to insert into html template to be served up
+             //retrieving event details to insert into html voteTemplate to be served up
 
             console.log('about to retrieve event');
             getOneEvent(results.eventId, function(err, event) {
+              console.log('event is', event)
               var event = event[0];
               console.log('get one event just ran, the event is', event);
               if (err) {
@@ -220,7 +222,12 @@ router.route('/polls/yes/:emailId')
                   var emailObj = {
                     to: emailObjs[i].email,
                     final: true,
-                    consensus: results.consensus
+                    consensus: results.consensus,
+                    event: {
+                      title: event.title,
+                      image_medium: event.image_medium,
+                      description: event.description
+                    }
                     // user: pollInfo.user.userFirstName + ' '+ pollInfo.user.userLastName,
                     // eventInfo: eventInfo,
                     // othersInvited: pollInfo.emails.slice(0,i).concat(pollInfo.emails.slice(i+1))
@@ -237,19 +244,12 @@ router.route('/polls/yes/:emailId')
                   })
                 }
 
-                console.log('event is',  event);
-                console.log('paramaters are:', event.title, event.image_medium, event.description);
-                console.log('html template, second time, type is:', (typeof yesTemplate(event.title, event.image_medium, event.description)));
-                res.send(yesTemplate(event.title, event.image_medium, event.description));
+                res.send(voteTemplate(event.title, event.image_medium, event.description));
               });
   }
 
             else {
-              //console.log('html template, first time:', yesTemplate(event.title, event.image_medium, event.description));
-              console.log('event is',  event);
-              console.log('paramaters are:', event.title, event.image_medium, event.description);
-              console.log('html template, first time, type is :', (typeof yesTemplate(event.title, event.image_medium, event.description)));
-              res.send(yesTemplate(event.title, event.image_medium, event.description));
+              res.send(voteTemplate(event.title, event.image_medium, event.description));
             }
             });
           });
@@ -275,7 +275,7 @@ router.route('/polls/no/:emailId')
 
       //send back a 409 is the user has already voted
       if (!pollObj[0].voted === false) {
-        return res.status(409).send("user has already voted!"); 
+        return res.status(409).send(alreadyVotedTemplate()); 
       }
 
       //increment no vote_count for poll in db
@@ -297,7 +297,7 @@ router.route('/polls/no/:emailId')
 
             console.log('results obj is', results);
 
-             //retrieving event details to insert into html template to be served up
+             //retrieving event details to insert into html voteTemplate to be served up
 
             console.log('about to retrieve event');
             getOneEvent(results.eventId, function(err, event) {
@@ -317,7 +317,13 @@ router.route('/polls/no/:emailId')
                   var emailObj = {
                     to: emailObjs[i].email,
                     final: true,
-                    consensus: results.consensus
+                    consensus: results.consensus,
+                    event: {
+                      title: event.title,
+                      image_medium: event.image_medium,
+                      description: event.description
+                    }
+
                     // user: pollInfo.user.userFirstName + ' '+ pollInfo.user.userLastName,
                     // eventInfo: eventInfo,
                     // othersInvited: pollInfo.emails.slice(0,i).concat(pollInfo.emails.slice(i+1))
@@ -334,19 +340,12 @@ router.route('/polls/no/:emailId')
                   })
                 }
 
-                console.log('event is',  event);
-                console.log('paramaters are:', event.title, event.image_medium, event.description);
-                console.log('html template, second time, type is:', (typeof yesTemplate(event.title, event.image_medium, event.description)));
-                res.send(yesTemplate(event.title, event.image_medium, event.description));
+                res.send(voteTemplate(event.title, event.image_medium, event.description));
               });
   }
 
             else {
-              //console.log('html template, first time:', yesTemplate(event.title, event.image_medium, event.description));
-              console.log('event is',  event);
-              console.log('paramaters are:', event.title, event.image_medium, event.description);
-              console.log('html template, first time, type is :', (typeof yesTemplate(event.title, event.image_medium, event.description)));
-              res.send(yesTemplate(event.title, event.image_medium, event.description));
+              res.send(voteTemplate(event.title, event.image_medium, event.description));
             }
             });
           });
