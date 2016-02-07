@@ -166,21 +166,23 @@ const Email = React.createClass({
           } else {
             letterBar = null;
           }
-          return (
-            <View key={index}>
-            {letterBar}
-            <TouchableHighlight style={styles.button} 
-                key={index}
-                onPress= {function(){
-                  if (contact.emailAddresses.length > 0){
-                    that.addContactEmail(contact.emailAddresses[0].email);
-                    that.closeContactsView();
-                  }
-                }}>
-                <Text style={styles.buttonText}>{contact.givenName} {contact.familyName}</Text>
-              </TouchableHighlight>
-              </View>
-          )
+          if (contact.emailAddresses.length > 0){
+            return (
+              <View key={index}>
+              {letterBar}
+              <TouchableHighlight style={styles.button} 
+                  key={index}
+                  onPress= {function(){
+                    if (contact.emailAddresses.length > 0){
+                      that.addContactEmail(contact.emailAddresses[0].email);
+                      that.closeContactsView();
+                    }
+                  }}>
+                  <Text style={styles.buttonText}>{contact.givenName} {contact.familyName}</Text>
+                </TouchableHighlight>
+                </View>
+            )
+          }
         });
         var list = emails.map(function(email, index) {
           return (
@@ -303,7 +305,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 15,
-    color: '##607D8B',
+    color: '#607D8B',
     alignSelf: 'center'
   },
   button: {
