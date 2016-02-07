@@ -166,7 +166,7 @@ const Email = React.createClass({
           } else {
             letterBar = null;
           }
-          //if (contact.emailAddresses.length > 0){
+          if (contact.emailAddresses.length > 0){
             return (
               <View key={index}>
               {letterBar}
@@ -182,7 +182,7 @@ const Email = React.createClass({
                 </TouchableHighlight>
                 </View>
             )
-          //}
+          }
         });
         var list = emails.map(function(email, index) {
           return (
