@@ -31,17 +31,19 @@
    * on the same Wi-Fi network.
    */
 
-
   //jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
   
 
 
   //jsCodeLocation = [NSURL URLWithString:@"http://10.8.32.201:8081/index.ios.bundle?platform=ios&dev=false"];
   //jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
-  jsCodeLocation = [NSURL URLWithString:@"http://10.8.32.164:8081/index.ios.bundle?platform=ios&dev=false"];
+  //jsCodeLocation = [NSURL URLWithString:@"http://10.8.32.164:8081/index.ios.bundle?platform=ios&dev=false"];
 
 //  jsCodeLocation = [NSURL URLWithString:@"http://10.8.32.201:8081/index.ios.bundle?platform=ios&dev=true"];
   
+  //jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
+  jsCodeLocation = [NSURL URLWithString:@"http://10.7.29.17:8081/index.ios.bundle?platform=ios&dev=false"];
+  //jsCodeLocation = [NSURL URLWithString:@"http://10.0.0.26:8081/index.ios.bundle?platform=ios&dev=false"];
   //jsCodeLocation = [NSURL URLWithString:@"http://192.168.0.7:8081/index.ios.bundle?platform=ios&dev=true"];
 
 

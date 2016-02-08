@@ -37,3 +37,5 @@ apikeys.js
 
 dump.rdb
 bashToStart.sh
+
+ios/wayd/AppDelegate.m
