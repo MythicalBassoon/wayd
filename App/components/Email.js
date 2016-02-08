@@ -354,8 +354,7 @@ const styles = StyleSheet.create({
     flex: .45
   },
   bottomSection: {
-    flex: .55,
-    marginTop: 20
+    flex: .55
   },
   contacts: {
 
