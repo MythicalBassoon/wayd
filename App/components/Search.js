@@ -83,6 +83,7 @@ const Search = React.createClass({
                 {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000} // options
                 );
     //this.setState({DateRemoveError: true})
+    this.props.searchDisabled(false);
 
   },
 
@@ -158,7 +159,7 @@ const Search = React.createClass({
     return (
       <View style={styles.container}>
         <GooglePlacesAutocomplete
-          placeholder='Where you at, homie?'
+          placeholder=' Where you at, homie?'
           minLength={2} // minimum length of text to search
           autoFocus={false}
           onChangeText={this.functionTest}
@@ -194,23 +195,27 @@ const Search = React.createClass({
             textInputContainer: {
               backgroundColor: 'white',
               height: 60,
-              borderTopColor: 'white',
-              borderBottomColor: 'white',
-              borderTopWidth: 0,
-              borderBottomWidth: 0,
+              borderTopColor: 'black',
+              borderBottomColor: 'black',
+              borderLeftColor: 'black',
+              borderRightColor: 'black',
+              borderRightWidth: 2,
+              borderLeftWidth: 2,
+              borderTopWidth: 2,
+              borderBottomWidth: 2,
               marginTop: 10
             },
             textInput: {
               backgroundColor: 'rgba(125,125,125,0.1)',
+              fontFamily: 'Bebas',
               height: 55,
-              borderRadius: 0,
-              paddingTop: 1,
-              paddingBottom: 1,
-              paddingLeft: 6,
-              paddingRight: 6,
-              marginTop: 3,
-              marginLeft: 8,
-              marginRight: 8,
+              paddingTop: 0,
+              paddingBottom: 0,
+              paddingLeft: 0,
+              paddingRight: 0,
+              marginTop: 0,
+              marginLeft: 0,
+              marginRight: 0,
               fontSize: 15
             },
           }}
@@ -236,16 +241,16 @@ const Search = React.createClass({
       
 
         <TouchableHighlight
-          style={styles.button}
+          style={styles.bigButton}
           onPress={this.eventRecView}
           underlayColor = "#FFC107">
-          <Text style={styles.buttonText}> Find Me an Event! </Text> 
+          <Text style={styles.buttonText}> FIND ME AN EVENT! </Text> 
         </TouchableHighlight>
         <TouchableHighlight
-          style={styles.button}
+          style={styles.smallButton}
           onPress={this.showModal}
           underlayColor = "#FFC107">
-          <Text style={styles.buttonText}> When You Wanna Do Stuff? </Text> 
+          <Text style={styles.smallButtonText}> Not Today? </Text> 
         </TouchableHighlight>
 
 
@@ -274,7 +279,7 @@ const Search = React.createClass({
                 style={styles.button}
                 onPress={this.hideModal}
                 underlayColor = "FFC107">
-                <Text style={styles.buttonText}> OK! </Text> 
+                <Text style={styles.smallButtonText}> OK! </Text> 
               </TouchableHighlight>
 
             </View>
@@ -296,9 +301,9 @@ const Search = React.createClass({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0,
+    flex: 1,
     paddingTop: 40,
-    backgroundColor: 'white',
+    backgroundColor: '#b6b6b6',
     marginTop: 40,
   },
   textInput: {
@@ -315,14 +320,23 @@ const styles = StyleSheet.create({
       fontSize: 15,
     },
     datePicker:{
-      backgroundColor: 'white'
+      backgroundColor: '#b6b6b6'
     },
 
   buttonText: {
-    fontSize: 15,
+    fontSize: 45,
     paddingTop: 10,
     color: '#FFFFFF',
-    fontFamily: 'HelveticaNeue-Medium',
+    fontFamily: 'Bebas',
+    textAlign: 'center',
+    alignSelf: 'center'
+  },
+   smallButtonText: {
+    fontSize: 12,
+    paddingTop: 10,
+    color: '#FFFFFF',
+    fontFamily: 'Bebas',
+    textAlign: 'center',
     alignSelf: 'center'
   },
   button: {
@@ -334,6 +348,47 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 10,
     alignSelf: 'stretch',
+    justifyContent: 'center',
+    shadowColor: "black",
+    shadowOpacity: 1,
+    shadowRadius: 3,
+    shadowOffset: {
+      height: 1,
+      width: 1
+    }
+  },
+   bigButton: {
+    marginRight: 30,
+    marginLeft: 30,
+    height: 310,
+    width: 310,
+    borderRadius: 155,
+    flexDirection: 'column',
+    backgroundColor: '#673AB7',
+    marginBottom: 10,
+    marginTop: 0,
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: "black",
+    shadowOpacity: 1,
+    shadowRadius: 3,
+    shadowOffset: {
+      height: 1,
+      width: 1
+    }
+  },
+   smallButton: {
+    marginRight: 30,
+    marginLeft: 30,
+    height: 100,
+    width: 100,
+    borderRadius: 50,
+    flexDirection: 'row',
+    backgroundColor: '#673AB7',
+    marginBottom: 10,
+    marginTop: 30,
+    alignSelf: 'flex-end',
     justifyContent: 'center',
     shadowColor: "black",
     shadowOpacity: 1,

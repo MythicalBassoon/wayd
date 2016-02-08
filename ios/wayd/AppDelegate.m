@@ -17,6 +17,7 @@
 {
   NSURL *jsCodeLocation;
 
+        
   /**
    * Loading JavaScript code - uncomment the one you want.
    *
@@ -35,10 +36,10 @@
   
 
 
-
   jsCodeLocation = [NSURL URLWithString:@"http://10.8.32.201:8081/index.ios.bundle?platform=ios&dev=true"];
+
   
- // jsCodeLocation = [NSURL URLWithString:@"http://192.168.0.7:8081/index.ios.bundle?platform=ios&dev=true"];
+ // jsCodeLocation = [NSURL URLWithString:@"http://192.168.0.7:8081/index.ios.bundle?platform=ios&dev=false"];
 
 
 
