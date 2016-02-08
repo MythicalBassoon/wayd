@@ -35,9 +35,15 @@ var API_KEY_GOOGLE = require('../../apikeys').google_api_key;
 
 
 const Search = React.createClass({
-  getInitialState: function(){
+  getInitialState: function() {
     return {
-      richard: 0,
+      value: 'today',
+      animated: true,
+      visible: false,
+      transparent: true,
+      errorShow: false
+
+      // active: false
     }
   },
   //changes redux.state.date
@@ -76,6 +82,7 @@ const Search = React.createClass({
                 (error) => console.log('ERROR CURRENT POSITION', error), // failure callback
                 {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000} // options
                 );
+    //this.setState({DateRemoveError: true})
 
   },
 
@@ -93,17 +100,7 @@ const Search = React.createClass({
 
   },
 
-  getInitialState: function() {
-    return {
-      value: 'today',
-      animated: true,
-      visible: false,
-      transparent: true,
-      errorShow: false
-
-      // active: false
-    }
-  },
+  
 
     renderError: function(){
      if(this.state.errorShow){
@@ -236,19 +233,19 @@ const Search = React.createClass({
 
         ></GooglePlacesAutocomplete>
 
-        <Text style={styles.bodytext}> When you wanna do stuff? </Text>
+      
 
         <TouchableHighlight
           style={styles.button}
           onPress={this.eventRecView}
-          underlayColor = "#6495ed">
-          <Text style={styles.buttonText}> find an event </Text> 
+          underlayColor = "#FFC107">
+          <Text style={styles.buttonText}> Find Me an Event! </Text> 
         </TouchableHighlight>
         <TouchableHighlight
           style={styles.button}
           onPress={this.showModal}
-          underlayColor = "tranparent">
-          <Text style={styles.buttonText}> Display Timepicker </Text> 
+          underlayColor = "#FFC107">
+          <Text style={styles.buttonText}> When You Wanna Do Stuff? </Text> 
         </TouchableHighlight>
 
 
@@ -276,7 +273,7 @@ const Search = React.createClass({
               <TouchableHighlight
                 style={styles.button}
                 onPress={this.hideModal}
-                underlayColor = "tranparent">
+                underlayColor = "FFC107">
                 <Text style={styles.buttonText}> OK! </Text> 
               </TouchableHighlight>
 
@@ -324,7 +321,8 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 15,
     paddingTop: 10,
-    color: '#111',
+    color: '#FFFFFF',
+    fontFamily: 'HelveticaNeue-Medium',
     alignSelf: 'center'
   },
   button: {
@@ -332,17 +330,17 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     height: 50,
     flexDirection: 'row',
-    backgroundColor: '#536DFE',
+    backgroundColor: '#673AB7',
     marginBottom: 10,
     marginTop: 10,
     alignSelf: 'stretch',
     justifyContent: 'center',
-    shadowColor: "#000000",
-    shadowOpacity: 0.3,
-    shadowRadius: 2,
+    shadowColor: "black",
+    shadowOpacity: 1,
+    shadowRadius: 3,
     shadowOffset: {
       height: 1,
-      width: 0
+      width: 1
     }
   },
   bodytext: {

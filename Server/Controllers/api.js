@@ -49,6 +49,11 @@ module.exports = {
           if(JSON.parse(body).events){
 
             var results = JSON.parse(body).events.event
+            if(!Array.isArray(results)){
+              var temp = results;
+              results = [];
+              results.push(temp);
+            }
           }
           else{
             results = [];

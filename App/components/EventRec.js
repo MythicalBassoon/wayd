@@ -54,6 +54,7 @@ const EventRec = React.createClass({
     fetch(url, {method: "GET"})
     .then((response) => response.json())
     .then((responseData) => {
+      console.log('TESTING PENNSYLVANIA', responseData)
     //testing for client side filtering
       // console.log('res data time', responseData[0])
       // console.log('res data time2', new Date(responseData[0].start_time))
@@ -161,13 +162,13 @@ const EventRec = React.createClass({
 
               style={[MKCardStyles.image, { opacity: .8}]}
               onPress={this.map}
-              underlayColor="tranparent">
+              underlayColor="#FFC107">
               
               <Image source={{uri : url}}  style={MKCardStyles.image}/>
               
             </TouchableHighlight>
 
-            <Text style={[MKCardStyles.title, {color: '#263238'}]}>{event.title} </Text>
+            <Text style={[MKCardStyles.title, {color: '#263238', fontFamily: 'HelveticaNeue-Medium'}]}>{event.title} </Text>
             
             <View  style={{ padding : 15 }} >
               <Text style={[MKCardStyles.content, {padding:0}]}>
@@ -191,13 +192,16 @@ const EventRec = React.createClass({
 
                  <TouchableHighlight
                 style={styles.button}
-                onPress={this.yes}>
+                onPress={this.yes}
+                underlayColor='#FFC107'>
                 <Text style={styles.buttonText}> Im down </Text> 
               </TouchableHighlight>
 
               <TouchableHighlight
                 style={styles.button}
-                onPress={this.no}>
+                onPress={this.no}
+                underlayColor='#FFC107'
+                >
                 <Text style={styles.buttonText}> Im not down </Text> 
               </TouchableHighlight>
 
@@ -233,33 +237,39 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#607D8B'
   },
-  bodytext: {
-    marginBottom: 20,
+ buttonText: {
     fontSize: 15,
-    textAlign: 'center',
-    color: '#607D8B'
-  },
-  buttonText: {
-    fontSize: 15,
-    color: '#111',
+    paddingTop: 10,
+    color: '#FFFFFF',
+    fontFamily: 'HelveticaNeue-Medium',
     alignSelf: 'center'
   },
   button: {
+    marginRight: 30,
+    marginLeft: 30,
     height: 50,
     flexDirection: 'row',
-    backgroundColor: '#536DFE',
+    backgroundColor: '#673AB7',
     marginBottom: 10,
     marginTop: 10,
     alignSelf: 'stretch',
     justifyContent: 'center',
-    shadowColor: "#000000",
-    shadowOpacity: 0.3,
-    shadowRadius: 2,
+    shadowColor: "black",
+    shadowOpacity: 1,
+    shadowRadius: 3,
     shadowOffset: {
       height: 1,
-      width: 0
+      width: 1
     }
   },
+  bodytext: {
+    marginBottom: 10,
+    marginTop: 10,
+    fontSize: 15,
+    textAlign: 'center',
+    color: '#607D8B'
+  },
+
 
   image: {
     height: 150,

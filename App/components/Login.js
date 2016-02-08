@@ -183,6 +183,7 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: 20,
     fontSize: 25,
+    fontFamily: 'HelveticaNeue-Medium',
     textAlign: 'center',
     color: 'black'
   },
@@ -198,8 +199,13 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   facebook: {
-    height: 50,
+    height: 80,
+    width: 80,
     backgroundColor: '#304FFE',
+    borderRadius: 40,
+    alignSelf: 'center',
+    flex: 0,
+    justifyContent: 'flex-end',
      shadowColor: "#000000",
     shadowOpacity: 0.3,
     shadowRadius: 2,
