@@ -235,8 +235,6 @@ const Email = React.createClass({
                 underlayColor = "tranparent">
                 <Text style={styles.buttonText}> Add Email </Text> 
               </TouchableHighlight>
-
-            </View>
             
               <TouchableHighlight
                 style={styles.button}
@@ -244,6 +242,8 @@ const Email = React.createClass({
                 underlayColor = "tranparent">
                 <Text style={styles.buttonText}>Search Contacts</Text> 
               </TouchableHighlight>
+
+              </View>
 
               <ScrollView style={styles.bottomSection}  
               onScroll={() => { console.log('onScroll!'); }}>
@@ -351,10 +351,10 @@ const styles = StyleSheet.create({
     height: 40
   },
   topSection: {
-    flex: .3
+    flex: .45
   },
   bottomSection: {
-    flex: .7,
+    flex: .55,
     marginTop: 20
   },
   contacts: {
