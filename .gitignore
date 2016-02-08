@@ -21,6 +21,7 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
+ios/wayd/AppDelegate.m
 
 # Android/IJ
 #
@@ -37,3 +38,5 @@ apikeys.js
 
 dump.rdb
 bashToStart.sh
+
+

@@ -148,73 +148,83 @@ const EventRec = React.createClass({
 
         // console.log('api results', this.props)
         // console.log('api current img', this.props.currentEvent)
+        if (this.props.currentEvent) {
+          var event = this.props.currentEvent;
 
-        var event = this.props.currentEvent;
+          var url = `https://maps.googleapis.com/maps/api/staticmap?markers=size:small%7Ccolor:red%7C${this.props.currentEvent.lat},${this.props.currentEvent.long}2&zoom=15&size=640x400&key=AIzaSyA4rAT0fdTZLNkJ5o0uaAwZ89vVPQpr_Kc`
 
-        var url = `https://maps.googleapis.com/maps/api/staticmap?markers=size:small%7Ccolor:red%7C${this.props.currentEvent.lat},${this.props.currentEvent.long}2&zoom=15&size=640x400&key=AIzaSyA4rAT0fdTZLNkJ5o0uaAwZ89vVPQpr_Kc`
-
-        return (
-          <View style = {styles.mainContainer}>
-            
-          <View style={MKCardStyles.card}>
-
-            <TouchableHighlight
-
-              style={[MKCardStyles.image, { opacity: .8}]}
-              onPress={this.map}
-              underlayColor="#FFC107">
+          return (
+            <View style = {styles.mainContainer}>
               
-              <Image source={{uri : url}}  style={MKCardStyles.image}/>
-              
-            </TouchableHighlight>
+            <View style={MKCardStyles.card}>
 
-            <Text style={[MKCardStyles.title, {color: '#263238', fontFamily: 'HelveticaNeue-Medium'}]}>{event.title} </Text>
-            
-            <View  style={{ padding : 15 }} >
-              <Text style={[MKCardStyles.content, {padding:0}]}>
-                {event.address} 
-              </Text>
+              <TouchableHighlight
+
+                style={[MKCardStyles.image, { opacity: .8}]}
+                onPress={this.map}
+                underlayColor="#FFC107">
+                
+                <Image source={{uri : url}}  style={MKCardStyles.image}/>
+                
+              </TouchableHighlight>
+
+              <Text style={[MKCardStyles.title, {color: '#263238', fontFamily: 'HelveticaNeue-Medium'}]}>{event.title} </Text>
+              
+              <View  style={{ padding : 15 }} >
                 <Text style={[MKCardStyles.content, {padding:0}]}>
-                {event.city}
-              </Text>
-              <Text style={[MKCardStyles.content, {padding:0}]}>
-                { moment(event.start_time).calendar() } 
-              </Text>
-            </View>
-            
-            <View style={MKCardStyles.action}>
-              <View style={MKCardStyles.menu}>{menu}</View>
+                  {event.address} 
+                </Text>
+                  <Text style={[MKCardStyles.content, {padding:0}]}>
+                  {event.city}
+                </Text>
+                <Text style={[MKCardStyles.content, {padding:0}]}>
+                  { moment(event.start_time).calendar() } 
+                </Text>
+              </View>
+              
+              <View style={MKCardStyles.action}>
+                <View style={MKCardStyles.menu}>{menu}</View>
 
-              <TouchableHighlight
-                style={styles.webBtn}>
-                <Text style={styles.title}>  </Text> 
-              </TouchableHighlight>
+                <TouchableHighlight
+                  style={styles.webBtn}>
+                  <Text style={styles.title}>  </Text> 
+                </TouchableHighlight>
 
-                 <TouchableHighlight
-                style={styles.button}
-                onPress={this.yes}
-                underlayColor='#FFC107'>
-                <Text style={styles.buttonText}> Im down </Text> 
-              </TouchableHighlight>
+                   <TouchableHighlight
+                  style={styles.button}
+                  onPress={this.yes}
+                  underlayColor='#FFC107'>
+                  <Text style={styles.buttonText}> Im down </Text> 
+                </TouchableHighlight>
 
-              <TouchableHighlight
-                style={styles.button}
-                onPress={this.no}
-                underlayColor='#FFC107'
-                >
-                <Text style={styles.buttonText}> Im not down </Text> 
-              </TouchableHighlight>
+                <TouchableHighlight
+                  style={styles.button}
+                  onPress={this.no}
+                  underlayColor='#FFC107'
+                  >
+                  <Text style={styles.buttonText}> Im not down </Text> 
+                </TouchableHighlight>
 
+        
+              
       
-            
-    
 
+              </View>
             </View>
-          </View>
 
-            
-          </View>
-        )
+              
+            </View>
+          )
+        }
+
+        else {
+          return (
+
+             <View style= {styles.mainContainer}>
+              <Text style={styles.title}>There are no events in the area! Try searching from a different spot.</Text>
+            </View>
+            )
+        }
     }
 
   }

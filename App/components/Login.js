@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: 20,
     fontSize: 25,
-    fontFamily: 'HelveticaNeue-Medium',
+    fontFamily: 'Bebas',
     textAlign: 'center',
     color: 'black'
   },
