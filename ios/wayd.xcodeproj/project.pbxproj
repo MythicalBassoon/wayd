@@ -32,6 +32,7 @@
 		7957AC791C63077D00663D5F /* zocial-regular-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7957AC731C63077D00663D5F /* zocial-regular-webfont.ttf */; };
 		795FDBD01C602BAB00CB8EE0 /* SimpleAuthWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 795FDBCE1C602BAB00CB8EE0 /* SimpleAuthWrapper.m */; };
 		798A59B01C62FB4A003B227C /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 798A59A41C62FB37003B227C /* libAirMaps.a */; };
+		79931C6B1C692EE200E40EDD /* BEBAS___.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79931C6A1C692EE200E40EDD /* BEBAS___.ttf */; };
 		799FE60A1C6145A300D41B5D /* libRCTMaterialKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 799FE6031C61458100D41B5D /* libRCTMaterialKit.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 /* End PBXBuildFile section */
@@ -177,6 +178,7 @@
 		795FDBCE1C602BAB00CB8EE0 /* SimpleAuthWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SimpleAuthWrapper.m; path = "../node_modules/react-native-simple-auth/iOS/SimpleAuthWrapper.m"; sourceTree = "<group>"; };
 		795FDBCF1C602BAB00CB8EE0 /* SimpleAuthWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleAuthWrapper.h; path = "../node_modules/react-native-simple-auth/iOS/SimpleAuthWrapper.h"; sourceTree = "<group>"; };
 		798A599F1C62FB36003B227C /* AirMaps.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/AirMaps.xcodeproj"; sourceTree = "<group>"; };
+		79931C6A1C692EE200E40EDD /* BEBAS___.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "BEBAS___.ttf"; path = "../../../../../Downloads/Bebas/BEBAS___.ttf"; sourceTree = "<group>"; };
 		799FE5FA1C61458000D41B5D /* RCTMaterialKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTMaterialKit.xcodeproj; path = "../node_modules/react-native-material-kit/iOS/RCTMaterialKit.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		C2E095BB5339588E13CFDBDC /* Pods_wayd.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wayd.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -394,6 +396,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				79931C6A1C692EE200E40EDD /* BEBAS___.ttf */,
 				7957AC6E1C63077D00663D5F /* octicons.ttf */,
 				7957AC6F1C63077D00663D5F /* FontAwesome.otf */,
 				7957AC701C63077D00663D5F /* foundation-icons.ttf */,
@@ -484,7 +487,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = P47Z5GLX75;
+						DevelopmentTeam = PG978XEX66;
 					};
 				};
 			};
@@ -678,6 +681,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79931C6B1C692EE200E40EDD /* BEBAS___.ttf in Resources */,
 				7957AC741C63077D00663D5F /* octicons.ttf in Resources */,
 				7957AC751C63077D00663D5F /* FontAwesome.otf in Resources */,
 				7957AC761C63077D00663D5F /* foundation-icons.ttf in Resources */,
@@ -849,7 +853,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				NODE_ENV = production;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.wayd4;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.wayd2;
 				PRODUCT_NAME = wayd;
 				PROVISIONING_PROFILE = "";
 			};
@@ -871,7 +875,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				NODE_ENV = production;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.wayd4;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.wayd2;
 				PRODUCT_NAME = wayd;
 				PROVISIONING_PROFILE = "";
 			};
