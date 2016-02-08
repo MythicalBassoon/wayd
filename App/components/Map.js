@@ -145,8 +145,8 @@ getInitialState: function() {
     <MapView 
       style={styles.map}
        initialRegion={{
-      latitude: this.state.latitude,
-      longitude: this.state.longitude,
+      latitude: this.props.currentEvent.lat,
+      longitude: this.props.currentEvent.long,
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421,
     }}
