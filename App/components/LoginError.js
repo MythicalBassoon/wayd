@@ -92,22 +92,30 @@ const styles = StyleSheet.create({
   facebook: {
     backgroundColor: '#3b5998'
   },
-  buttonText: {
+   buttonText: {
     fontSize: 15,
-    color: '#111',
+    paddingTop: 10,
+    color: '#FFFFFF',
+    fontFamily: 'HelveticaNeue-Medium',
     alignSelf: 'center'
   },
-  button: {
-    height: 45,
+    button: {
+    marginRight: 30,
+    marginLeft: 30,
+    height: 50,
     flexDirection: 'row',
-    backgroundColor: '#ECEFF1',
-    borderColor: 'white',
-    borderWidth: 1,
-    borderRadius: 0,
+    backgroundColor: '#673AB7',
     marginBottom: 10,
     marginTop: 10,
     alignSelf: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    shadowColor: "black",
+    shadowOpacity: 1,
+    shadowRadius: 3,
+    shadowOffset: {
+      height: 1,
+      width: 1
+    }
   },
   textfield: {
     height: 28,  // have to do it on iOS

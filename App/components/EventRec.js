@@ -54,7 +54,6 @@ const EventRec = React.createClass({
     fetch(url, {method: "GET"})
     .then((response) => response.json())
     .then((responseData) => {
-      console.log('TESTING PENNSYLVANIA', responseData)
     //testing for client side filtering
       // console.log('res data time', responseData[0])
       // console.log('res data time2', new Date(responseData[0].start_time))
