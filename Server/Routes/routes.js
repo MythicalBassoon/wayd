@@ -15,8 +15,7 @@ var voteTemplate = require('../Templates/vote').template
 var alreadyVotedTemplate = require('../Templates/alreadyVoted').template
 
 var request = require('request');
-var incrementYesVote = require('../Models/pollModel').incrementYesVote
-var incrementNoVote = require('../Models/pollModel').incrementNoVote
+var incrementVote = require('../Models/pollModel').incrementVote
 var checkVoted = require('../Models/pollModel').checkVoted
 var toggleVoted = require('../Models/pollModel').toggleVoted
 var checkIfComplete = require('../Models/pollModel').checkIfComplete
@@ -32,16 +31,11 @@ router.route('/events/')
     console.log('query', req.query);
     var loc = req.query.loc
     var timeframe = req.query.timeframe
-    // var loc = req.params.loc
-    // var timeframe = req.params.timeframe
-    // console.log('loc', loc)
-    // console.log('timeframe', timeframe)
 
 		apiController.getEvents(loc, timeframe, function(err, data){
       if(err) {
         res.status(404).send("did not find events")
       } else {
-        // console.log('data', data)
         res.json(data)
       }
     });
@@ -59,10 +53,6 @@ router.route('/users')
       res.json(userId)
     })
 
-    
-
-    //res.json(user)
-
   })
 
 
@@ -73,22 +63,23 @@ router.route('/users')
 router.route('/polls')
   .post(function(req, res){
   // create new poll
-
-
-
  
     var pollInfo = req.body.pollInfo;
     var eventInfo = req.body.eventInfo;
 
+    //insert event into events table
     insertEvent(eventInfo, function(err, eventId){
       console.log(eventId)
       if(err){
         res.send(404)
       }
+
+      //insert poll into polls table
       insertPoll(eventId[0]['id'], pollInfo, function(err, pollId){
         if(err){
           res.send(404)
         }
+
         for(var i = 0;i<pollInfo.emails.length;i++){
           insertEmail(pollInfo.emails[i], i, pollId[pollId.length-1]['id'], function(err, email, i){
             if(err){
@@ -112,8 +103,6 @@ router.route('/polls')
             })
 
             if(i === pollInfo.emails.length - 1){
-
-    
               res.send(200, 'ALL EMAILS INSERTED, POLL CREATION SUCCESS')
             }
           })
@@ -122,237 +111,110 @@ router.route('/polls')
       })
 
     })
-
-
-    // var sendObj = {
-    //   userid: userId,
-    //   eventObj: eventObj
-    // }
-    //   res.send(sendObj)
-
-
-    // add to event table
-    // insertEvent(eventObj, function(err, eventId){
-    //   // add to poll table
-    //   insertPoll(eventId, userId, function(err, pollId){ 
-    //   //don't yet know the num of participants because the emais have not been created
-    //     if(err){
-    //       throw err
-    //     }
-    //     res.send(pollId)
-    //   });
-      
     })
 
     
-    
-    // add to email table (including main user)
-    // send out to email service
 
- // });
-
-// ROUTE TO CALCULATE POLL STATUS
-router.route('/polls/:id')
-  .post(function(req, res){
-    // updated poll count in poll table
-      // if poll complete, send email to everyone
-      // or send poll results to everyone as of now
-
-  })
-
-//ROUTE TO INCREMENT YES VOTES FOR A POLL
-
-router.route('/polls/yes/:emailId')
+router.route('/polls/:voteAction/:emailId')
   .get(function(req,res){
 
-    console.log('yes vote recieved');
+    console.log('vote recieved');
+
+    var emailId = req.params.emailId;
+    var voteAction = req.params.voteAction;
 
     //first check if user has voted
-    var emailId = req.params.emailId
-    checkVoted(req.params.emailId, function(err, pollObj) {
+    checkVoted(emailId, function(err, pollObj) {
       if (err) {
         return res.status(404).send("error finding relevant pollId");
       }
 
-
-      //send back a 409 is the user has already voted
+      //send back a 409 as the user has already voted
       if (!pollObj[0].voted === false) {
         return res.status(409).send(alreadyVotedTemplate()); 
       }
 
-      //increment no vote_count for poll in db
-      incrementYesVote(pollObj[0].poll_id, function(err, voteCount) {
+      //increment  yes/no vote_count for poll in db
+      incrementVote(pollObj[0].poll_id, voteAction, function(err, voteCount) {
+
         if (err) {
           return res.status(404).send("error incrementing yes vote count");
         }
 
-        //changed 'voted' column to true in emails table
+        //changes 'voted' column to true for corresponding poll/email combination in emails table
         toggleVoted(emailId, function(err, response) {
-          console.log('toggle voted response is', response)
+
           if (err) {
             return res.status(404).send('error toggling "voted" for email address')
           }
 
-          //check if number of total votes made = number of participants, if so, hit email server
+          //check if number of total votes made = number of participants - if so, hit email server to send results email to all participants
           checkIfComplete(pollObj[0].poll_id, function(err, results) {
             if (err) {
             return res.status(404).send('error toggling "voted" for email address')
             }
 
-            console.log('results obj is', results);
-
-             //retrieving event details to insert into html voteTemplate to be served up
-
-            console.log('about to retrieve event');
+            //retrieving event details to insert into html vote template to be served up to voter
             getOneEvent(results.eventId, function(err, event) {
               console.log('event is', event)
               var event = event[0];
-              console.log('get one event just ran, the event is', event);
+
               if (err) {
                 return res.status(404).send('error finding event details', err);
               }
+
               if (results.complete) {
+                //sending poll results email to all participants - first retrieving all email id's associated with poll
               retrievePollEmails(pollObj[0].poll_id, function(err, emailObjs) {
                 console.log('about to post to emails server, emailObjs are', emailObjs);
-              if(err) {
-                console.log('in controller, issue retrieiving emails, email is:', err)
-                 res.status(404).send('error retrieving emails, error is', err)
-              }  
-              for(var i = 0; i < emailObjs.length; i++){
-                  var emailObj = {
-                    to: emailObjs[i].email,
-                    final: true,
-                    consensus: results.consensus,
-                    event: {
-                      title: event.title,
-                      image_medium: event.image_medium,
-                      description: event.description
-                    }
-                    // user: pollInfo.user.userFirstName + ' '+ pollInfo.user.userLastName,
-                    // eventInfo: eventInfo,
-                    // othersInvited: pollInfo.emails.slice(0,i).concat(pollInfo.emails.slice(i+1))
-                  }
-                  console.log('about to make individual request to email server', emailObj);
-                  request({
-                    uri: host + '4568/jobs',
-                    headers: {'Content-type': 'application/json'},
-                    method: 'POST',
-                    body: JSON.stringify(emailObj)
 
-                  }, function() {
-                    console.log('post to email server made');
-                  })
+                if(err) {
+                  console.log('in controller, issue retrieiving emails, email is:', err)
+                   res.status(404).send('error retrieving emails, error is', err)
+                }  
+
+                //loop through return emails, and build object to be included in req.body of post to email server
+                for(var i = 0; i < emailObjs.length; i++){
+                    var emailObj = {
+                      to: emailObjs[i].email,
+                      final: true,
+                      consensus: results.consensus,
+                      event: {
+                        title: event.title,
+                        image_medium: event.image_medium,
+                        description: event.description
+                      }
+       
+                    }
+                    console.log('about to make individual request to email server', emailObj);
+
+                    //make post request to server to results email for each email address
+                    request({
+                      uri: host + '4568/jobs',
+                      headers: {'Content-type': 'application/json'},
+                      method: 'POST',
+                      body: JSON.stringify(emailObj)
+
+                    }, function() {
+                      console.log('post to email server made');
+                    })
                 }
+
+                //serve up template to user thanking them for vote and letting them know next steps. this is completed regardless of whether post to email server is successful or not
                 res.send(voteTemplate(event.title, event.image_medium, event.description));
               });
   }
 
-            else {
-              res.send(voteTemplate(event.title, event.image_medium, event.description));
-            }
+              else {
+                //thank you / next steps template served up to user even if poll isn't yet complete
+                res.send(voteTemplate(event.title, event.image_medium, event.description));
+              }
             });
           });
         });
       });
     });
-  }.bind(this))
-
-//ROUTE TO INCREMENT YES VOTES FOR A POLL
-
-router.route('/polls/no/:emailId')
-   .get(function(req,res){
-
-    console.log('no vote recieved');
-
-    //first check if user has voted
-    var emailId = req.params.emailId
-    checkVoted(req.params.emailId, function(err, pollObj) {
-      if (err) {
-        return res.status(404).send("error finding relevant pollId");
-      }
-
-
-      //send back a 409 is the user has already voted
-      if (!pollObj[0].voted === false) {
-        return res.status(409).send(alreadyVotedTemplate()); 
-      }
-
-      //increment no vote_count for poll in db
-      incrementNoVote(pollObj[0].poll_id, function(err, voteCount) {
-        if (err) {
-          return res.status(404).send("error incrementing yes vote count");
-        }
-        //changed 'voted' column to true in emails table
-        toggleVoted(emailId, function(err, response) {
-          console.log('toggle voted response is', response)
-          if (err) {
-            return res.status(404).send('error toggling "voted" for email address, error is', err)
-          }
-          //check if number of total votes made = number of participants, if so, hit email server
-          checkIfComplete(pollObj[0].poll_id, function(err, results) {
-            if (err) {
-            return res.status(404).send('error toggling "voted" for email address')
-            }
-
-            console.log('results obj is', results);
-
-             //retrieving event details to insert into html voteTemplate to be served up
-
-            console.log('about to retrieve event');
-            getOneEvent(results.eventId, function(err, event) {
-              var event = event[0];
-              console.log('get one event just ran, the event is', event);
-              if (err) {
-                return res.status(404).send('error finding event details', err);
-              }
-              if (results.complete) {
-              retrievePollEmails(pollObj[0].poll_id, function(err, emailObjs) {
-                console.log('about to post to emails server, emailObjs are', emailObjs);
-              if(err) {
-                console.log('in controller, issue retrieiving emails, email is:', err)
-                 res.status(404).send('error retrieving emails, error is', err)
-              }  
-              for(var i = 0; i < emailObjs.length; i++){
-                  var emailObj = {
-                    to: emailObjs[i].email,
-                    final: true,
-                    consensus: results.consensus,
-                    event: {
-                      title: event.title,
-                      image_medium: event.image_medium,
-                      description: event.description
-                    }
-
-                    // user: pollInfo.user.userFirstName + ' '+ pollInfo.user.userLastName,
-                    // eventInfo: eventInfo,
-                    // othersInvited: pollInfo.emails.slice(0,i).concat(pollInfo.emails.slice(i+1))
-                  }
-                  console.log('about to make individual request to email server', emailObj);
-                  request({
-                    uri: host + '4568/jobs',
-                    headers: {'Content-type': 'application/json'},
-                    method: 'POST',
-                    body: JSON.stringify(emailObj)
-
-                  }, function() {
-                    console.log('post to email server made');
-                  })
-                }
-
-                res.send(voteTemplate(event.title, event.image_medium, event.description));
-              });
-  }
-
-            else {
-
-              res.send(voteTemplate(event.title, event.image_medium, event.description));
-            }
-            });
-          });
-        });
-      });
-    });
-  }.bind(this))
+  })
 
 
 
