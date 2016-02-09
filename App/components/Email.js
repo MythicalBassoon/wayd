@@ -103,6 +103,7 @@ const Email = React.createClass({
         body: JSON.stringify({
           pollInfo: {
             emails: this.props.emails.concat([this.props.user_email]),
+
             //Note tha the userId is hardcoded until Auth gets implemted!!
             user: {
               userId: this.props.user_id,

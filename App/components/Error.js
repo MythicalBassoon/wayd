@@ -75,22 +75,31 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   buttonText: {
-    fontSize: 18,
-    color: '#111',
+    fontSize: 15,
+    paddingTop: 10,
+    color: '#FFFFFF',
+    fontFamily: 'HelveticaNeue-Medium',
     alignSelf: 'center'
   },
-  button: {
-    height: 45,
+    button: {
+    marginRight: 30,
+    marginLeft: 30,
+    height: 50,
     flexDirection: 'row',
-    backgroundColor: 'white',
-    borderColor: 'white',
-    borderWidth: 1,
-    borderRadius: 8,
+    backgroundColor: '#673AB7',
     marginBottom: 10,
     marginTop: 10,
     alignSelf: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    shadowColor: "black",
+    shadowOpacity: 1,
+    shadowRadius: 3,
+    shadowOffset: {
+      height: 1,
+      width: 1
+    }
   },
+
   image: {
     height: 125,
     width: 125,
