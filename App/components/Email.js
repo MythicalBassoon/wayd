@@ -5,6 +5,7 @@ const Error = require('./Error')
 const Success = require('./Success')
 const Contacts = require('react-native-contacts')
 const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
+var { Icon } = require('react-native-icons');
 
 const {
   StyleSheet,
@@ -186,7 +187,7 @@ const Email = React.createClass({
           }
         });
         var list = emails.map(function(email, index) {
-          return (
+        return (
             <View style={styles.btnContainer} key={index} >
                 
                 <View  style={styles.emailItem}>
@@ -203,7 +204,13 @@ const Email = React.createClass({
                     }}
 
                     underlayColor = "tranparent">
-                    <Text key={index}style={styles.fakeBtn}></Text>
+                    <Icon key={index}
+                      name='material|close'
+                      size={30}
+                      color='#333333'
+                      style={styles.close}
+                    />
+          
                   </TouchableHighlight>
       
                 </View>
@@ -333,13 +340,6 @@ buttonText: {
     height: 28,  // have to do it on iOS
     marginTop: 22,
   }, 
-  delBtn: {
-    height: 30,
-    width: 15,  
-    backgroundColor: '#ECEFF1',
-    flex: .1
-
-  },
   bodytext: {
     marginBottom: 10,
     marginTop: 10,
@@ -368,6 +368,12 @@ buttonText: {
     flex: .55
   },
   contacts: {
+
+  },
+  close: {
+    height: 30,
+    width: 20,
+    flex: 1
 
   }
 
