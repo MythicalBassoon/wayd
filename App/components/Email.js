@@ -29,7 +29,7 @@ const {
 } = MK;
 
 MK.setTheme({
-  primaryColor: MKColor.Blue,
+  primaryColor: MKColor.Amber,
   accentColor: MKColor.Orange,
 });
 
@@ -204,6 +204,7 @@ const Email = React.createClass({
                     }}
 
                     underlayColor = "tranparent">
+
                     <Icon key={index}
                       name='material|close-circle-o'
                       size={20}
@@ -211,6 +212,7 @@ const Email = React.createClass({
                       style={styles.close}
                     />
           
+
                   </TouchableHighlight>
       
                 </View>
@@ -413,6 +415,7 @@ buttonText: {
   bottomSection: {
     flex: .2
   },
+<<<<<<< 54f4717f69e88671d8e5d0847316cfbeef26aa56
   contacts: {
 
   },
@@ -421,6 +424,13 @@ buttonText: {
     width: 20,
     flex: 1
   }
+=======
+    fab: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+  },
+>>>>>>> started code cleanup
 
 });
 

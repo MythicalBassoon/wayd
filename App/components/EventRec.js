@@ -19,7 +19,7 @@ const {
 } = MK;
 
 MK.setTheme({
-  primaryColor: MKColor.Blue,
+  primaryColor: MKColor.Amber,
   accentColor: MKColor.Orange,
 });
 
