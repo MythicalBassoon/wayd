@@ -28,6 +28,7 @@ class wayd extends React.Component{
           <NavigatorIOS
             style={styles.container}
             initialRoute = {{
+              title: 'WAYD',
               component: Login
             }}
 

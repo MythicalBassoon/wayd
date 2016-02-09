@@ -115,6 +115,7 @@ const Search = React.createClass({
   },
 
   wayd: function(text){
+    this.setState({errorShow: false})
     if(text !== 'Current location'){
       this.props.searchDisabled(false);
       console.log('not curent location')
@@ -333,7 +334,7 @@ const styles = StyleSheet.create({
   },
    smallButtonText: {
     fontSize: 12,
-    paddingTop: 10,
+    paddingTop: 0,
     color: '#FFFFFF',
     fontFamily: 'Bebas',
     textAlign: 'center',
@@ -360,9 +361,9 @@ const styles = StyleSheet.create({
    bigButton: {
     marginRight: 30,
     marginLeft: 30,
-    height: 310,
-    width: 310,
-    borderRadius: 155,
+    height: 260,
+    width: 260,
+    borderRadius: 130,
     flexDirection: 'column',
     backgroundColor: '#673AB7',
     marginBottom: 10,
