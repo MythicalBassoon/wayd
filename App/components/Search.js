@@ -41,7 +41,9 @@ const Search = React.createClass({
       animated: true,
       visible: false,
       transparent: true,
-      errorShow: false
+      errorShow: false,
+      date: new Date(),
+      timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60
 
       // active: false
     }
@@ -50,6 +52,7 @@ const Search = React.createClass({
   onDateChange: function(date){
     // console.log('datechange', JSON.stringify(date))
     this.props.timechange(date);
+    this.setState({date: date});
   },
 
   eventRecView: function() {
@@ -155,7 +158,7 @@ const Search = React.createClass({
 
 
   render: function() {
-    console.log('search props', this.props)
+    console.log('search props', this.state.date)
 
     return (
       <View style={styles.container}>
@@ -270,9 +273,10 @@ const Search = React.createClass({
             
               <DatePickerIOS
                 style= {styles.datePicker}
-                date={this.props.date}
+                date={this.state.date}
                 // timeZoneOffsetInMinutes={(-1) * (new Date()).getTimezoneOffset()}
                 mode="date" // changed from 'datetime'
+                timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
                 onDateChange={this.onDateChange}>
               </DatePickerIOS>
 
