@@ -144,7 +144,7 @@ const Login = React.createClass({
           <View style={styles.imageContainer}>
           <Image
             style={styles.icon}
-            source={require('../WAYDFinal.gif')}/>
+            source={require('../assets/WAYDFinal.gif')}/>
           </View>
 
           <MKButton
