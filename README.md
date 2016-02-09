@@ -88,7 +88,9 @@ or run the following commands from the post-install folder:
 cp apikeys.js ../Server/Workers/
 cp apikeys.js ../Server/Controllers/
 cp apikeys.js ../
+
 ```
+
 
 NOTE: You must provide your own API keys for the keys indicated in apikeys.js
 
@@ -116,6 +118,7 @@ NOTE: You must replace the entire folder found in node_modules with the folders 
 6. Run 'node Server/Workers/jobqueue.js' 
 7. Open 'wayd.xcworkspace' in Xcode
 8. Cmd + R or press Run
+
 
 Optionally:
 A docker .yml file is provided as well as the accompanying DockerFile(s) that create docker containers that will host server.js, jobserver.js, and jobqueue.js as shown above. You may alter the client side variables to use docker routes instead of localhost routes. Instructions are found in the respective clientside files.
