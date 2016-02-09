@@ -221,7 +221,7 @@ const Email = React.createClass({
                <TouchableHighlight
                 style={styles.button}
                 onPress = {this.sendPoll}
-                underlayColor = "tranparent">
+                underlayColor = "#FFC107">
                 <Text style={styles.buttonText}>Send to Friends!</Text> 
               </TouchableHighlight>
               
@@ -233,14 +233,14 @@ const Email = React.createClass({
               <TouchableHighlight
                 style={styles.button}
                 onPress = {this.addEmail}
-                underlayColor = "tranparent">
+                underlayColor = "#FFC107">
                 <Text style={styles.buttonText}> Add Email </Text> 
               </TouchableHighlight>
             
               <TouchableHighlight
                 style={styles.button}
                 onPress = {this.contactsView}
-                underlayColor = "tranparent">
+                underlayColor = "#FFC107">
                 <Text style={styles.buttonText}>Search Contacts</Text> 
               </TouchableHighlight>
 
@@ -304,20 +304,30 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 0
   },
-  buttonText: {
+buttonText: {
     fontSize: 15,
-    color: '#607D8B',
+    paddingTop: 10,
+    color: '#FFFFFF',
+    fontFamily: 'HelveticaNeue-Medium',
     alignSelf: 'center'
   },
   button: {
-    height: 45,
+    marginRight: 30,
+    marginLeft: 30,
+    height: 50,
     flexDirection: 'row',
-    backgroundColor: '#ECEFF1',
-    borderRadius: 0,
+    backgroundColor: '#673AB7',
     marginBottom: 10,
     marginTop: 10,
     alignSelf: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    shadowColor: "black",
+    shadowOpacity: 1,
+    shadowRadius: 3,
+    shadowOffset: {
+      height: 1,
+      width: 1
+    }
   },
   textfield: {
     height: 28,  // have to do it on iOS
