@@ -31,7 +31,7 @@
 		7957AC781C63077D00663D5F /* Material-Design-Iconic-Font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7957AC721C63077D00663D5F /* Material-Design-Iconic-Font.ttf */; };
 		7957AC791C63077D00663D5F /* zocial-regular-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7957AC731C63077D00663D5F /* zocial-regular-webfont.ttf */; };
 		795FDBD01C602BAB00CB8EE0 /* SimpleAuthWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 795FDBCE1C602BAB00CB8EE0 /* SimpleAuthWrapper.m */; };
-		798A59B01C62FB4A003B227C /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 798A59A41C62FB37003B227C /* libAirMaps.a */; };
+		7978EFE01C6A9F3100F69D16 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7978EFDF1C6A9EFD00F69D16 /* libAirMaps.a */; };
 		79931CB11C69628000E40EDD /* BEBAS___.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79931CB01C69628000E40EDD /* BEBAS___.ttf */; };
 		799FE60A1C6145A300D41B5D /* libRCTMaterialKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 799FE6031C61458100D41B5D /* libRCTMaterialKit.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -122,9 +122,9 @@
 			remoteGlobalIDString = 2F5A3EB81ACDBF8000439386;
 			remoteInfo = ReactNativeIcons;
 		};
-		798A59A31C62FB37003B227C /* PBXContainerItemProxy */ = {
+		7978EFDE1C6A9EFD00F69D16 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 798A599F1C62FB36003B227C /* AirMaps.xcodeproj */;
+			containerPortal = 7978EFDA1C6A9EFC00F69D16 /* AirMaps.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 11FA5C511C4A1296003AC2EE;
 			remoteInfo = AirMaps;
@@ -177,7 +177,7 @@
 		7957AC731C63077D00663D5F /* zocial-regular-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "zocial-regular-webfont.ttf"; path = "../node_modules/react-native-icons/ios/ReactNativeIcons/Libraries/FontAwesomeKit/zocial-regular-webfont.ttf"; sourceTree = "<group>"; };
 		795FDBCE1C602BAB00CB8EE0 /* SimpleAuthWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SimpleAuthWrapper.m; path = "../node_modules/react-native-simple-auth/iOS/SimpleAuthWrapper.m"; sourceTree = "<group>"; };
 		795FDBCF1C602BAB00CB8EE0 /* SimpleAuthWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleAuthWrapper.h; path = "../node_modules/react-native-simple-auth/iOS/SimpleAuthWrapper.h"; sourceTree = "<group>"; };
-		798A599F1C62FB36003B227C /* AirMaps.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/AirMaps.xcodeproj"; sourceTree = "<group>"; };
+		7978EFDA1C6A9EFC00F69D16 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		79931C6A1C692EE200E40EDD /* BEBAS___.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "BEBAS___.ttf"; path = "../../../../../Downloads/Bebas/BEBAS___.ttf"; sourceTree = "<group>"; };
 		79931CB01C69628000E40EDD /* BEBAS___.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "BEBAS___.ttf"; path = "../App/assets/BEBAS___.ttf"; sourceTree = "<group>"; };
 		799FE5FA1C61458000D41B5D /* RCTMaterialKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTMaterialKit.xcodeproj; path = "../node_modules/react-native-material-kit/iOS/RCTMaterialKit.xcodeproj"; sourceTree = "<group>"; };
@@ -198,9 +198,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7978EFE01C6A9F3100F69D16 /* libAirMaps.a in Frameworks */,
 				098ACFCC1C64187200BDDD9D /* libRCTContacts.a in Frameworks */,
 				7957AC6D1C6306B600663D5F /* libReactNativeIcons.a in Frameworks */,
-				798A59B01C62FB4A003B227C /* libAirMaps.a in Frameworks */,
 				799FE60A1C6145A300D41B5D /* libRCTMaterialKit.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -347,10 +347,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		798A59A01C62FB36003B227C /* Products */ = {
+		7978EFDB1C6A9EFC00F69D16 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				798A59A41C62FB37003B227C /* libAirMaps.a */,
+				7978EFDF1C6A9EFD00F69D16 /* libAirMaps.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -366,9 +366,9 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				7978EFDA1C6A9EFC00F69D16 /* AirMaps.xcodeproj */,
 				098ACFB91C64118000BDDD9D /* RCTContacts.xcodeproj */,
 				7957AC5B1C63069500663D5F /* ReactNativeIcons.xcodeproj */,
-				798A599F1C62FB36003B227C /* AirMaps.xcodeproj */,
 				799FE5FA1C61458000D41B5D /* RCTMaterialKit.xcodeproj */,
 				795FDBCE1C602BAB00CB8EE0 /* SimpleAuthWrapper.m */,
 				795FDBCF1C602BAB00CB8EE0 /* SimpleAuthWrapper.h */,
@@ -506,8 +506,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 798A59A01C62FB36003B227C /* Products */;
-					ProjectRef = 798A599F1C62FB36003B227C /* AirMaps.xcodeproj */;
+					ProductGroup = 7978EFDB1C6A9EFC00F69D16 /* Products */;
+					ProjectRef = 7978EFDA1C6A9EFC00F69D16 /* AirMaps.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
@@ -648,11 +648,11 @@
 			remoteRef = 7957AC6B1C63069500663D5F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		798A59A41C62FB37003B227C /* libAirMaps.a */ = {
+		7978EFDF1C6A9EFD00F69D16 /* libAirMaps.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libAirMaps.a;
-			remoteRef = 798A59A31C62FB37003B227C /* PBXContainerItemProxy */;
+			remoteRef = 7978EFDE1C6A9EFD00F69D16 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		799FE6031C61458100D41B5D /* libRCTMaterialKit.a */ = {
@@ -850,6 +850,8 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../react-native/React/**",
+					"$(SRCROOT)/../react-native/Libraries/Image/**",
 				);
 				INFOPLIST_FILE = wayd/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -872,6 +874,8 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../react-native/React/**",
+					"$(SRCROOT)/../react-native/Libraries/Image/**",
 				);
 				INFOPLIST_FILE = wayd/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
