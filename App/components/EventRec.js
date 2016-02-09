@@ -83,6 +83,7 @@ const EventRec = React.createClass({
   },
 
    map: function() {
+    var event = this.props.currentEvent;
     this.props.navigator.push({
       title: 'Map',
       component: Map
@@ -125,10 +126,10 @@ const EventRec = React.createClass({
         >
 
         <Text pointerEvents="none"
-              style={styles.toggleTextOff}>details</Text>
+              style={styles.toggleText}>details</Text>
         <Text state_checked={true}
               pointerEvents="none"
-              style={[styles.toggleText, styles.toggleTextOn]}>details</Text>
+              style={[styles.toggleText, styles.toggleText]}>details</Text>
 
 
       </MKIconToggle>
@@ -137,9 +138,11 @@ const EventRec = React.createClass({
 
     switch(this.props.loading){
       case true:
+        var loadingArray = ['Looking for cool things to do...', 'Finding the dopest event ever...', 'Finding the highest levels of turn up...', 'You\'re about to be shown a sick event... like fun sick...', 'We\'re pretty  sure Brad  Pitt will be at these events...', 'Wait up, Homie...', 'I think we found your event soulmate...', 'Using super baller, fun-maximizing algorithm...'];
+        var item = loadingArray[Math.floor(Math.random()*loadingArray.length)]
         return(
           <View style= {styles.spinnerContainer}>
-              <Text style={styles.title}> Looking for cool things to do... </Text>
+              <Text style={styles.loadingTitle}> {item}</Text>
               <SingleColorSpinner/>
           </View>
         )
@@ -149,6 +152,9 @@ const EventRec = React.createClass({
         // console.log('api current img', this.props.currentEvent)
         if (this.props.currentEvent) {
           var event = this.props.currentEvent;
+          if(event.title.length > 48){
+            event.title = event.title.substring(0,48) + '...'
+          }
 
           var url = `https://maps.googleapis.com/maps/api/staticmap?markers=size:small%7Ccolor:red%7C${this.props.currentEvent.lat},${this.props.currentEvent.long}2&zoom=15&size=640x400&key=AIzaSyA4rAT0fdTZLNkJ5o0uaAwZ89vVPQpr_Kc`
 
@@ -156,6 +162,8 @@ const EventRec = React.createClass({
             <View style = {styles.mainContainer}>
               
             <View style={MKCardStyles.card}>
+
+            <Text style={[styles.eventTitle]}>{event.title} </Text>
 
               <TouchableHighlight
 
@@ -167,22 +175,23 @@ const EventRec = React.createClass({
                 
               </TouchableHighlight>
 
-              <Text style={[MKCardStyles.title, {color: '#263238', fontFamily: 'HelveticaNeue-Medium'}]}>{event.title} </Text>
+              
               
               <View  style={{ padding : 15 }} >
-                <Text style={[MKCardStyles.content, {padding:0}]}>
+                <Text style={[MKCardStyles.content, styles.textInfo]}>
                   {event.address} 
                 </Text>
-                  <Text style={[MKCardStyles.content, {padding:0}]}>
+                  <Text style={[MKCardStyles.content, styles.textInfo]}>
                   {event.city}
                 </Text>
-                <Text style={[MKCardStyles.content, {padding:0}]}>
+                <Text style={[MKCardStyles.content, styles.textInfo]}>
                   { moment(event.start_time).calendar() } 
                 </Text>
+                <View style={MKCardStyles.menu}>{menu}</View>
               </View>
               
               <View style={MKCardStyles.action}>
-                <View style={MKCardStyles.menu}>{menu}</View>
+                
 
                 <TouchableHighlight
                   style={styles.webBtn}>
@@ -238,19 +247,43 @@ const styles = StyleSheet.create({
     marginTop: 50,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: 'white'
+    backgroundColor: '#b6b6b6'
   },
   title: {
     marginBottom: 20,
     fontSize: 17,
     textAlign: 'center',
-    color: '#607D8B'
+    color: '#607D8B',
+  },
+  loadingTitle: {
+    marginBottom: 20,
+    fontSize: 24,
+    textAlign: 'center',
+    color: '#607D8B',
+    fontFamily: 'Bebas'
+  },
+  toggleText:{
+    fontFamily: 'Bebas',
+    fontSize: 12,
+
+  },
+  textInfo: {
+    padding: 0,
+    fontFamily: 'Bebas',
+    fontSize: 13
+  },
+  eventTitle: {
+    marginBottom: 5,
+    fontSize: 40,
+    textAlign: 'center',
+    color: '#607D8B',
+    fontFamily: 'Bebas'
   },
  buttonText: {
     fontSize: 15,
     paddingTop: 10,
     color: '#FFFFFF',
-    fontFamily: 'HelveticaNeue-Medium',
+    fontFamily: 'Bebas',
     alignSelf: 'center'
   },
   button: {

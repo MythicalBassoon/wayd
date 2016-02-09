@@ -41,7 +41,9 @@ const Search = React.createClass({
       animated: true,
       visible: false,
       transparent: true,
-      errorShow: false
+      errorShow: false,
+      date: new Date(),
+      timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60
 
       // active: false
     }
@@ -50,6 +52,7 @@ const Search = React.createClass({
   onDateChange: function(date){
     // console.log('datechange', JSON.stringify(date))
     this.props.timechange(date);
+    this.setState({date: date});
   },
 
   eventRecView: function() {
@@ -115,6 +118,7 @@ const Search = React.createClass({
   },
 
   wayd: function(text){
+    this.setState({errorShow: false})
     if(text !== 'Current location'){
       this.props.searchDisabled(false);
       console.log('not curent location')
@@ -154,7 +158,7 @@ const Search = React.createClass({
 
 
   render: function() {
-    console.log('search props', this.props)
+    console.log('search props', this.state.date)
 
     return (
       <View style={styles.container}>
@@ -269,9 +273,10 @@ const Search = React.createClass({
             
               <DatePickerIOS
                 style= {styles.datePicker}
-                date={this.props.date}
+                date={this.state.date}
                 // timeZoneOffsetInMinutes={(-1) * (new Date()).getTimezoneOffset()}
                 mode="date" // changed from 'datetime'
+                timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
                 onDateChange={this.onDateChange}>
               </DatePickerIOS>
 
@@ -333,7 +338,7 @@ const styles = StyleSheet.create({
   },
    smallButtonText: {
     fontSize: 12,
-    paddingTop: 10,
+    paddingTop: 0,
     color: '#FFFFFF',
     fontFamily: 'Bebas',
     textAlign: 'center',
@@ -360,9 +365,9 @@ const styles = StyleSheet.create({
    bigButton: {
     marginRight: 30,
     marginLeft: 30,
-    height: 310,
-    width: 310,
-    borderRadius: 155,
+    height: 260,
+    width: 260,
+    borderRadius: 130,
     flexDirection: 'column',
     backgroundColor: '#673AB7',
     marginBottom: 10,
