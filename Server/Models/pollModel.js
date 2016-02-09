@@ -110,6 +110,7 @@ module.exports.toggleVoted = function(emailId, callback) {
     })
 }
 
+//this method incremennts the value in the yes_vote or no_vote comment of specified poll
 module.exports.incrementVote = function(pollId, voteAction, callback) {
   console.log('about to increment, pollId is', pollId);
   if (voteAction === 'yes') { 
@@ -135,31 +136,7 @@ module.exports.incrementVote = function(pollId, voteAction, callback) {
   }
 };
 
-// //this method incremennts the value in the yes_vote comment of specified poll
-// module.exports.incrementYesVote = function(pollId, callback) {
-//   console.log('about to increment, pollId is', pollId);
-//   return db.query(queryString.incrementYesVote, [pollId])
-//           .then(function(voteCount){
-//             callback(null, voteCount)
-//           })
-//           .catch(function(error) {
-//             console.log('error querying polls table for yes votecount, error is', error)
-//             callback(error, null);
-//           });
-// };
-
-// //this method incremennts the value in the no_vote comment of specified poll
-// module.exports.incrementNoVote = function(pollId, callback) {
-//   return db.query(queryString.incrementNoVote, [pollId])
-//           .then(function(voteCount){
-//             callback(null, voteCount)
-//           })
-//           .catch(function(error) {
-//             console.log('error querying emails table for no votecount, error is', error)
-//             callback(error, null);
-//           });
-
-// };
+//this method incremennts the value in the yes_vote comment of specified poll
 
 module.exports.voteObj = function(pollId) {
   return db.query(queryString.getPollVoteObj, [pollId])
