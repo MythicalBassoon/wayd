@@ -9,14 +9,15 @@ exports.addCurrentEvent = function addCurrentEvent(event) {
   }
 }
 
+//stores api data on state
 exports.getData = function getData(data){
-  // console.log('get data dispatch', data)
   return{
     type: "GET_DATA",
     apiresults: data
   }
 }
 
+//remove event from initial events array
 exports.popEvent = function popEvent(){
   console.log('pop event')
   return{
@@ -25,8 +26,8 @@ exports.popEvent = function popEvent(){
   }
 }
 
+//loading screen
 exports.loadingscreen = function loadingscreen(bool) {
-  console.log('load screen action', bool)
   return {
     type: 'LOADING_SCREEN',
     loading: bool

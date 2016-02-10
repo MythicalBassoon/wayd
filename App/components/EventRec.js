@@ -1,3 +1,4 @@
+
 const React = require('react-native')
 const moment = require('moment')
 const Email = require('../containers/Email')
@@ -10,7 +11,7 @@ const Web_View = require('../containers/Web.js');
 const MK = require('react-native-material-kit')
 const host = process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
 const {
-    MKButton,
+  MKButton,
   MKColor,
   mdl,
   MKTextField,
@@ -37,322 +38,167 @@ const {
 
 const EventRec = React.createClass({
 
-  componentDidMount: function() {
-    this.props.loadingscreen(true);
-    this.submitToServer()
-  },
-  
-  //submits date and time information for worker rendering
-  submitToServer: function(){
+      componentDidMount: function() {
+        this.props.loadingscreen(true);
+        this.submitToServer()
+      },
 
-    var loc = this.props.prevData.latlng
-    var timeframe = JSON.stringify(this.props.prevData.date)
+      //submits date and time information for worker rendering
+      submitToServer: function() {
 
-    var url = `${host}api/events/?loc=${loc}&timeframe=${timeframe}`
-    console.log('url', url)
+        var loc = this.props.prevData.latlng
+        var timeframe = JSON.stringify(this.props.prevData.date)
 
-    fetch(url, {method: "GET"})
-    .then((response) => response.json())
-    .then((responseData) => {
-    //testing for client side filtering
-      // console.log('res data time', responseData[0])
-      // console.log('res data time2', new Date(responseData[0].start_time))
-      // console.log('search date', new Date(this.props.prevData.date))
-      // var resData = responseData.filter(function(event){
-      //   if(event.start_time) 
-      // })
+        var url = `${host}api/events/?loc=${loc}&timeframe=${timeframe}`
+        console.log('url', url)
 
-       this.props.getData(responseData)
-       this.props.popEvent() 
-    })
-    .then(() => {
-      this.props.loadingscreen(false)
-    })
-    .done();
-    
-  },
+        fetch(url, {
+            method: "GET"
+          })
+          .then((response) => response.json())
+          .then((responseData) => {
+            this.props.getData(responseData)
+            this.props.popEvent()
+          })
+          .then(() => {
+            this.props.loadingscreen(false)
+          })
+          .done();
 
-  no: function() {
-    if (this.props.apiresults.length === 0) {
-      this.props.loadingscreen(true);
-      this.submitToServer()
-    } else {
+      },
 
-      this.props.popEvent() 
-    }
-  },
+      no: function() {
+        if (this.props.apiresults.length === 0) {
+          this.props.loadingscreen(true);
+          this.submitToServer()
+        } else {
 
-   map: function() {
-    var event = this.props.currentEvent;
-    this.props.navigator.push({
-      title: 'Map',
-      component: Map
-    });
-  },
+          this.props.popEvent()
+        }
+      },
 
-  yes: function() {
-    console.log('yes')
-    this.props.navigator.push({
-      title: 'Add Friends',
-      component: Email
-    });
-   
-  },
+      map: function() {
+        var event = this.props.currentEvent;
+        this.props.navigator.push({
+          title: 'Map',
+          component: Map
+        });
+      },
 
-  //almost works; throws an error when navigate back...
-  openPage: function(){
-    var url = this.props.currentEvent.image_thumb
-    // console.log('page', url)
+      yes: function() {
+        this.props.navigator.push({
+          title: 'Add Friends',
+          component: Email
+        });
 
-    this.props.navigator.push({
-      title: 'Web View',
-      component: Web_View,
-      passProps: {url}
-    });
-  },
- 
-  render: function() {
-    console.log('event component render', this.props)
+      },
 
-    var menu = (
-       <MKIconToggle
-        checked={true}
-        onCheckedChange={this._onIconChecked}
-        onPress={() =>{
-          console.log('toggle')
-          this.openPage()
-          this._onIconClicked
-        }}
-        >
-
-        <Text pointerEvents="none"
-              style={styles.toggleText}>details</Text>
-        <Text state_checked={true}
-              pointerEvents="none"
-              style={[styles.toggleText, styles.toggleText]}>details</Text>
-
-
-      </MKIconToggle>
-    );
-    //
-
-    switch(this.props.loading){
-      case true:
-        var loadingArray = ['Looking for cool things to do...', 'Finding the dopest event ever...', 'Finding the highest levels of turn up...', 'You\'re about to be shown a sick event... like fun sick...', 'We\'re pretty  sure Brad  Pitt will be at these events...', 'Wait up, Homie...', 'I think we found your event soulmate...', 'Using super baller, fun-maximizing algorithm...'];
-        var item = loadingArray[Math.floor(Math.random()*loadingArray.length)]
-        return(
-          <View style= {styles.spinnerContainer}>
-              <Text style={styles.loadingTitle}> {item}</Text>
-              <SingleColorSpinner/>
-          </View>
-        )
-      case false:
-
-        // console.log('api results', this.props)
-        // console.log('api current img', this.props.currentEvent)
-        if (this.props.currentEvent) {
-          var event = this.props.currentEvent;
-
-          if(event.title.length > 48){
-            event.title = event.title.substring(0,48) + '...'
-
+      //almost works; throws an error when navigate back...
+      openPage: function() {
+        var url = this.props.currentEvent.image_thumb
+        this.props.navigator.push({
+          title: 'Web View',
+          component: Web_View,
+          passProps: {
+            url
           }
+        });
+      },
 
-          var url = `https://maps.googleapis.com/maps/api/staticmap?markers=size:small%7Ccolor:red%7C${this.props.currentEvent.lat},${this.props.currentEvent.long}2&zoom=15&size=640x400&key=AIzaSyA4rAT0fdTZLNkJ5o0uaAwZ89vVPQpr_Kc`
-
-          return (
-            <View style = {styles.mainContainer}>
-              
-            <View style={MKCardStyles.card}>
-
-            <Text style={[styles.eventTitle]}>{event.title} </Text>
-
-              <TouchableHighlight
-
-                style={[MKCardStyles.image, { opacity: .8}]}
-                onPress={this.map}
-                underlayColor="#FFC107">
-                
-                <Image source={{uri : url}}  style={MKCardStyles.image}/>
-                
-              </TouchableHighlight>
-
-              
-              
-              <View  style={{ padding : 15 }} >
-                <Text style={[MKCardStyles.content, styles.textInfo]}>
-                  {event.address} 
-                </Text>
-                  <Text style={[MKCardStyles.content, styles.textInfo]}>
-                  {event.city}
-                </Text>
-                <Text style={[MKCardStyles.content, styles.textInfo]}>
-                  { moment(event.start_time).calendar() } 
-                </Text>
-                <View style={MKCardStyles.menu}>{menu}</View>
+      render: function() {
+        var menu = (
+           <MKIconToggle
+            checked={true}
+            onCheckedChange={this._onIconChecked}
+            onPress={() =>{
+              console.log('toggle')
+              this.openPage()
+              this._onIconClicked
+            }}
+            >
+            <Text pointerEvents="none"
+                  style={styles.toggleText}>details</Text>
+            <Text state_checked={true}
+                  pointerEvents="none"
+                  style={[styles.toggleText, styles.toggleText]}>details</Text>
+          </MKIconToggle>
+        );
+        //CHECKS REDUX STATE to show loading screen or actual eventRec page
+        switch(this.props.loading){
+          case true:
+            var loadingArray = ['Looking   for   cool   things   to   do...', 'Finding   the   dopest   event   ever...', 'Finding   the   highest   levels   of   turn   up...', 'You\'re   about   to   be   shown   a   sick   event... like   fun   sick...', 'We\'re   pretty  sure   Brad   Pitt will   be   at   these   events...', 'Wait   up,   Homie...', 'I   think   we   found   your   event   soulmate...', 'Using   super   baller,   fun-maximizing   algorithm...'];
+            var item = loadingArray[Math.floor(Math.random()*loadingArray.length)]
+            return(
+              <View style= {styles.spinnerContainer}>
+                  <Text style={styles.loadingTitleEventRec}> {item}</Text>
+                  <SingleColorSpinner/>
               </View>
-              
-              <View style={MKCardStyles.action}>
-                
-
-                <TouchableHighlight
-                  style={styles.webBtn}>
-                  <Text style={styles.title}>  </Text> 
-                </TouchableHighlight>
-
-                   <TouchableHighlight
-                  style={styles.button}
-                  onPress={this.yes}
-                  underlayColor='#FFC107'>
-                  <Text style={styles.buttonText}> Im down </Text> 
-                </TouchableHighlight>
-
-                <TouchableHighlight
-                  style={styles.button}
-                  onPress={this.no}
-                  underlayColor='#FFC107'
-                  >
-                  <Text style={styles.buttonText}> Im not down </Text> 
-                </TouchableHighlight>
-
-        
-              
-      
-
-              </View>
-            </View>
-
-              
-            </View>
-          )
-        }
-
-        else {
-          return (
-
-             <View style= {styles.mainContainer}>
-              <Text style={styles.title}>There are no events in the area! Try searching from a different spot.</Text>
-            </View>
             )
+          case false:
+          //substrings title to 48 characters to fit on page
+            if (this.props.currentEvent) {
+              var event = this.props.currentEvent;
+              if(event.title.length > 48){
+                event.title = event.title.substring(0,48) + '...'
+              }
+              var url = `https://maps.googleapis.com/maps/api/staticmap?markers=size:small%7Ccolor:red%7C${this.props.currentEvent.lat},${this.props.currentEvent.long}2&zoom=15&size=640x400&key=AIzaSyA4rAT0fdTZLNkJ5o0uaAwZ89vVPQpr_Kc`
+              return (
+                <View style = {styles.mainContainerEventRec}>                      
+                  <View style={MKCardStyles.card}>
+                    <Text style={[styles.eventTitle]}>{event.title} </Text>
+                      <TouchableHighlight
+                        style={[MKCardStyles.image, { opacity: .8}]}
+                        onPress={this.map}
+                        underlayColor="#FFC107">                       
+                        <Image source={{uri : url}}  style={MKCardStyles.image}/>                       
+                      </TouchableHighlight>
+                      <View  style={{ padding : 15 }} >
+                        <Text style={[MKCardStyles.content, styles.textInfo]}>
+                          {event.address} 
+                        </Text>
+                          <Text style={[MKCardStyles.content, styles.textInfo]}>
+                          {event.city}
+                        </Text>
+                        <Text style={[MKCardStyles.content, styles.textInfo]}>
+                          { moment(event.start_time).calendar() } 
+                        </Text>
+                        <View style={MKCardStyles.menu}>{menu}</View>
+                      </View>
+                      <View style={MKCardStyles.action}>
+                        <TouchableHighlight
+                          style={styles.webBtn}>
+                          <Text style={styles.titleEventRec}>  </Text> 
+                        </TouchableHighlight>
+                        <TouchableHighlight
+                          style={styles.buttonEventRec}
+                          onPress={this.yes}
+                          underlayColor='#FFC107'>
+                          <Text style={styles.buttonTextEventRec}> YES!  Lets  send  Invites! </Text> 
+                        </TouchableHighlight>
+                        <TouchableHighlight
+                          style={styles.buttonEventRec}
+                          onPress={this.no}
+                          underlayColor='#FFC107'>
+                          <Text style={styles.buttonTextEventRec}> No  Thanks,  Next Event </Text> 
+                        </TouchableHighlight>
+                      </View>
+                    </View>     
+                  </View>
+              )
+            }
+            else {
+              return (
+                 <View style= {styles.mainContainer}>
+                  <Text style={styles.titleEventRec}>There are no events in the area! Try searching from a different spot.</Text>
+                </View>
+                )
+            }
         }
-    }
-
-  }
-
+      }
 })
 
 
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    padding: 10,
-    marginTop: 50,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    backgroundColor: '#b6b6b6'
-  },
-  title: {
-    marginBottom: 20,
-    fontSize: 17,
-    textAlign: 'center',
-    color: '#607D8B',
-  },
-  loadingTitle: {
-    marginBottom: 20,
-    fontSize: 24,
-    textAlign: 'center',
-    color: '#607D8B',
-    fontFamily: 'Bebas'
-  },
-  toggleText:{
-    fontFamily: 'Bebas',
-    fontSize: 12,
-
-  },
-  textInfo: {
-    padding: 0,
-    fontFamily: 'Bebas',
-    fontSize: 13
-  },
-  eventTitle: {
-    marginBottom: 5,
-    fontSize: 40,
-    textAlign: 'center',
-    color: '#607D8B',
-    fontFamily: 'Bebas'
-  },
- buttonText: {
-    fontSize: 15,
-    paddingTop: 10,
-    color: '#FFFFFF',
-    fontFamily: 'Bebas',
-    alignSelf: 'center'
-  },
-  button: {
-    marginRight: 30,
-    marginLeft: 30,
-    height: 50,
-    flexDirection: 'row',
-    backgroundColor: '#673AB7',
-    marginBottom: 10,
-    marginTop: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    shadowColor: "black",
-    shadowOpacity: 1,
-    shadowRadius: 3,
-    shadowOffset: {
-      height: 1,
-      width: 1
-    }
-  },
-  bodytext: {
-    marginBottom: 10,
-    marginTop: 10,
-    fontSize: 15,
-    textAlign: 'center',
-    color: '#607D8B'
-  },
-
-
-  image: {
-    height: 150,
-    width: 150,
-    borderRadius: 65,
-    marginTop: 50,
-    alignSelf: 'center'
-  },
-  spinner: {
-    color: 'blue',
-    width: 50,
-    height: 50,
-    marginLeft: 170,
-    marginRight: 170
-  },
-  spinnerContainer: {
-    flex: 1,
-    padding: 0,
-    marginTop: 0,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    backgroundColor: '#ECEFF1'
-  },
-  body:{
-    marginTop: 50,
-    marginLeft: 30,
-    marginRight: 30
-  },
-   webBtn: {
-    fontSize: 15,
-    backgroundColor: 'white',
-    alignSelf: 'center',
-    
-
-  },
-
-  
-
-});
+const styles = StyleSheet.create(require('../assets/styles.js'));
 
 const SingleColorSpinner = mdl.Spinner.singleColorSpinner()
   .withStyle(styles.spinner)
