@@ -32,6 +32,7 @@ db.query(
     + "source_id VARCHAR(50),"
     + "image_thumb VARCHAR(5000),"
     + "image_medium VARCHAR(5000),"
+    + "category_image VARCHAR(5000),"
     + "id SERIAL PRIMARY KEY)"
    )
  })

@@ -26,7 +26,8 @@ const {
   View,
   TabBarIOS,
   Modal,
-  Animated
+  Animated, 
+  AlertIOS
 } = React
 
 // Node module import for Google API autocomplete (autocomplete only).
@@ -109,11 +110,11 @@ const Search = React.createClass({
     renderError: function(){
      if(this.state.errorShow){
       console.log('renderError called')
-
-      return(
-           <Text style={styles.errortext}>Please choose a location or set it to Current location</Text>
-           )
-         }
+      this.setState({errorShow: false})
+        AlertIOS.alert(
+        'Please choose a location or set it to Current location'
+        );
+      }
    
   },
 
@@ -308,7 +309,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 40,
-    backgroundColor: '#b6b6b6',
+    backgroundColor: 'white',
     marginTop: 40,
   },
   textInput: {

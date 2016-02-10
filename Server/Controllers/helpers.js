@@ -42,7 +42,7 @@ module.exports = {
        day = new Date(JSON.parse(dateString))
     }
 
-    console.log('day', day)
+    // console.log('day', day)
     var dayOfMonth= day.getDate().toString()
       dayOfMonth = dayFormater(dayOfMonth)
 
@@ -50,7 +50,7 @@ module.exports = {
     var month = (day.getMonth() + 1)
       month = monthFormater(month)
 
-      console.log('month', month)
+      // console.log('month', month)
     var date = year + month + dayOfMonth;
     return date + '00'
 

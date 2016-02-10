@@ -55,7 +55,7 @@ function runTest() {
   if (!emailInfo.final) {
   console.log('handling initial email');
   mailOptions.subject = 'You have been invited by ' + emailInfo.user;
-  mailOptions.html = template(emailInfo.eventInfo.title, emailInfo.to, emailInfo.eventInfo.image_medium, emailInfo.eventInfo.description, emailInfo.emailId);
+  mailOptions.html = template(emailInfo.eventInfo.title, emailInfo.to, emailInfo.eventInfo.category_image, emailInfo.eventInfo.description, emailInfo.emailId);
   transporter.sendMail(mailOptions, function(error, info){
     if(error){
         return console.log(error);
@@ -71,12 +71,12 @@ else {
   console.log('handling final email');
   if (emailInfo.consensus){
     mailOptions.subject = 'Poll results are in, set your calendar!';
-    mailOptions.html = attendingTemplate(emailInfo.event.title, emailInfo.event.image_medium, emailInfo.event.description); 
+    mailOptions.html = attendingTemplate(emailInfo.event.title, emailInfo.event.category_image, emailInfo.event.description); 
   }
 
   else {
     mailOptions.subject = 'Poll results are in, people don\'t want to go to go!';
-    mailOptions.html = rejectedTemplate(emailInfo.event.title, emailInfo.event.image_medium, emailInfo.event.description); 
+    mailOptions.html = rejectedTemplate(emailInfo.event.title, emailInfo.event.category_image, emailInfo.event.description); 
   }
   transporter.sendMail(mailOptions, function(error, info){
     if(error){

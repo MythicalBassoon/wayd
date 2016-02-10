@@ -18,7 +18,7 @@ module.exports.insertPoll = function(eventId, pollInfo, callback, database){
   // array of values which will be inserted to polls table
   // first parameter (vote_count) is defaulted to 1 as we assume creator has voted in favor for event by selecting it
   //POLLINFO: userId, array of emails
-  console.log(pollInfo)
+  // console.log('poll model', pollInfo)
   var queryParameters = [eventId, pollInfo.user.userId, pollInfo.emails.length]
   
   //insert poll into polls table

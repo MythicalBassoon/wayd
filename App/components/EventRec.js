@@ -8,7 +8,7 @@ const Map = require('../containers/Map')
 const Web_View = require('../containers/Web.js');
 
 const MK = require('react-native-material-kit')
-const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
+const host = process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
 const {
     MKButton,
   MKColor,
@@ -19,7 +19,7 @@ const {
 } = MK;
 
 MK.setTheme({
-  primaryColor: MKColor.Blue,
+  primaryColor: MKColor.Amber,
   accentColor: MKColor.Orange,
 });
 
