@@ -4,12 +4,10 @@ const Separator = require('./helpers/separator.js')
 const Error = require('./Error')
 const Success = require('./Success')
 const Contacts = require('react-native-contacts')
-<<<<<<< 7eefc1f41791a6968293c8fc8b4b5dfcc459e4d2
-const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
-var { Icon } = require('react-native-icons');
-=======
+
 const host = process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
->>>>>>> added another api request to retriever event cateogry, built category hash for mapping images to events, changed email tempplates
+var { Icon } = require('react-native-icons');
+
 
 const {
   StyleSheet,
@@ -420,7 +418,7 @@ buttonText: {
   bottomSection: {
     flex: .2
   },
-<<<<<<< 54f4717f69e88671d8e5d0847316cfbeef26aa56
+
   contacts: {
 
   },
@@ -429,13 +427,7 @@ buttonText: {
     width: 20,
     flex: 1
   }
-=======
-    fab: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-  },
->>>>>>> started code cleanup
+
 
 });
 

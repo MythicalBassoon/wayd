@@ -236,7 +236,7 @@ router.route('/polls/:voteAction/:emailId')
 
             //retrieving event details to insert into html vote template to be served up to voter
             getOneEvent(results.eventId, function(err, event) {
-              console.log('event is', event)
+              console.log('poll event is', event)
               var event = event[0];
 
               if (err) {
@@ -261,7 +261,7 @@ router.route('/polls/:voteAction/:emailId')
                       consensus: results.consensus,
                       event: {
                         title: event.title,
-                        image_medium: event.image_medium,
+                        category_image: event.category_image,
                         description: event.description
                       }
        
@@ -281,13 +281,13 @@ router.route('/polls/:voteAction/:emailId')
                 }
 
                 //serve up template to user thanking them for vote and letting them know next steps. this is completed regardless of whether post to email server is successful or not
-                res.send(voteTemplate(event.title, event.image_medium, event.description));
+                res.send(voteTemplate(event.title, event.category_image, event.description));
               });
   }
 
               else {
                 //thank you / next steps template served up to user even if poll isn't yet complete
-                res.send(voteTemplate(event.title, event.image_medium, event.description));
+                res.send(voteTemplate(event.title, event.category_image, event.description));
               }
             });
           });
