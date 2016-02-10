@@ -85,20 +85,20 @@ module.exports.insertEvent = function(eventObj, callback, database){
     var eventHash ={
       'music' : 'http://mochadad.com/app/uploads/2012/12/sports.jpg',
       'comedy' : 'http://mochadad.com/app/uploads/2012/12/sports.jpg',
-       'festival_parades' : 'http://mochadad.com/app/uploads/2012/12/sports.jpg',
-       'movies_film': 'https://farm5.staticflickr.com/4054/4437783107_188a2649dd.jpg',
-       'food' : 'https://farm6.staticflickr.com/5082/5346801287_ff59e548f8_b.jpg',
-        'art': 'https://farm8.staticflickr.com/7184/6972527877_a36f6004b8_b.jpg',
-        'attractions': 'https://m.flickr.com/photos/roijoy/17195074496/in/search?q=san%20francisco%20hiking&mt=all&w=all',
-        'singles_social': 'http://mochadad.com/app/uploads/2012/12/sports.jpg',
-       'outdoors_recreation': 'https://m.flickr.com/photos/gcquinn/2651368169/in/search?q=san%20francisco%20hiking&mt=all&w=all',
-       'performing_arts': 'https://s.yimg.com/pw/images/spaceball.gif',
-       'science': 'https://farm6.staticflickr.com/5180/5472406581_c05fba7d1a_b.jpg',
-       'sports': 'http://mochadad.com/app/uploads/2012/12/sports.jpg',
-       'technology':'https://farm8.staticflickr.com/7776/18067079332_285eac56b1_b.jpg',
-       'default': 'https://m.flickr.com/photos/idashum/8503005246/in/search?q=san%20francisco%20outdoor%20concert&mt=all&w=all'
+      'festival_parades' : 'http://mochadad.com/app/uploads/2012/12/sports.jpg',
+      'movies_film': 'https://farm5.staticflickr.com/4054/4437783107_188a2649dd.jpg',
+      'food' : 'https://farm6.staticflickr.com/5082/5346801287_ff59e548f8_b.jpg',
+      'art': 'https://farm8.staticflickr.com/7184/6972527877_a36f6004b8_b.jpg',
+      'attractions': 'https://m.flickr.com/photos/boudster/5555239925/in/search?q=san%20francisco%20nature&mt=all&w=all',
+      'singles_social': 'http://www.meetmindful.com/wp-content/uploads/2014/05/speed-dating-938x625.jpg',
+      'outdoors_recreation': 'https://farm7.staticflickr.com/6233/6308095710_9c96892af0_b.jpg',
+      'performing_arts': 'https://uwworldseries.org/sites/default/files/MeanyHall-3.jpg',
+      'science': 'https://farm6.staticflickr.com/5180/5472406581_c05fba7d1a_b.jpg',
+      'sports': 'http://mochadad.com/app/uploads/2012/12/sports.jpg',
+      'technology':'https://farm8.staticflickr.com/7776/18067079332_285eac56b1_b.jpg',
+      'default': 'http://static1.squarespace.com/static/533353a3e4b0429a548a8446/t/54a78bede4b057f9e3964d76/1420266478889/lights_events_1366x768_68503.jpg?format=1500w'
     }
-    return eventHash[eventId] || 'http://mochadad.com/app/uploads/2012/12/sports.jpg'
+    return eventHash[eventId] || 'http://static1.squarespace.com/static/533353a3e4b0429a548a8446/t/54a78bede4b057f9e3964d76/1420266478889/lights_events_1366x768_68503.jpg?format=1500w'
 
   }
 
