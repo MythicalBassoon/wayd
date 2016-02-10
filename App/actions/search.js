@@ -9,12 +9,15 @@ exports.latlngadd = function latlngadd(lat, lng) {
   }
 }
 
+//search time changed as datepickerios is scrolled through
 exports.timechange = function timechange(date) {
   return {
     type: 'TIME_CHANGE',
     date: date
   }
 }
+
+//truthy statement to see if all parameters are valid from search page
 exports.searchDisabled = function searchDisabled(bl) {
   return {
     type: 'SEARCH_DISABLED',
@@ -22,6 +25,7 @@ exports.searchDisabled = function searchDisabled(bl) {
   }
 }
 
+//loading screen after search is made
 exports.loadingscreen = function loadingscreen(bool) {
   console.log('load screen action', bool)
   return {
@@ -30,7 +34,7 @@ exports.loadingscreen = function loadingscreen(bool) {
   }
 }
 
-
+//data passed to eventview
 exports.eventView = function eventView(data) {
   return {
     type: "PASS_SEARCH_QUERY",
@@ -39,10 +43,5 @@ exports.eventView = function eventView(data) {
 }
 
 
-exports.datePicker = function datePicker() {
-  return {
-    type: "DATE_PICKER",
-  }
-}
 
 

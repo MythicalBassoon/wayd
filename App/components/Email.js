@@ -5,7 +5,7 @@ const Error = require('./Error')
 const Success = require('./Success')
 const Contacts = require('react-native-contacts')
 
-const host = process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
+const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
 var { Icon } = require('react-native-icons');
 
 

@@ -27,14 +27,8 @@ const {
   View
 } = React
 
-var MapView = require('react-native-maps')
-console.log(MapView)
-
-
-//import MapView from 'react-native-maps';
-
-
-var API_KEY_FACEBOOK_APP = require('../../apikeys').facebook_app_api_key;
+const MapView = require('react-native-maps')
+const API_KEY_FACEBOOK_APP = require('../../apikeys').facebook_app_api_key;
 
 
 const Map = React.createClass({
@@ -46,10 +40,7 @@ getInitialState: function() {
     longitudeDelta: 0.0421
     };
   },
-
   componentWillMount: function(){
-
-
     navigator.geolocation.getCurrentPosition(
                 (initialPosition) => {this.setState({latitude: initialPosition.coords.latitude,longitude: initialPosition.coords.longitude});
                  console.log('GETTING CURRENT POSITION: ', initialPosition)}, // success callback
@@ -69,7 +60,6 @@ getInitialState: function() {
 
 
   render() {
-    console.log('EVENT DETAILSSSSS', this.props.currentEvent)
   return (
     <MapView 
       style={styles.map}
@@ -80,20 +70,17 @@ getInitialState: function() {
       longitudeDelta: 0.0421,
     }}
       region={this.state.region}
-      onRegionChange={this.onRegionChange}
-    >
+      onRegionChange={this.onRegionChange}>
 
     <MapView.Marker 
       coordinate={{latitude: this.state.latitude, longitude: this.state.longitude}}
       title='Current Position'
-      pinColor='#81C784'
-    />
+      pinColor='#81C784'/>
 
     <MapView.Marker 
       coordinate={{latitude: this.props.currentEvent.lat, longitude: this.props.currentEvent.long}}
       title='Destination'
-      description={this.props.currentEvent.title}
-    >
+      description={this.props.currentEvent.title}>
     <MapView.Callout>
     <Text> Destination: {this.props.currentEvent.title}</Text>
     <Text style={{color: 'blue'}}
@@ -109,79 +96,7 @@ getInitialState: function() {
 })
 
 
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    padding: 30,
-    marginTop: 65,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    backgroundColor: 'white'
-  },
-  map: {
-    position: 'absolute',
-    top: 10,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  },
-  title: {
-    marginBottom: 20,
-    fontSize: 25,
-    textAlign: 'center',
-    color: 'black'
-  },
-  searchInput: {
-    height: 50,
-    padding: 4,
-    marginBottom: 10,
-    marginRight: 5,
-    fontSize: 23,
-    borderWidth: 1,
-    borderColor: 'white',
-    borderRadius: 8,
-    color: 'white'
-  },
-  facebook: {
-    backgroundColor: '#3b5998'
-  },
-  buttonText: {
-    fontSize: 15,
-    color: '#111',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 45,
-    flexDirection: 'row',
-    backgroundColor: '#ECEFF1',
-    borderColor: 'white',
-    borderWidth: 1,
-    borderRadius: 0,
-    marginBottom: 10,
-    marginTop: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
-  },
-  textfield: {
-    height: 28,  // have to do it on iOS
-    marginTop: 22,
-  },
-});
+const styles = StyleSheet.create(require('../assets/styles.js'));
 
-
-const Textfield1 = MKTextField.textfield()
-  .withPlaceholder('username...')
-  .withStyle(styles.textfield)
-  .build();
-
-const Textfield2 = MKTextField.textfield()
-  .withPlaceholder('password...')
-  .withStyle(styles.textfield)
-  .build();
-
-// const FlatButton = MKButton.flatButton()
-//   .withText('log in')
-//   .build();
-//
 
 module.exports = Map
