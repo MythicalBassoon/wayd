@@ -1,6 +1,8 @@
 package com.wayd;
 
 import com.facebook.react.ReactActivity;
+import com.smixx.reactnativeicons.ReactNativeIcons;
+import com.rt2zz.reactnativecontacts.ReactNativeContacts;
 import com.github.xinthink.rnmk.ReactMaterialKitPackage;
 import com.AirMaps.AirPackage;
 import com.facebook.react.ReactPackage;
@@ -37,6 +39,8 @@ public class MainActivity extends ReactActivity {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
+        new ReactNativeIcons(),
+        new ReactNativeContacts(),
         new ReactMaterialKitPackage(),
         new AirPackage());
     }

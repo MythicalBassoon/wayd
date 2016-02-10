@@ -152,8 +152,10 @@ const EventRec = React.createClass({
         // console.log('api current img', this.props.currentEvent)
         if (this.props.currentEvent) {
           var event = this.props.currentEvent;
+
           if(event.title.length > 48){
             event.title = event.title.substring(0,48) + '...'
+
           }
 
           var url = `https://maps.googleapis.com/maps/api/staticmap?markers=size:small%7Ccolor:red%7C${this.props.currentEvent.lat},${this.props.currentEvent.long}2&zoom=15&size=640x400&key=AIzaSyA4rAT0fdTZLNkJ5o0uaAwZ89vVPQpr_Kc`

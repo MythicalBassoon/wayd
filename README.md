@@ -11,15 +11,14 @@ WAYD is a React Native iOS application that recommends a random event in your ar
 
 ## Table of Contents
 
-1. [Usage](#Usage)
-2. [Requirements](#requirements)
-3. [Development](#development)
-	1. [Installing Dependencies](#installing-dependencies)
-	2. [Tasks](#tasks)
-4. [Team](#team)
-5. [Contributing](#contributing)
+1. [Overview](#Overview)
+2. [Explore](#Explore)
+3. [Requirements](#requirements)
+4. [Development](#development)
+5. [Team](#team)
+6. [Contributing](#contributing)
 
-## Usage
+## Overview
 
 Users can input their current location or a specific location of their choice and receive a psuedo-random event in the area. Details and map information are provided for each event. If they don't like the event given to them, they can continue generating different events in the area. 
 
@@ -88,17 +87,20 @@ or run the following commands from the post-install folder:
 cp apikeys.js ../Server/Workers/
 cp apikeys.js ../Server/Controllers/
 cp apikeys.js ../
+
 ```
+
 
 NOTE: You must provide your own API keys for the keys indicated in apikeys.js
 
 - Grab/Copy the rest of the folders within the post-install folder and paste them into the node_module directory:
 
 ```sh
-yes | cp -rf react-native-maps/* ../node_modules/react-native-maps/
-yes | cp -rf react-native-google-places-autocomplete/* ../node_modules/react-native-google-places-autocomplete/
-yes | cp -rf react/* ../node_modules/react/
-yes | cp -rf react-native/* ../node_modules/react-native/
+yes | cp -rf DatePickerIOS.js ../node_modules/react-native/Libraries/Components/DatePicker/DatePickerIOS.ios.js
+yes | cp -rf GPAutocomplete.js ../node_modules/react-native-google-places-autocomplete/GooglePlacesAutocomplete.js
+yes | cp -rf REValidator.js ../node_modules/react/lib/ReactElementValidator.js
+cp -rf ../node_module/react-native-maps/ios/Air* ../node_module/react-native-maps/
+
 
 
 ```
@@ -116,6 +118,7 @@ NOTE: You must replace the entire folder found in node_modules with the folders 
 6. Run 'node Server/Workers/jobqueue.js' 
 7. Open 'wayd.xcworkspace' in Xcode
 8. Cmd + R or press Run
+
 
 Optionally:
 A docker .yml file is provided as well as the accompanying DockerFile(s) that create docker containers that will host server.js, jobserver.js, and jobqueue.js as shown above. You may alter the client side variables to use docker routes instead of localhost routes. Instructions are found in the respective clientside files.
