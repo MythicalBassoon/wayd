@@ -36,6 +36,7 @@ module.exports = {
      }
     }
 
+    // console.log('date string', dateString)
     if(typeof dateString === 'object') {
        day = new Date(dateString)
     } else {
