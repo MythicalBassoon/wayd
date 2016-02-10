@@ -4,7 +4,7 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var apiController = require('../Controllers/api.js')
-
+var geteventImage = require('../Models/eventModel').geteventImage
 var insertEvent = require('../Models/eventModel').insertEvent
 var insertPoll = require('../Models/pollModel').insertPoll
 var insertEmail = require('../Models/emailModel').insertEmail
@@ -63,27 +63,78 @@ router.route('/users')
 router.route('/polls')
   .post(function(req, res){
   // create new poll
- 
+
     var pollInfo = req.body.pollInfo;
     var eventInfo = req.body.eventInfo;
+
+  //set category based image
+  apiController.getEventCategory(eventInfo.source_id, function(err, eventDetails){
+    console.log('event details', eventDetails)
+  
+    if(err) {
+      throw err
+    } 
+
+    var categoryName;
+  
+    console.log('eventdetails', eventDetails)
+    console.log('eventdetails', eventDetails.categories)
+  
+
+    if(eventDetails.categories) {
+
+       if(Array.isArray(eventDetails.categories.category)){
+           console.log('is array', eventDetails.categories.category[0].id)
+          categoryName = eventDetails.categories.category[0].id
+        } else {
+          console.log('not array', eventDetails.categories.category.id)
+          categoryName = eventDetails.categories.category.id ?  eventDetails.categories.category.id : 'default'
+        } 
+
+    } else {
+      console.log('default')
+      categoryName = 'default'
+    }
+
+    var eventImg = geteventImage(categoryName)
+
+    console.log('eventImg',eventImg)
+
+    eventInfo.category_image = eventImg
+    eventInfo.category = categoryName
+  
+    console.log('event', eventInfo)
+
 
     //insert event into events table
     insertEvent(eventInfo, function(err, eventId){
       console.log(eventId)
       if(err){
+        console.log('first error', err)
         res.send(404)
       }
 
-      //insert poll into polls table
-      insertPoll(eventId[0]['id'], pollInfo, function(err, pollId){
+      console.log('inserting poll', eventId[0]['id'] )
+
+      insertPoll(eventId[0]['id'], pollInfo, function(err, pollId){ 
+
         if(err){
+          console.log('second error', err)
           res.send(404)
         }
 
         for(var i = 0;i<pollInfo.emails.length;i++){
+          console.log('pollids', pollId)
+          console.log('pollids', pollId[pollId.length-1]['id'])
+          console.log('pollids', pollInfo)
+
           insertEmail(pollInfo.emails[i], i, pollId[pollId.length-1]['id'], function(err, email, i){
+            
+
             if(err){
-              res.send(404)
+              console.log('about to res send email', err)
+              res.send(404, err)
+              return
             }
 
             var emailObj = {
@@ -103,15 +154,44 @@ router.route('/polls')
             })
 
             if(i === pollInfo.emails.length - 1){
+
+
+              console.log('about to send 200')    
               res.send(200, 'ALL EMAILS INSERTED, POLL CREATION SUCCESS')
             }
+
           })
+
+         
+
         }
 
       })
 
     })
-    })
+
+
+
+    // var sendObj = {
+    //   userid: userId,
+    //   eventObj: eventObj
+    // }
+    //   res.send(sendObj)
+
+
+    // add to event table
+    // insertEvent(eventObj, function(err, eventId){
+    //   // add to poll table
+    //   insertPoll(eventId, userId, function(err, pollId){ 
+    //   //don't yet know the num of participants because the emais have not been created
+    //     if(err){
+    //       throw err
+    //     }
+    //     res.send(pollId)
+    //   });
+    })    
+  })
+
 
     
 

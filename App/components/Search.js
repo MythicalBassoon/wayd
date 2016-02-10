@@ -110,7 +110,7 @@ const Search = React.createClass({
     renderError: function(){
      if(this.state.errorShow){
       console.log('renderError called')
-
+      this.setState({errorShow: false})
         AlertIOS.alert(
         'Please choose a location or set it to Current location'
         );

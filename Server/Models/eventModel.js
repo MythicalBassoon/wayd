@@ -44,8 +44,9 @@ module.exports.insertEvent = function(eventObj, callback, database){
 	eventObj.source, 
 	eventObj.source_id, 
 	eventObj.image_thumb, 
-	eventObj.image_medium]
-  
+	eventObj.image_medium,
+  eventObj.category_image]
+  console.log('event model insert', queryParameters)
   //insert eventObj into eventObjs table
   return db.query(queryString.insertEvent, queryParameters)
   .then(function(eventObjId) {
@@ -78,6 +79,27 @@ module.exports.insertEvent = function(eventObj, callback, database){
         console.log('error getting event, error is:', error);
         return callback(error, null);
       });
+  },
+
+  module.exports.geteventImage = function(eventId) {
+    var eventHash ={
+      'music' : 'http://mochadad.com/app/uploads/2012/12/sports.jpg',
+      'comedy' : 'http://mochadad.com/app/uploads/2012/12/sports.jpg',
+       'festival_parades' : 'http://mochadad.com/app/uploads/2012/12/sports.jpg',
+       'movies_film': 'http://mochadad.com/app/uploads/2012/12/sports.jpg',
+       'food' : 'http://mochadad.com/app/uploads/2012/12/sports.jpg',
+        'art': 'http://mochadad.com/app/uploads/2012/12/sports.jpg',
+        'attractions': 'http://mochadad.com/app/uploads/2012/12/sports.jpg',
+        'singles_social': 'http://mochadad.com/app/uploads/2012/12/sports.jpg',
+       'outdoors_recreation': 'http://mochadad.com/app/uploads/2012/12/sports.jpg',
+       'performing_arts': 'http://mochadad.com/app/uploads/2012/12/sports.jpg',
+       'science': 'http://mochadad.com/app/uploads/2012/12/sports.jpg',
+       'sports': 'http://mochadad.com/app/uploads/2012/12/sports.jpg',
+       'technology':'http://mochadad.com/app/uploads/2012/12/sports.jpg',
+       'default': 'https://torontette.files.wordpress.com/2011/03/20090702-feedmewp-concert.jpg'
+    }
+    return eventHash[eventId] || 'http://mochadad.com/app/uploads/2012/12/sports.jpg'
+
   }
 
 //module.exports.insertEventObj();	

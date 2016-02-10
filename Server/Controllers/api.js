@@ -10,6 +10,22 @@ var appkey = require('./apikeys').appkey
 /************************************************************/
 
 module.exports = {
+
+  getEventCategory: (eventId, callback) =>{
+
+    var url ='http://api.eventful.com/json/events/get?id=?' + eventId + '&' + appkey
+
+    request(url, function (error, response, body) {
+      if (error){
+        callback(error, null)
+      } else {
+        callback(null, JSON.parse(body))
+      }
+    })
+
+  },
+
+
 	getEvents: (latlng, timeframe, callback) => {
     //construct api query
 
