@@ -32,11 +32,12 @@ const {
   View,
   Image,
   Modal,
-  Animated
+  Animated,
+  Dimensions
 } = React
 
 var API_KEY_FACEBOOK_APP = require('../../apikeys').facebook_app_api_key;
-
+var {height, width} = Dimensions.get('window');
 const Login = React.createClass({
   getInitialState: function() {
     return {
@@ -133,36 +134,31 @@ const Login = React.createClass({
     return (
 
         <View style = {styles.mainContainer}>
-
-          <Text style= {styles.title}> WAYD </Text>
-          {/*  
+       
+        {/* 
+          <Text style= {styles.title}> WAYD </Text> 
           <Textfield1 value={this.state.username}/>
           <Textfield2 value={this.state.username}/>
           <Text style= {styles.buttonText}> or </Text>
           */}
+          <View style={styles.imageContainer}>
+          <Image
+            style={styles.icon}
+            source={require('../assets/WAYDFinal.gif')}/>
+          </View>
 
-
-          <MKButton
-            backgroundColor={MKColor.blue1}
-            style={styles.facebook}
-            shadowRadius={2}
-            shadowOffset={{width:0, height:1}}
-            shadowOpacity={.7}
-            shadowColor="black"
-            onPress={() => {
+          <View style={styles.facebookContainer}>
+          <TouchableHighlight
+          style={styles.facebookLogin}
+          onPress={() => {
               this.auth()
               console.log('login btn!');
-            }}
-            >
-
-            <Icon
-              name='material|facebook'
-              size={44}
-              color='white'
-              style={styles.facebook}
-            />
-            
-          </MKButton>
+            }}>
+          <Image
+            style={styles.facebookLogin}
+            source={require('../assets/FacebookLogin.png')}/>
+          </TouchableHighlight>
+          </View>
 
 
          </View>
@@ -175,10 +171,10 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     padding: 30,
-    marginTop: 65,
+    marginTop: 60,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: 'white'
+    backgroundColor: 'black'
   },
   title: {
     marginBottom: 20,
@@ -197,6 +193,16 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     borderRadius: 8,
     color: 'white'
+  },
+  facebookLogin: {
+    width: 290,
+    height: 62,
+  },
+  facebookContainer:{
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   facebook: {
     height: 80,
@@ -242,6 +248,14 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     backgroundColor: '#ECEFF1'
+  },
+  imageContainer: {
+    alignItems: 'center'
+  },
+
+  icon: {
+    height: width,
+    width: width
   }
 });
 

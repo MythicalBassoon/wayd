@@ -5,6 +5,7 @@ const Error = require('./Error')
 const Success = require('./Success')
 const Contacts = require('react-native-contacts')
 const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
+var { Icon } = require('react-native-icons');
 
 const {
   StyleSheet,
@@ -163,7 +164,7 @@ const Email = React.createClass({
           currLastName = contact.familyName || contact.givenName;
           var letterBar;
           if (prevLastName.charAt(0) !== currLastName.charAt(0)){
-            letterBar = (<Text style={styles.buttonText}>{currLastName.charAt(0)}</Text>)
+            letterBar = (<Text style={styles.letterText}>{currLastName.charAt(0)}</Text>)
           } else {
             letterBar = null;
           }
@@ -186,7 +187,7 @@ const Email = React.createClass({
           }
         });
         var list = emails.map(function(email, index) {
-          return (
+        return (
             <View style={styles.btnContainer} key={index} >
                 
                 <View  style={styles.emailItem}>
@@ -203,7 +204,13 @@ const Email = React.createClass({
                     }}
 
                     underlayColor = "tranparent">
-                    <Text key={index}style={styles.fakeBtn}></Text>
+                    <Icon key={index}
+                      name='material|close-circle-o'
+                      size={20}
+                      color='#B6B6B6'
+                      style={styles.close}
+                    />
+          
                   </TouchableHighlight>
       
                 </View>
@@ -217,12 +224,16 @@ const Email = React.createClass({
           <View style={styles.Container}>
             <View style = {styles.mainContainer}>
               <View style={styles.topSection}>
-
-               <TouchableHighlight
-                style={styles.button}
-                onPress = {this.sendPoll}
-                underlayColor = "tranparent">
-                <Text style={styles.buttonText}>Send to Friends!</Text> 
+              <TouchableHighlight
+                style={styles.smallButton}
+                onPress = {this.contactsView}
+                underlayColor = "#FFC107">
+                <Icon
+                      name='material|accounts-add'
+                      size={30}
+                      color='#B6B6B6'
+                      style={styles.addFromContacts}
+                    />
               </TouchableHighlight>
               
             
@@ -233,30 +244,32 @@ const Email = React.createClass({
               <TouchableHighlight
                 style={styles.button}
                 onPress = {this.addEmail}
-                underlayColor = "tranparent">
+                underlayColor = "#FFC107">
                 <Text style={styles.buttonText}> Add Email </Text> 
-              </TouchableHighlight>
-            
-              <TouchableHighlight
-                style={styles.button}
-                onPress = {this.contactsView}
-                underlayColor = "tranparent">
-                <Text style={styles.buttonText}>Search Contacts</Text> 
               </TouchableHighlight>
 
               </View>
 
-              <ScrollView style={styles.bottomSection}  
+              <ScrollView style={styles.middleSection}  
               onScroll={() => { console.log('onScroll!'); }}>
                 {list.length > 0 ? list : <View></View>}
               </ScrollView>
            
             </View>
+            <View style={styles.bottomSection}>
+            <TouchableHighlight
+                style={styles.button}
+                onPress = {this.sendPoll}
+                underlayColor = "#FFC107">
+                <Text style={styles.buttonText}>Send to Friends!</Text> 
+              </TouchableHighlight>
+            </View>
             <View>
-            <Modal 
+            <Modal
             animated={this.state.animated}
             transparent={this.state.transparent}
             visible={this.state.visible}>
+            <View style={styles.modalContainer}>
             <ScrollView style={styles.bottomSection}
             onScroll={() => { console.log('onScroll!'); }}>
               {contactList.length > 0 ? contactList : <View></View>}
@@ -264,9 +277,10 @@ const Email = React.createClass({
               <TouchableHighlight
                 style={styles.button}
                 onPress = {this.closeContactsView}
-                underlayColor = "tranparent">
+                underlayColor = "#FFC107">
                 <Text style={styles.buttonText}>Close contacts</Text> 
               </TouchableHighlight>
+              </View>
             </Modal>
             </View>
           </View>
@@ -295,7 +309,15 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     padding: 30,
-    marginTop: 65,
+    marginTop: 55,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    backgroundColor: 'white'
+  },
+  modalContainer: {
+    flex: 1,
+    padding: 10,
+    marginTop: 10,
     flexDirection: 'column',
     justifyContent: 'center',
     backgroundColor: 'white'
@@ -304,32 +326,63 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 0
   },
-  buttonText: {
+  addFromContacts: {
+    flex: 1,
+    borderRadius: 25
+  },
+  letterText: {
     fontSize: 15,
-    color: '#607D8B',
+    paddingTop: 10,
+    color: 'black',
+    fontFamily: 'HelveticaNeue-Medium',
+    alignSelf: 'center'
+
+  },
+   smallButton: {
+    height: 50,
+    width: 50,
+    borderRadius: 25,
+    flexDirection: 'row',
+    backgroundColor: '#673AB7',
+    alignSelf: 'flex-end',
+    justifyContent: 'center',
+    shadowColor: "black",
+    shadowOpacity: 1,
+    shadowRadius: 3,
+    shadowOffset: {
+      height: 1,
+      width: 1
+    }
+  },
+buttonText: {
+    fontSize: 15,
+    paddingTop: 10,
+    color: '#FFFFFF',
+    fontFamily: 'HelveticaNeue-Medium',
     alignSelf: 'center'
   },
   button: {
-    height: 45,
+    marginRight: 30,
+    marginLeft: 30,
+    height: 50,
     flexDirection: 'row',
-    backgroundColor: '#ECEFF1',
-    borderRadius: 0,
+    backgroundColor: '#673AB7',
     marginBottom: 10,
     marginTop: 10,
     alignSelf: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    shadowColor: "black",
+    shadowOpacity: 1,
+    shadowRadius: 3,
+    shadowOffset: {
+      height: 1,
+      width: 1
+    }
   },
   textfield: {
     height: 28,  // have to do it on iOS
     marginTop: 22,
   }, 
-  delBtn: {
-    height: 30,
-    width: 15,  
-    backgroundColor: '#ECEFF1',
-    flex: .1
-
-  },
   bodytext: {
     marginBottom: 10,
     marginTop: 10,
@@ -352,16 +405,23 @@ const styles = StyleSheet.create({
     height: 40
   },
   topSection: {
-    flex: .45
+    flex: .3
+  },
+  middleSection: {
+    flex: .5
   },
   bottomSection: {
-    flex: .55
+    flex: .2
   },
   contacts: {
 
+  },
+  close: {
+    height: 20,
+    width: 20,
+    flex: 1
   }
 
-  
 });
 
 const TextEmail = MKTextField.textfield()
