@@ -97,7 +97,7 @@ const Login = React.createClass({
           <View style={styles.imageContainer}>
           <Image
             style={styles.icon}
-            source={require('../assets/WAYDFinal.gif')}/>
+            source={require('../assets/WAYDfinalGif.gif')}/>
           </View>
           <View style={styles.facebookContainer}>
           <TouchableHighlight

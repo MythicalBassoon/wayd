@@ -4,9 +4,9 @@ const Separator = require('./helpers/separator.js')
 const Error = require('./Error')
 const Success = require('./Success')
 const Contacts = require('react-native-contacts')
-
 const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
 var { Icon } = require('react-native-icons');
+import Swipeout from 'react-native-swipeout'
 
 
 const {
@@ -16,6 +16,7 @@ const {
   Image,
   TextInput,
   TouchableHighlight,
+  TouchableOpacity,
   ActivityIndicatorIOS,
   View,
   ScrollView,
@@ -39,6 +40,7 @@ const Email = React.createClass({
 
   componentDidMount: function() { 
    this.setState({email: ''});
+
   },
 
   componentWillMount: function() {
@@ -47,15 +49,59 @@ const Email = React.createClass({
         console.log("No contacts")
       } else {
         this.props.addContacts(contacts);
+        console.log(contacts);
+           //var allContacts = this.props.contacts;
+          var sectionIdIndex = {};
+          var dataContacts = {};
+          var sectionIds = [];
+          var rowIds =[];
+          for(var i=0; i<contacts.length; i++){
+            if(contacts[i].emailAddresses.length > 0){
+              var name = contacts[i].familyName || contacts[i].givenName
+              if (sectionIds.indexOf(name.charAt(0)) < 0){
+                sectionIds.push(name.charAt(0));
+                rowIds[sectionIds.length - 1] = []
+                dataContacts[name.charAt(0)] = name.charAt(0);
+              }
+              rowIds[sectionIds.indexOf(name.charAt(0))].push(contacts[i].recordID)
+              dataContacts[name.charAt(0) + ':' + contacts[i].recordID] = contacts[i];
+            }
+          }
+          console.log("DATA CONTACTS", dataContacts);
+        console.log("DATTATTATA", this.state.dataSource)
+        console.log("SECTIONIDS", sectionIds)
+        console.log("SECTIONIDS", rowIds)
+
+          this.setState({
+            contactsDataSource: this.state.contactsDataSource.cloneWithRowsAndSections(dataContacts, sectionIds, rowIds)
+          })
+          console.log("DATA AFTER", this.state.dataSource)
       }
     });
   },
 
   getInitialState: function() {
+    var getSectionData = (dataBlob, sectionID) => {
+        return dataBlob[sectionID];
+    }
+
+    var getRowData = (dataBlob, sectionID, rowID) => {
+        return dataBlob[sectionID + ':' + rowID];
+    }
+
     return {
       animated: true,
       visible: false,
-      transparent: false
+      transparent: false,
+      contactsDataSource: new ListView.DataSource({
+        getSectionData          : getSectionData,
+        getRowData              : getRowData,
+        rowHasChanged           : (row1, row2) => row1 !== row2,
+        sectionHeaderHasChanged : (s1, s2) => s1 !== s2
+      }),
+      emailsDataSource: new ListView.DataSource({
+        rowHasChanged           : (row1, row2) => row1 !== row2
+      })
     }
   },
 
@@ -73,6 +119,10 @@ const Email = React.createClass({
     } else {
       console.log('invalid email')
     }
+     console.log("YAYYYYY", this.props.emails);
+    this.setState({
+      emailsDataSource: this.state.emailsDataSource.cloneWithRows(this.props.emails)
+    })
   },
 
   addContactEmail: function(contactEmail){
@@ -87,6 +137,9 @@ const Email = React.createClass({
     } else {
       console.log('invalid email');
     }
+    this.setState({
+      emailsDataSource: this.state.emailsDataSource.cloneWithRows(this.props.emails)
+    })
   },
 
 
@@ -145,6 +198,69 @@ const Email = React.createClass({
   closeContactsView: function(){
     this.setState({visible: false});
   },
+
+  renderContactSectionHeader: function(sectionData, sectionID) {
+    console.log("RENDERING SECTION ", sectionData, "WITH ID", sectionID)
+    if (sectionData !== undefined){
+      return (
+          <View style={styles.section}>
+              <Text style={styles.text}>{sectionData}</Text>
+          </View>
+      );
+    } else {
+      return (
+        <View></View>
+      );
+    }
+  },
+
+  renderContactRow : function (rowData) {
+    console.log("RENDERING ROW ", rowData)
+    return (
+        <TouchableOpacity onPress={this.rowContactFunction.bind(this, rowData)}>
+            <View style={styles.button}>
+                <Text style={styles.buttonText}>{rowData.givenName} {rowData.familyName}</Text>        
+            </View>
+        </TouchableOpacity>
+    );
+  },
+
+  rowContactFunction: function(rowData) {
+    if (rowData.emailAddresses.length > 0){
+      this.addContactEmail(rowData.emailAddresses[0].email);
+      this.closeContactsView();
+    }
+  },
+
+  rowEmailDelete: function(rowID) {
+    console.log("Deleting ROW ID", rowID);
+    this.props.delEmail(rowID);
+    this.setState({
+      emailsDataSource: this.state.emailsDataSource.cloneWithRows(this.props.emails)
+    });
+  },
+
+  renderEmailRow: function(rowData, sectionID, rowID) {
+    var swipeBtns = [{
+      text: 'Delete',
+      backgroundColor: 'red',
+      underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
+      onPress: this.rowEmailDelete.bind(this, rowID)
+    }];
+    console.log("RENDERING ROW EMAIL DATA ", rowData)
+    return (
+      <Swipeout right={swipeBtns}
+        autoClose='true'
+        backgroundColor= 'transparent'>
+        <TouchableOpacity>
+            <View style={styles.button}>
+                <Text style={styles.buttonText}>{rowData}</Text>        
+            </View>
+        </TouchableOpacity>
+        </Swipeout>
+    );
+  },
+
   
   render: function() {
     console.log('email component render.. props are', this)
@@ -157,37 +273,8 @@ const Email = React.createClass({
 
         var emails = this.props.emails;
         console.log('email arr', emails);
-        var allContacts = this.props.contacts;
-        var prevLastName = " ";
-        var currLastName = " ";
 
-        var contactList = allContacts.map(function (contact, index) {
-          prevLastName  = currLastName;
-          currLastName = contact.familyName || contact.givenName;
-          var letterBar;
-          if (prevLastName.charAt(0) !== currLastName.charAt(0)){
-            letterBar = (<Text style={styles.letterText}>{currLastName.charAt(0)}</Text>)
-          } else {
-            letterBar = null;
-          }
-          if (contact.emailAddresses.length > 0){
-            return (
-              <View key={index}>
-              {letterBar}
-              <TouchableHighlight style={styles.button} 
-                  key={index}
-                  onPress= {function(){
-                    if (contact.emailAddresses.length > 0){
-                      that.addContactEmail(contact.emailAddresses[0].email);
-                      that.closeContactsView();
-                    }
-                  }}>
-                  <Text style={styles.buttonText}>{contact.givenName} {contact.familyName}</Text>
-                </TouchableHighlight>
-                </View>
-            )
-          }
-        });
+
         var list = emails.map(function(email, index) {
         return (
             <View style={styles.btnContainer} key={index} >
@@ -255,10 +342,11 @@ const Email = React.createClass({
 
               </View>
 
-              <ScrollView style={styles.middleSection}  
-              onScroll={() => { console.log('onScroll!'); }}>
-                {list.length > 0 ? list : <View></View>}
-              </ScrollView>
+              <ListView
+                dataSource={this.state.emailsDataSource}
+                style={styles.listview}
+                renderRow={this.renderEmailRow}
+                />
            
             </View>
             <View style={styles.bottomSection}>
@@ -275,10 +363,13 @@ const Email = React.createClass({
             transparent={this.state.transparent}
             visible={this.state.visible}>
             <View style={styles.modalContainer}>
-            <ScrollView style={styles.bottomSection}
-            onScroll={() => { console.log('onScroll!'); }}>
-              {contactList.length > 0 ? contactList : <View></View>}
-            </ScrollView>
+            
+            <ListView
+            dataSource={this.state.contactsDataSource}
+            style={styles.listview}
+            renderRow={this.renderContactRow}
+            renderSectionHeader = {this.renderContactSectionHeader}/>
+              
               <TouchableHighlight
                 style={styles.button}
                 onPress = {this.closeContactsView}
@@ -339,7 +430,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     paddingTop: 10,
     color: 'black',
-    fontFamily: 'HelveticaNeue-Medium',
+    fontFamily: 'Bebas',
     alignSelf: 'center'
 
   },
@@ -363,8 +454,11 @@ buttonText: {
     fontSize: 15,
     paddingTop: 10,
     color: '#FFFFFF',
-    fontFamily: 'HelveticaNeue-Medium',
+    fontFamily: 'Bebas',
     alignSelf: 'center'
+  },
+  listview: {
+    flex: 1
   },
   button: {
     marginRight: 30,
@@ -426,7 +520,32 @@ buttonText: {
     height: 20,
     width: 20,
     flex: 1
-  }
+  },
+      rowStyle: {
+        paddingVertical: 20,
+        paddingLeft: 16,
+        borderTopColor: 'white',
+        borderLeftColor: 'white',
+        borderRightColor: 'white',
+        borderBottomColor: '#E0E0E0',
+        borderWidth: 1
+    },
+    rowText: {
+        color: '#212121',
+        fontSize: 16
+    },
+        text: {
+        color: 'white',
+        paddingHorizontal: 8,
+        fontSize: 16
+    },
+        section: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        padding: 6,
+        backgroundColor: '#2196F3'
+    }
 
 
 });
