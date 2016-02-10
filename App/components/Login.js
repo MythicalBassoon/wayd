@@ -147,27 +147,18 @@ const Login = React.createClass({
             source={require('../assets/WAYDFinal.gif')}/>
           </View>
 
-          <MKButton
-            backgroundColor={MKColor.blue1}
-            style={styles.facebook}
-            shadowRadius={2}
-            shadowOffset={{width:0, height:1}}
-            shadowOpacity={.7}
-            shadowColor="black"
-            onPress={() => {
+          <View style={styles.facebookContainer}>
+          <TouchableHighlight
+          style={styles.facebookLogin}
+          onPress={() => {
               this.auth()
               console.log('login btn!');
-            }}
-            >
-
-            <Icon
-              name='material|facebook'
-              size={44}
-              color='white'
-              style={styles.facebook}
-            />
-            
-          </MKButton>
+            }}>
+          <Image
+            style={styles.facebookLogin}
+            source={require('../assets/FacebookLogin.png')}/>
+          </TouchableHighlight>
+          </View>
 
 
          </View>
@@ -202,6 +193,16 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     borderRadius: 8,
     color: 'white'
+  },
+  facebookLogin: {
+    width: 290,
+    height: 62,
+  },
+  facebookContainer:{
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   facebook: {
     height: 80,
