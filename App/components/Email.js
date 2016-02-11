@@ -257,7 +257,7 @@ const Email = React.createClass({
             
             <View style={styles.middleSection}>
               <ListView
-                dataSource={this.state.emailsDataSource}
+                dataSource={this.state.emailsDataSource.cloneWithRows(this.props.emails)}
                 style={styles.listview}
                 renderRow={this.renderEmailRow}
                 renderSeparator={(sectionID, rowID) => <View key={`${rowID}`} style={styles.separator} />}
