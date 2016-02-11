@@ -1,4 +1,4 @@
-
+// HELPER FUNCTIONS USED ONLY IN API.JS
 module.exports = {
 
   shuffle: function(array) {
@@ -30,30 +30,30 @@ module.exports = {
 
     var dayFormater = function(day) {
      if(day < 10) {
-      return '0' + day.toString()
+      return '0' + day.toString();
      } else {
-      return day.toString()
+      return day.toString();
      }
     }
 
     // console.log('date string', dateString)
     if(typeof dateString === 'object') {
-       day = new Date(dateString)
+       day = new Date(dateString);
     } else {
-       day = new Date(JSON.parse(dateString))
+       day = new Date(JSON.parse(dateString));
     }
 
     // console.log('day', day)
-    var dayOfMonth= day.getDate().toString()
-      dayOfMonth = dayFormater(dayOfMonth)
+    var dayOfMonth= day.getDate().toString();
+      dayOfMonth = dayFormater(dayOfMonth);
 
-    var year = day.getFullYear().toString()
-    var month = (day.getMonth() + 1)
-      month = monthFormater(month)
+    var year = day.getFullYear().toString();
+    var month = (day.getMonth() + 1);
+      month = monthFormater(month);
 
       // console.log('month', month)
     var date = year + month + dayOfMonth;
-    return date + '00'
+    return date + '00';
 
   }
 

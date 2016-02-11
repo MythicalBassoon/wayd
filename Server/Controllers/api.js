@@ -11,75 +11,63 @@ var appkey = require('./apikeys').appkey
 
 module.exports = {
 
-  getEventCategory: (eventId, callback) =>{
+  getEventCategory: function(eventId, callback) {
 
     var url ='http://api.eventful.com/json/events/get?id=?' + eventId + '&' + appkey
 
     request(url, function (error, response, body) {
-      if (error){
-        callback(error, null)
+      if (error) {
+        callback(error, null);
       } else {
-        callback(null, JSON.parse(body))
+        callback(null, JSON.parse(body));
       }
-    })
+    });
 
   },
 
 
-	getEvents: (latlng, timeframe, callback) => {
+	getEvents: function (latlng, timeframe, callback) {
     //construct api query
 
-      //create time section of query: using moment library
-        // var moment = require('moment')
-        // var t = JSON.stringify(new Date()) ;
-        // var today = moment(t).format('YYYYMMDD').toString()
-        // var eventDate = moment(timeframe).format('YYYYMMDD').toString()
-
-    //using non-moment formatting
-    // var today = dateFormater(new Date())
-    // console.log('today', today)
-    var eventDate = dateFormater(timeframe)
-    console.log('date for api', eventDate)
-    var time = `t=${eventDate}-${eventDate}` // look between now and the date given
-    var url ='http://api.eventful.com/json/events/search/?'
+    var eventDate = dateFormater(timeframe);
+    // console.log('date for api', eventDate)
+    var time = `t=${eventDate}-${eventDate}`; // look between now and the date given
+    var url ='http://api.eventful.com/json/events/search/?';
     
-    if(latlng.split(",").length !== 2){
-      latlng = '0,0'
+    if (latlng.split(",").length !== 2) {
+      latlng = '0,0';
     }
-    var loc = 'where=' + latlng
-    var range = 'within=.5'
-    var pageSize = 'page_size=30'
 
+    var loc = 'where=' + latlng;
+    var range = 'within=.5';
+    var pageSize = 'page_size=30';
 
-    //'c=' + ['music', 'comedy', 'conference', 'learning_education', 'family_fun_kids', 'festival_parades', 'movies_film', 'food', 'fundraisers', 'art', 'support', 'holiday', 'books', 'attractions', 'community', 'singles_social', 'schools_alumni', 'clubs_associations', 'outdoors_recreation', 'performing_arts', 'animals', 'sales', 'science', 'religion_spirituality', 'sports', 'technology']
-    var categories = 'c=' + ['music', 'comedy', 'festival_parades', 'movies_film', 'food',  'art',  'attractions',  'singles_social', 'outdoors_recreation', 'performing_arts', 'science', 'sports', 'technology'].join(',')
+    var categories = 'c=' + ['music', 'comedy', 'festival_parades', 'movies_film', 'food',  'art',  'attractions',  'singles_social', 'outdoors_recreation', 'performing_arts', 'science', 'sports', 'technology'].join(',');
 
     // request string 
-    var reqUrl = `${url}&${time}&${loc}&${range}&${categories}&${pageSize}&${appkey}`
+    var reqUrl = `${url}&${time}&${loc}&${range}&${categories}&${pageSize}&${appkey}`;
 
     request(reqUrl, function (error, response, body) {
 
-        if (!error && response.statusCode == 200) {
+      if (!error && response.statusCode == 200) {
 
-          //take resposne from eventful api and map it to data schema for db
-          //Richard: handles if there's no events in area or bad time
-          // console.log('body', body)
-          if(JSON.parse(body).events){
+        //take resposne from eventful api and map it to data schema for db
+        // handles if there's no events in area or bad time
+        if (JSON.parse(body).events){
 
-            var results = JSON.parse(body).events.event
-            if(!Array.isArray(results)){
-              var temp = results;
-              results = [];
-              results.push(temp);
-            }
-          }
-          else{
+          var results = JSON.parse(body).events.event
+          if (!Array.isArray(results)) {
+            var temp = results;
             results = [];
+            results.push(temp);
           }
+        } else {
+          results = [];
+        }
           
           
 
-          var newresults = results.filter(function(event){
+        var newresults = results.filter(function(event){
             // console.log('time', eventDate, dateFormater(JSON.stringify(new Date(event.start_time))))
             if (eventDate === dateFormater(JSON.stringify(new Date(event.start_time)))){
               return event
@@ -134,19 +122,17 @@ module.exports = {
 
 // DATE AND TIME:
   // The default is "Future", but many other human-readable time formats are supported, plus keywords like "Past", "This Weekend", "Friday", "Next month", and "Next 30 days".
-
   
   // var Tomorrow = new Date(Today.getTime() + 1000 * 60 * 60 * 24) //not used yet
 
   // timeframe hash for extending user controls of timeframe
-  var times = {
-    today: '',
-    tomorrow: '',
-    weekend: 't=This+Weekend',
-    week: 't=This+Week',
-    future: 'date=future'
-  }
-
+  // var times = {
+  //   today: '',
+  //   tomorrow: '',
+  //   weekend: 't=This+Weekend',
+  //   week: 't=This+Week',
+  //   future: 'date=future'
+  // }
 
   // Limit this list of results to a date range, specified by label or exact range. Currently supported labels include: "All", "Future", "Past", "Today", "Last Week", "This Week", "Next week", and months by name, e.g. "October". Exact ranges can be specified the form 'YYYYMMDD00-YYYYMMDD00', for example '2012042500-2012042700'; the last two digits of each date in this format are ignored. (optional)
 
