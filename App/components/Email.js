@@ -8,7 +8,6 @@ const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhos
 var { Icon } = require('react-native-icons');
 import Swipeout from 'react-native-swipeout'
 
-
 const {
   StyleSheet,
   ListView,
@@ -16,13 +15,12 @@ const {
   Image,
   TextInput,
   TouchableHighlight,
-  TouchableOpacity,
   ActivityIndicatorIOS,
   View,
   ScrollView,
-  Modal
+  Modal,
+  AlertIOS,
 } = React
-
 
 const {
   MKButton,
@@ -115,9 +113,15 @@ const Email = React.createClass({
     var email = this.state.email;
     console.log('email getting dispatched is...', email)
     this.props.addEmail(email);
+    this.setState({
+      email: ''
+    })
     
     } else {
       console.log('invalid email')
+      AlertIOS.alert(
+        'Please enter a valid email'
+        );
     }
      console.log("YAYYYYY", this.props.emails);
     this.setState({
@@ -134,8 +138,14 @@ const Email = React.createClass({
       var email = contactEmail;
       console.log('email getting dispatched is...', email)
       this.props.addEmail(email);
+      this.setState({
+      email: ''
+      })
     } else {
       console.log('invalid email');
+      AlertIOS.alert(
+        'Please enter a valid email'
+        );
     }
     this.setState({
       emailsDataSource: this.state.emailsDataSource.cloneWithRows(this.props.emails)
@@ -217,11 +227,12 @@ const Email = React.createClass({
   renderContactRow : function (rowData) {
     console.log("RENDERING ROW ", rowData)
     return (
-        <TouchableOpacity onPress={this.rowContactFunction.bind(this, rowData)}>
-            <View style={styles.button}>
-                <Text style={styles.buttonText}>{rowData.givenName} {rowData.familyName}</Text>        
+        <TouchableHighlight onPress={this.rowContactFunction.bind(this, rowData)}
+        underlayColor = "#FFC107">
+            <View style={styles.contactRow}>
+                <Text style={styles.contactRowText}>{rowData.givenName} {rowData.familyName}</Text>        
             </View>
-        </TouchableOpacity>
+        </TouchableHighlight>
     );
   },
 
@@ -249,15 +260,15 @@ const Email = React.createClass({
     }];
     console.log("RENDERING ROW EMAIL DATA ", rowData)
     return (
+      <View style={styles.emailItem}>
       <Swipeout right={swipeBtns}
         autoClose='true'
         backgroundColor= 'transparent'>
-        <TouchableOpacity>
-            <View style={styles.button}>
-                <Text style={styles.buttonText}>{rowData}</Text>        
-            </View>
-        </TouchableOpacity>
+            
+                <Text style={styles.emailText}>{rowData}</Text>        
+       
         </Swipeout>
+        </View>
     );
   },
 
@@ -323,15 +334,21 @@ const Email = React.createClass({
                 <Icon
                       name='material|accounts-add'
                       size={30}
-                      color='#B6B6B6'
+                      color='white'
                       style={styles.addFromContacts}
                     />
               </TouchableHighlight>
               
             
-
-             <TextEmail 
-             onChangeText={(text) => this.setState({email:text})}/>
+              <View style={styles.textInputContainer}>
+             <TextInput style={styles.textInput}
+             onChangeText={(text) => this.setState({email:text})}
+             value={this.state.email}
+             keyboardType="email-address"
+             clearButtonMode="while-editing"
+             onSubmitEditing={this.addEmail}
+             placeholder="Invite friends..."/>
+             </View>
 
               <TouchableHighlight
                 style={styles.button}
@@ -339,22 +356,23 @@ const Email = React.createClass({
                 underlayColor = "#FFC107">
                 <Text style={styles.buttonText}> Add Email </Text> 
               </TouchableHighlight>
-
               </View>
-
+              
+              <View style={styles.middleSection}>
               <ListView
                 dataSource={this.state.emailsDataSource}
                 style={styles.listview}
                 renderRow={this.renderEmailRow}
+                renderSeparator={(sectionID, rowID) => <View key={`${rowID}`} style={styles.separator} />}
                 />
+                </View>
            
-            </View>
             <View style={styles.bottomSection}>
             <TouchableHighlight
                 style={styles.button}
                 onPress = {this.sendPoll}
                 underlayColor = "#FFC107">
-                <Text style={styles.buttonText}>Send to Friends!</Text> 
+                <Text style={styles.buttonText}>Send and vote!</Text> 
               </TouchableHighlight>
             </View>
             <View>
@@ -368,7 +386,9 @@ const Email = React.createClass({
             dataSource={this.state.contactsDataSource}
             style={styles.listview}
             renderRow={this.renderContactRow}
-            renderSectionHeader = {this.renderContactSectionHeader}/>
+            renderSectionHeader = {this.renderContactSectionHeader}
+            renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}
+            />
               
               <TouchableHighlight
                 style={styles.button}
@@ -378,6 +398,7 @@ const Email = React.createClass({
               </TouchableHighlight>
               </View>
             </Modal>
+            </View>
             </View>
           </View>
           )
@@ -404,10 +425,8 @@ const Email = React.createClass({
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    padding: 30,
+    padding: 10,
     marginTop: 55,
-    flexDirection: 'column',
-    justifyContent: 'center',
     backgroundColor: 'white'
   },
   modalContainer: {
@@ -426,6 +445,24 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 25
   },
+  contactRow:{
+    marginRight: 0,
+    marginLeft: 0,
+    height: 50,
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    marginBottom: 10,
+    marginTop: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    shadowColor: "black",
+  },
+  contactRowText:{
+    fontFamily: 'Bebas',
+    fontSize: 15,
+    paddingTop: 10,
+    alignSelf: 'center'
+  },
   letterText: {
     fontSize: 15,
     paddingTop: 10,
@@ -435,6 +472,7 @@ const styles = StyleSheet.create({
 
   },
    smallButton: {
+    marginTop: 10,
     height: 50,
     width: 50,
     borderRadius: 25,
@@ -461,8 +499,8 @@ buttonText: {
     flex: 1
   },
   button: {
-    marginRight: 30,
-    marginLeft: 30,
+    marginRight: 0,
+    marginLeft: 0,
     height: 50,
     flexDirection: 'row',
     backgroundColor: '#673AB7',
@@ -491,7 +529,14 @@ buttonText: {
     flex: .8
   },
   emailItem: {
-    flexDirection: 'row',
+
+  },
+  emailText: {
+    fontSize: 15,
+    padding: 15,
+    color: 'black',
+    fontFamily: 'Bebas',
+    alignSelf: 'center'
   },
   btnContainer: {
     height: 40,
@@ -504,13 +549,17 @@ buttonText: {
     height: 40
   },
   topSection: {
-    flex: .3
+
+    flex: .35
   },
   middleSection: {
+
     flex: .5
   },
   bottomSection: {
-    flex: .2
+
+    flex: .15
+
   },
 
   contacts: {
@@ -535,7 +584,8 @@ buttonText: {
         fontSize: 16
     },
         text: {
-        color: 'white',
+        color: 'black',
+        fontFamily: 'Bebas',
         paddingHorizontal: 8,
         fontSize: 16
     },
@@ -544,8 +594,39 @@ buttonText: {
         justifyContent: 'center',
         alignItems: 'flex-start',
         padding: 6,
-        backgroundColor: '#2196F3'
-    }
+        backgroundColor: '#B6B6B6',
+    },
+    textInputContainer: {
+              backgroundColor: 'white',
+              height: 60,
+              borderTopColor: 'black',
+              borderBottomColor: 'black',
+              borderLeftColor: 'black',
+              borderRightColor: 'black',
+              borderRightWidth: 2,
+              borderLeftWidth: 2,
+              borderTopWidth: 2,
+              borderBottomWidth: 2,
+              marginTop: 10
+            },
+            textInput: {
+              backgroundColor: 'rgba(125,125,125,0.1)',
+              fontFamily: 'Bebas',
+              textAlign: 'center',
+              height: 55,
+              paddingTop: 0,
+              paddingBottom: 0,
+              paddingLeft: 0,
+              paddingRight: 0,
+              marginTop: 0,
+              marginLeft: 0,
+              marginRight: 0,
+              fontSize: 15
+            },
+            separator: {
+    height: 1,
+    backgroundColor: '#CCCCCC',
+  }
 
 
 });
