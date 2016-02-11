@@ -18,7 +18,7 @@ module.exports = {
     marginTop: 60,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: 'black'
+    backgroundColor: '#484848'
   },
   title: {
     marginBottom: 20,
@@ -396,4 +396,154 @@ module.exports = {
     right: 0,
     bottom: 0,
   },
+    mainEmailContainer: {
+    flex: 1,
+    padding: 10,
+    marginTop: 55,
+    backgroundColor: 'white'
+  },
+  modalContainerEmail: {
+    flex: 1,
+    padding: 10,
+    marginTop: 10,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    backgroundColor: 'white'
+  },
+  addFromContacts: {
+    flex: 1,
+    borderRadius: 25
+  },
+  contactRow:{
+    marginRight: 0,
+    marginLeft: 0,
+    height: 50,
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    marginBottom: 10,
+    marginTop: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    shadowColor: "black",
+  },
+  contactRowText:{
+    fontFamily: 'Bebas',
+    fontSize: 15,
+    paddingTop: 10,
+    alignSelf: 'center'
+  },
+  smallButtonEmail: {
+    marginTop: 10,
+    height: 50,
+    width: 50,
+    borderRadius: 25,
+    flexDirection: 'row',
+    backgroundColor: '#673AB7',
+    alignSelf: 'flex-end',
+    justifyContent: 'center',
+    shadowColor: "black",
+    shadowOpacity: 1,
+    shadowRadius: 3,
+    shadowOffset: {
+      height: 1,
+      width: 1
+    }
+  },
+  buttonTextEmail: {
+    fontSize: 15,
+    paddingTop: 10,
+    color: '#FFFFFF',
+    fontFamily: 'Bebas',
+    alignSelf: 'center'
+  },
+  listview: {
+    flex: 1
+  },
+  buttonEmail: {
+    marginRight: 0,
+    marginLeft: 0,
+    height: 50,
+    flexDirection: 'row',
+    backgroundColor: '#673AB7',
+    marginBottom: 10,
+    marginTop: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    shadowColor: "black",
+    shadowOpacity: 1,
+    shadowRadius: 3,
+    shadowOffset: {
+      height: 1,
+      width: 1
+    }
+  },
+  emailText: {
+    fontSize: 15,
+    padding: 15,
+    color: 'black',
+    fontFamily: 'Bebas',
+    alignSelf: 'center'
+  },
+  topSection: {
+    flex: .35
+  },
+  middleSection: {
+    flex: .5
+  },
+  bottomSection: {
+    flex: .15
+  },
+  rowStyle: {
+    paddingVertical: 20,
+    paddingLeft: 16,
+    borderTopColor: 'white',
+    borderLeftColor: 'white',
+    borderRightColor: 'white',
+    borderBottomColor: '#E0E0E0',
+    borderWidth: 1
+  },
+  sectionHeaderText: {
+    color: 'black',
+    fontFamily: 'Bebas',
+    paddingHorizontal: 8,
+    fontSize: 16
+  },
+    section: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    padding: 6,
+    backgroundColor: '#B6B6B6',
+  },
+  textInputContainer: {
+    backgroundColor: 'white',
+    height: 60,
+    borderTopColor: 'black',
+    borderBottomColor: 'black',
+    borderLeftColor: 'black',
+    borderRightColor: 'black',
+    borderRightWidth: 2,
+    borderLeftWidth: 2,
+    borderTopWidth: 2,
+    borderBottomWidth: 2,
+    marginTop: 10
+  },
+  textInput: {
+    backgroundColor: 'rgba(125,125,125,0.1)',
+    fontFamily: 'Bebas',
+    textAlign: 'center',
+    height: 55,
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingLeft: 0,
+    paddingRight: 0,
+    marginTop: 0,
+    marginLeft: 0,
+    marginRight: 0,
+    fontSize: 15
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#CCCCCC',
+  }
 };
