@@ -142,6 +142,7 @@ router.route('/polls/:voteAction/:emailId')
 
     var emailId = req.params.emailId;
     var voteAction = req.params.voteAction;
+    console.log('vote route, params are', req.params);
 
     //first check if user has voted
     checkVoted(emailId, function(err, pollObj) {
@@ -179,14 +180,12 @@ router.route('/polls/:voteAction/:emailId')
               var event = event[0];
               //console.log('START TIME IS', event.start_time);
               var startTime = moment(event.start_time).calendar();
-              
               if (err) {
                 return res.status(404).send('error finding event details', err);
               }
 
               if (results.complete) {
                 //sending poll results email to all participants - first retrieving all email id's associated with poll
-<<<<<<< d5df5bfc0ce845115b52862bb3a9594ad1591d9e
                 retrievePollEmails(pollObj[0].poll_id, function(err, emailObjs) {
 
                   if(err) {
@@ -199,7 +198,7 @@ router.route('/polls/:voteAction/:emailId')
                         to: emailObjs[i].email,
                         final: true,
                         consensus: results.consensus,
-                        event: {
+                        eventInfo: {
                           title: event.title,
                           category_image: event.category_image,
                           description: event.description
@@ -219,49 +218,9 @@ router.route('/polls/:voteAction/:emailId')
                   }
 
                   //serve up template to user thanking them for vote and letting them know next steps. this is completed regardless of whether post to email server is successful or not
-                  res.send(voteTemplate(event.title, event.category_image, event.description));
+                  res.send(voteTemplate(event.title, event.category_image, event.description, event.address, event.city, event.state, event.image_thumb, startTime));
                 });
               } else {
-=======
-              retrievePollEmails(pollObj[0].poll_id, function(err, emailObjs) {
-                console.log('about to post to emails server, emailObjs are', emailObjs);
-
-                if(err) {
-                  console.log('in controller, issue retrieiving emails, email is:', err)
-                   res.status(404).send('error retrieving emails, error is', err)
-                }  
-
-                //loop through return emails, and build object to be included in req.body of post to email server
-                for(var i = 0; i < emailObjs.length; i++){
-                    var emailObj = {
-                      to: emailObjs[i].email,
-                      final: true,
-                      consensus: results.consensus,
-                      eventInfo: event
-       
-                    }
-                    console.log('about to make individual request to email server', emailObj);
-
-                    //make post request to server to results email for each email address
-                    request({
-                      uri: host + '4568/jobs',
-                      headers: {'Content-type': 'application/json'},
-                      method: 'POST',
-                      body: JSON.stringify(emailObj)
-
-                    }, function() {
-                      console.log('post to email server made');
-                    })
-                }
-
-                //serve up template to user thanking them for vote and letting them know next steps. this is completed regardless of whether post to email server is successful or not
-                res.send(voteTemplate(event.title, event.category_image, event.description, event.address, event.city, event.state, event.image_thumb, startTime));
-              });
-  }
-
-              else {
-                console.log('throwing up vote screen, event is', event);
->>>>>>> Updated all html tempates to display start time and location. Rendering updated templates including category images in time/location info on vote now as well.
                 //thank you / next steps template served up to user even if poll isn't yet complete
                 res.send(voteTemplate(event.title, event.category_image, event.description, event.address, event.city, event.state, event.image_thumb, startTime));
               }
