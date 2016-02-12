@@ -26,12 +26,12 @@ const Success = React.createClass({
   	console.log('rendering success');
           return (
           	<View style = {styles.mainContainer}>
-              <Text style={styles.title}> Thank you for setting up a poll! </Text>
-              <Text style={styles.title}> Your friends have now been sent emails. We will let you know when they have all voted.</Text>
+              <Text style={styles.title}> Thanks for setting up a poll! </Text>
+              <Text style={styles.bodyText}> The emails are out. We'll let you know when the votes are in.</Text>
               <TouchableHighlight
 	              style={styles.button}
 	              onPress = {this.navigateHome}
-	              underlayColor = "tranparent">
+	              underlayColor = "#FFC107">
               <Text style={styles.buttonText}>Back to Search</Text> 
               </TouchableHighlight>
             </View>
@@ -45,7 +45,7 @@ const Success = React.createClass({
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    padding: 30,
+    padding: 20,
     marginTop: 65,
     flexDirection: 'column',
     justifyContent: 'center',
@@ -53,37 +53,25 @@ const styles = StyleSheet.create({
   },
   title: {
     marginBottom: 20,
-    fontSize: 15,
+    fontSize: 24,
+    fontFamily: 'Raleway-Light',
     textAlign: 'center',
-    color: '##607D8B'
+    color: 'black'
   },
-  bodytext: {
+   bodyText: {
     marginBottom: 20,
-    fontSize: 15,
+    fontSize: 18,
+    fontFamily: 'Raleway-Light',
     textAlign: 'center',
-    color: '#607D8B'
-  },
-  emailInput: {
-    height: 50,
-    padding: 4,
-    marginBottom: 10,
-    marginRight: 5,
-    fontSize: 23,
-    borderWidth: 1,
-    borderColor: 'white',
-    borderRadius: 8,
-    color: 'white'
+    color: 'black'
   },
   buttonText: {
     fontSize: 15,
-    paddingTop: 10,
     color: '#FFFFFF',
-    fontFamily: 'HelveticaNeue-Medium',
+    fontFamily: 'Bebas',
     alignSelf: 'center'
   },
   button: {
-    marginRight: 30,
-    marginLeft: 30,
     height: 50,
     flexDirection: 'row',
     backgroundColor: '#673AB7',
@@ -93,19 +81,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     shadowColor: "black",
     shadowOpacity: 1,
-    shadowRadius: 3,
+    shadowRadius: 2,
     shadowOffset: {
       height: 1,
       width: 1
     }
-  },
-
-  image: {
-    height: 125,
-    width: 125,
-    borderRadius: 65,
-    marginTop: 10,
-    alignSelf: 'center'
   }
 });
 

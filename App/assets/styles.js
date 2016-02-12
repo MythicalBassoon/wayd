@@ -1,5 +1,8 @@
 const React = require('react-native');
 
+const TitleFont = 'Bebas';
+const SubTextFont = 'Raleway-Light';
+
 const {
   StyleSheet,
   Dimensions
@@ -23,7 +26,7 @@ module.exports = {
   title: {
     marginBottom: 20,
     fontSize: 25,
-    fontFamily: 'Bebas',
+    fontFamily: TitleFont,
     fontStyle: 'normal',
     fontWeight: 'normal',
     letterSpacing: 1,
@@ -40,6 +43,13 @@ module.exports = {
     borderColor: 'white',
     borderRadius: 8,
     color: 'white'
+  },
+  autocompleteContainer: {
+    flex: .3
+  },
+  eventBottom: {
+    flex: .7,
+    padding: 10
   },
   facebookLogin: {
     width: 290,
@@ -66,11 +76,6 @@ module.exports = {
       height: 1,
       width: 0
     }
-  },
-  buttonText: {
-    fontSize: 15,
-    color: '#111',
-    alignSelf: 'center'
   },
   button: {
     height: 80,
@@ -107,7 +112,9 @@ module.exports = {
   container: {
     flex: 1,
     paddingTop: 40,
-    backgroundColor: '#b6b6b6',
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: 'white',
     marginTop: 40,
   },
   textInput: {
@@ -126,12 +133,11 @@ module.exports = {
     datePicker:{
       backgroundColor: '#b6b6b6'
     },
-
   buttonText: {
-    fontSize: 45,
+    fontSize: 36,
     paddingTop: 10,
     color: '#FFFFFF',
-    fontFamily: 'Bebas',
+    fontFamily: TitleFont,
     fontStyle: 'normal',
     fontWeight: 'normal',
     letterSpacing: 0,
@@ -142,7 +148,7 @@ module.exports = {
     fontSize: 12,
     paddingTop: 0,
     color: '#FFFFFF',
-    fontFamily: 'Bebas',
+    fontFamily: TitleFont,
     fontStyle: 'normal',
     fontWeight: 'normal',
     letterSpacing: 0,
@@ -168,17 +174,17 @@ module.exports = {
     }
   },
    bigButton: {
-    marginRight: 30,
-    marginLeft: 30,
-    height: 260,
-    width: 260,
-    borderRadius: 130,
+    marginRight: 0,
+    marginLeft: 0,
+    height: width*(2/3),
+    width: width*(2/3),
+    borderRadius: width*(2/6),
     flexDirection: 'column',
     backgroundColor: '#673AB7',
-    marginBottom: 10,
+    //marginBottom: 10,
     marginTop: 0,
-    alignSelf: 'stretch',
-    alignItems: 'center',
+    //alignSelf: 'stretch',
+    alignItems: 'flex-start',
     justifyContent: 'center',
     shadowColor: "black",
     shadowOpacity: 1,
@@ -189,15 +195,16 @@ module.exports = {
     }
   },
    smallButton: {
-    marginRight: 30,
-    marginLeft: 30,
-    height: 100,
-    width: 100,
-    borderRadius: 50,
-    flexDirection: 'row',
+    //marginRight: 10,
+    //marginBottom: 20,
+    //marginLeft: 30,
+    height: width*(1/4),
+    width: width*(1/4),
+    borderRadius: width*(1/8),
+    flexDirection: 'column',
     backgroundColor: '#673AB7',
-    marginBottom: 10,
-    marginTop: 30,
+    //marginBottom: 10,
+    //marginTop: 30,
     alignSelf: 'flex-end',
     justifyContent: 'center',
     shadowColor: "black",
@@ -213,47 +220,8 @@ module.exports = {
     marginTop: 10,
     fontSize: 15,
     textAlign: 'center',
-    color: '#607D8B'
+    color: 'black'
   },
-
-  autocomplete: {
-            description: {
-              fontWeight: 'bold',
-            },
-            body: {flex: .8},
-            predefinedPlacesDescription: {
-              color: '#1faadb',
-            },
-            textInputContainer: {
-              backgroundColor: 'white',
-              height: 60,
-              borderTopColor: 'black',
-              borderBottomColor: 'black',
-              borderLeftColor: 'black',
-              borderRightColor: 'black',
-              borderRightWidth: 2,
-              borderLeftWidth: 2,
-              borderTopWidth: 2,
-              borderBottomWidth: 2,
-              marginTop: 10
-            },
-            textInput: {
-              backgroundColor: 'rgba(125,125,125,0.1)',
-              fontFamily: 'Bebas',
-              fontStyle: 'normal',
-              fontWeight: 'normal',
-              letterSpacing: 0,
-              height: 55,
-              paddingTop: 0,
-              paddingBottom: 0,
-              paddingLeft: 0,
-              paddingRight: 0,
-              marginTop: 0,
-              marginLeft: 0,
-              marginRight: 0,
-              fontSize: 15
-            },
-          },
 
   errortext: {
     marginBottom: 10,
@@ -285,35 +253,42 @@ module.exports = {
     marginTop: 50,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: '#b6b6b6'
+    backgroundColor: 'white'
   },
   titleEventRec: {
     marginBottom: 20,
     fontSize: 17,
     textAlign: 'center',
-    color: '#607D8B',
+    color: 'black',
   },
   loadingTitleEventRec: {
-    marginBottom: 20,
+    marginBottom: 50,
     fontSize: 24,
     textAlign: 'center',
-    color: '#607D8B',
-    fontFamily: 'Bebas',
+    color: 'black',
+    fontFamily: SubTextFont,
       fontStyle: 'normal',
     fontWeight: 'normal',
     letterSpacing: 0,
   },
   toggleText:{
-    fontFamily: 'Bebas',
+    fontFamily: TitleFont,
       fontStyle: 'normal',
     fontWeight: 'normal',
     letterSpacing: 0,
     fontSize: 12,
-
+  },
+  detailsOutline: {
+    height: 60,
+    width: 60,
+    borderColor: "#FFC107",
+    borderRadius: 30,
+    borderWidth: 2,
+    justifyContent: 'center'
   },
   textInfo: {
     padding: 0,
-    fontFamily: 'Bebas',
+    fontFamily: SubTextFont,
       fontStyle: 'normal',
     fontWeight: 'normal',
     letterSpacing: 0,
@@ -322,29 +297,32 @@ module.exports = {
   },
   eventTitle: {
     marginBottom: 5,
-    fontSize: 40,
+    fontSize: 28,
+    spaceAround: 'auto',
+    alignSelf: 'center',
+    flexDirection: 'column',
     textAlign: 'center',
-    color: '#607D8B',
-    fontFamily: 'Bebas',
+    alignItems: 'center',
+    color: 'black',
+    fontFamily: SubTextFont,
       fontStyle: 'normal',
     fontWeight: 'normal',
     letterSpacing: 0,
   },
  buttonTextEventRec: {
     fontSize: 15,
-    paddingTop: 10,
     color: '#FFFFFF',
-    fontFamily: 'Bebas',
+    fontFamily: TitleFont,
       fontStyle: 'normal',
     fontWeight: 'normal',
     letterSpacing: 0,
     alignSelf: 'center'
   },
   buttonEventRec: {
-    marginRight: 30,
-    marginLeft: 30,
+    marginRight: 0,
+    marginLeft: 0,
     height: 50,
-    flexDirection: 'row',
+    flexDirection: 'column',
     backgroundColor: '#673AB7',
     marginBottom: 10,
     marginTop: 10,
@@ -352,14 +330,21 @@ module.exports = {
     justifyContent: 'center',
     shadowColor: "black",
     shadowOpacity: 1,
-    shadowRadius: 3,
+    shadowRadius: 2,
     shadowOffset: {
       height: 1,
       width: 1
     }
   },
-
-
+  eventTitleView:{
+    flex: .4,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  eventMapView: {
+    flex: .6
+  },
   image: {
     height: 150,
     width: 150,
@@ -368,26 +353,24 @@ module.exports = {
     alignSelf: 'center'
   },
   spinner: {
-    color: 'blue',
-    width: 50,
-    height: 50,
-    marginLeft: 170,
-    marginRight: 170
+    width: width*(1/4),
+    height: width*(1/4),
+    //marginLeft: 170,
+    //marginRight: 170
   },
   spinnerContainer: {
     flex: 1,
-    padding: 0,
-    marginTop: 0,
+    padding: 20,
+    //marginTop: 0,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: '#ECEFF1'
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF'
   },
    webBtn: {
     fontSize: 15,
-    backgroundColor: 'white',
+    backgroundColor: '#FFFFFF',
     alignSelf: 'center',
-    
-
   },
    map: {
     position: 'absolute',
@@ -398,9 +381,9 @@ module.exports = {
   },
     mainEmailContainer: {
     flex: 1,
-    padding: 10,
+    padding: 20,
     marginTop: 55,
-    backgroundColor: 'white'
+    backgroundColor: '#FFFFFF'
   },
   modalContainerEmail: {
     flex: 1,
@@ -408,26 +391,26 @@ module.exports = {
     marginTop: 10,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: 'white'
+    backgroundColor: '#FFFFFF'
   },
   addFromContacts: {
     flex: 1,
     borderRadius: 25
   },
   contactRow:{
-    marginRight: 0,
-    marginLeft: 0,
+    //marginRight: 0,
+    //marginLeft: 0,
     height: 50,
     flexDirection: 'row',
-    backgroundColor: 'white',
-    marginBottom: 10,
-    marginTop: 10,
+    backgroundColor: '#FFFFFF',
+    //marginBottom: 0,
+    //marginTop: 0,
     alignSelf: 'stretch',
     justifyContent: 'center',
     shadowColor: "black",
   },
   contactRowText:{
-    fontFamily: 'Bebas',
+    fontFamily: SubTextFont,
     fontSize: 15,
     paddingTop: 10,
     alignSelf: 'center'
@@ -443,7 +426,7 @@ module.exports = {
     justifyContent: 'center',
     shadowColor: "black",
     shadowOpacity: 1,
-    shadowRadius: 3,
+    shadowRadius: 2,
     shadowOffset: {
       height: 1,
       width: 1
@@ -451,9 +434,8 @@ module.exports = {
   },
   buttonTextEmail: {
     fontSize: 15,
-    paddingTop: 10,
     color: '#FFFFFF',
-    fontFamily: 'Bebas',
+    fontFamily: TitleFont,
     alignSelf: 'center'
   },
   listview: {
@@ -471,7 +453,7 @@ module.exports = {
     justifyContent: 'center',
     shadowColor: "black",
     shadowOpacity: 1,
-    shadowRadius: 3,
+    shadowRadius: 2,
     shadowOffset: {
       height: 1,
       width: 1
@@ -481,17 +463,17 @@ module.exports = {
     fontSize: 15,
     padding: 15,
     color: 'black',
-    fontFamily: 'Bebas',
+    fontFamily: SubTextFont,
     alignSelf: 'center'
   },
   topSection: {
-    flex: .35
+    flex: .4
   },
   middleSection: {
     flex: .5
   },
   bottomSection: {
-    flex: .15
+    flex: .1
   },
   rowStyle: {
     paddingVertical: 20,
@@ -504,7 +486,7 @@ module.exports = {
   },
   sectionHeaderText: {
     color: 'black',
-    fontFamily: 'Bebas',
+    fontFamily: TitleFont,
     paddingHorizontal: 8,
     fontSize: 16
   },
@@ -513,7 +495,7 @@ module.exports = {
     justifyContent: 'center',
     alignItems: 'flex-start',
     padding: 6,
-    backgroundColor: '#B6B6B6',
+    backgroundColor: '#F2F2F2',
   },
   textInputContainer: {
     backgroundColor: 'white',
@@ -530,7 +512,7 @@ module.exports = {
   },
   textInput: {
     backgroundColor: 'rgba(125,125,125,0.1)',
-    fontFamily: 'Bebas',
+    fontFamily: SubTextFont,
     textAlign: 'center',
     height: 55,
     paddingTop: 0,

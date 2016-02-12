@@ -2,7 +2,7 @@ const React = require('react-native');
 const Search = require('../containers/Search');
 const LoginError = require('./LoginError');
 const simpleAuthClient = require('react-native-simple-auth');
-const host = process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/';
+const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/';
 const {
   Icon
 } = require('react-native-icons');

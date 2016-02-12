@@ -4,7 +4,7 @@ const Separator = require('./helpers/separator.js')
 const Error = require('./Error')
 const Success = require('./Success')
 const Contacts = require('react-native-contacts')
-const host = process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
+const host = !process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
 const { Icon } = require('react-native-icons');
 import Swipeout from 'react-native-swipeout'
 
@@ -251,7 +251,7 @@ const Email = React.createClass({
                 style={styles.buttonEmail}
                 onPress = {this.addEmail}
                 underlayColor = "#FFC107">
-                <Text style={styles.buttonTextEmail}> Add Email </Text> 
+                <Text style={styles.buttonTextEmail}> Add    Email </Text> 
               </TouchableHighlight>
             </View>
             
@@ -269,7 +269,7 @@ const Email = React.createClass({
                 style={styles.buttonEmail}
                 onPress = {this.sendPoll}
                 underlayColor = "#FFC107">
-                <Text style={styles.buttonTextEmail}>Send and vote!</Text> 
+                <Text style={styles.buttonTextEmail}>Send    and    vote!</Text> 
               </TouchableHighlight>
             </View>
 
@@ -290,7 +290,7 @@ const Email = React.createClass({
                     style={styles.buttonEmail}
                     onPress = {this.closeContactsView}
                     underlayColor = "#FFC107">
-                    <Text style={styles.buttonTextEmail}>Close contacts</Text> 
+                    <Text style={styles.buttonTextEmail}>Close    contacts</Text> 
                   </TouchableHighlight>
                 </View>
               </Modal>
@@ -302,7 +302,7 @@ const Email = React.createClass({
         console.log('throwing up loading screen');
         return (
           <View style= {styles.spinnerContainer}>
-              <Text style={styles.title}> Sending emails... </Text>
+              <Text style={styles.loadingTitleEventRec}> Sending emails... </Text>
               <SingleColorSpinner/>
           </View>
         )
