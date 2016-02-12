@@ -1,6 +1,6 @@
 # WAYD (What Are You Doing?)
 
-WAYD is a React Native iOS application that recommends a random event in your area to help undecisive groups decide what to do
+WAYD is a React Native iOS mobile application that recommends a random event in your area to help groups decide what to do.
 
 ## Team
 
@@ -20,7 +20,7 @@ WAYD is a React Native iOS application that recommends a random event in your ar
 
 ## Overview
 
-Users can input their current location or a specific location of their choice and receive a psuedo-random event in the area. Details and map information are provided for each event. If they don't like the event given to them, they can continue generating different events in the area. 
+Users can input their current location or some place of their choice to receive a psuedo-random event in the area. Details and map information are provided for each event. If they don't like the event given to them, they can continue generating different events in the area. 
 
 Users will also be able to send a poll to their friends from the app, allowing for group voting on the event to see if its something everyone wants to attend. The user themself and their friends will be able to vote in the email and confirmation emails will be sent out once everyone has voted.
 
@@ -55,8 +55,8 @@ Users will also be able to send a poll to their friends from the app, allowing f
 #### RESTful API Server
 - Node 5.3.9
 - Express 4.13.4
-- Postgres
-- Redis
+- Postgres 9.4.5.0
+- Redis 3.0.6
 
 #### Micro-services
 - Node
@@ -80,7 +80,12 @@ npm install
 ```
 
 From the post-install folder:
-- Grab/Copy the 'apikeys.js' file into 'root'/Server/Workers & 'root'/Server/Controllers/ & 'root'
+- Grab/Copy the 'apikeys.js' file into three places: 
+
+1. 'root'/Server/Workers 
+2. 'root'/Server/Controllers/ 
+3. 'root'
+
 or run the following commands from the post-install folder:
 
 ```sh
@@ -117,11 +122,24 @@ NOTE: You must replace the entire folder found in node_modules with the folders 
 5. Run 'node Server/Workers/jobserver.js'
 6. Run 'node Server/Workers/jobqueue.js' 
 7. Open 'wayd.xcworkspace' in Xcode
-8. Cmd + R or press Run
+8. Cmd + R or press Run to build app in xcode simulator
 
 
 Optionally:
-A docker .yml file is provided as well as the accompanying DockerFile(s) that create docker containers that will host server.js, jobserver.js, and jobqueue.js as shown above. You may alter the client side variables to use docker routes instead of localhost routes. Instructions are found in the respective clientside files.
+A docker .yml file is provided as well as the accompanying DockerFile(s) that create docker containers that will host your server.js, jobserver.js, and jobqueue.js as shown above. You may alter the client side variables to use localhost routes instead of docker routes. To run locally, you must change the host variable in three files in the app/components directory (login, eventrec, email) and take the hashbang off "process.env.DEPLOYED".
+
+## API
+
+##### Main Server
+| Request          | URL                                       | Resonse    |
+|------------------|-------------------------------------------|------------|
+| Get Events       | /api/events/?loc=lat,lng&timeframe=date   | EventArray |
+| Post Poll Vote   | /api//polls/:voteAction/:emailId          | VoteStatus |
+| Post New User    | /api/users                                | User ID    |
+| Post New Poll    | /api/polls                                | Poll ID    |
+
+
+
 
 ### Roadmap
 
