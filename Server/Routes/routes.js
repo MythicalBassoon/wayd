@@ -14,13 +14,13 @@ var voteTemplate = require('../Templates/vote').template;
 var alreadyVotedTemplate = require('../Templates/alreadyVoted').template;
 
 var request = require('request');
-var incrementVote = require('../Models/pollModel').incrementVote;
-var checkVoted = require('../Models/pollModel').checkVoted;
-var toggleVoted = require('../Models/pollModel').toggleVoted;
-var checkIfComplete = require('../Models/pollModel').checkIfComplete;
-var retrievePollEmails = require('../Models/pollModel').retrievePollEmails;
-var host = process.env.DEPLOYED ? 'http://104.236.40.104:' : 'http://localhost:';
-
+var incrementVote = require('../Models/pollModel').incrementVote
+var checkVoted = require('../Models/pollModel').checkVoted
+var toggleVoted = require('../Models/pollModel').toggleVoted
+var checkIfComplete = require('../Models/pollModel').checkIfComplete
+var retrievePollEmails = require('../Models/pollModel').retrievePollEmails
+var host = process.env.DEPLOYED ? 'http://104.236.40.104:' : 'http://localhost:'
+var moment = require('moment');
 
 
 // ROUTE TO RETRIEVE API(S) DATA 
@@ -142,6 +142,7 @@ router.route('/polls/:voteAction/:emailId')
 
     var emailId = req.params.emailId;
     var voteAction = req.params.voteAction;
+    console.log('vote route, params are', req.params);
 
     //first check if user has voted
     checkVoted(emailId, function(err, pollObj) {
@@ -177,6 +178,8 @@ router.route('/polls/:voteAction/:emailId')
             //retrieving event details to insert into html vote template to be served up to voter
             getOneEvent(results.eventId, function(err, event) {
               var event = event[0];
+              //console.log('START TIME IS', event.start_time);
+              var startTime = moment(event.start_time).calendar();
               if (err) {
                 return res.status(404).send('error finding event details', err);
               }
@@ -195,11 +198,7 @@ router.route('/polls/:voteAction/:emailId')
                         to: emailObjs[i].email,
                         final: true,
                         consensus: results.consensus,
-                        event: {
-                          title: event.title,
-                          category_image: event.category_image,
-                          description: event.description
-                        }
+                        eventInfo: event
                       };
 
                       //make post request to server to results email for each email address
@@ -215,11 +214,11 @@ router.route('/polls/:voteAction/:emailId')
                   }
 
                   //serve up template to user thanking them for vote and letting them know next steps. this is completed regardless of whether post to email server is successful or not
-                  res.send(voteTemplate(event.title, event.category_image, event.description));
+                  res.send(voteTemplate(event.title, event.category_image, event.description, event.address, event.city, event.state, event.image_thumb, startTime));
                 });
               } else {
                 //thank you / next steps template served up to user even if poll isn't yet complete
-                res.send(voteTemplate(event.title, event.category_image, event.description));
+                res.send(voteTemplate(event.title, event.category_image, event.description, event.address, event.city, event.state, event.image_thumb, startTime));
               }
             });
           });

@@ -1,12 +1,12 @@
 
 var host = process.env.DEPLOYED ? 'http://104.236.40.104/' : 'http://localhost:3000/'
+function htmlGenerator(title, invitee, bigPicture, description, emailId, address, city, state, link, time){
 
-function htmlGenerator(title, invitee, bigPicture, description, emailId, address, city, state, link){
-
-address = address || ''
-city = city || ''
-state =  state || '' 
-link = link || ''
+address = address || '';
+city = city || '';
+state =  state || '';
+link = link || '';
+time = time || '';
 
 
 var txt = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'+
@@ -16,7 +16,7 @@ var txt = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http:
 '<meta name="viewport" content="width=device-width" style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">'+
 ''+
 '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">'+
-'<title style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">ZURBemails</title>'+
+'<title style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">WAYD</title>'+
 ' '+
 '<style style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">'+
 '/* ------------------------------------- '+
@@ -334,12 +334,9 @@ var txt = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http:
 '       '+
 '           <h3 style="margin: 0;padding: 0;font-family: &quot;HelveticaNeue-Light&quot;, &quot;Helvetica Neue Light&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Lucida Grande&quot;, sans-serif;line-height: 1.1;margin-bottom: 15px;color: #000;font-weight: 500;font-size: 27px;">'+title+'</h3>'+
 '           <p style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 14px;line-height: 1.6;">'+description + '</p>'+ 
-'           <p><a href="'+ link  +'">click for details.. </a></p>' +
+'           <p><a href="'+ link  +'">Click for more details.. </a></p>' +
 '           <br>' +
-'           <p><strong>Event Location:</strong></p>' +
-'           <p>' +  address  + '</p>' +
-'           <p>' +  city  + '</p>' + 
-'           <p>' +  state  + '</p>' + 
+' 			<p><strong>' + time+ ', located at ' +  address   + ' ' +  city + ' '  + state +  '</strong></p>' +
 '			<a href="' + host + 'api/polls/yes/' + emailId + '"class="button" style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color: rgb(255,255,255);display: inline-block;height: 50px;line-height: 50px;padding-right: 30px;padding-left: 70px;position: relative;background-color: rgb(41,127,184);text-decoration: none;text-transform: uppercase;letter-spacing: 1px;margin-bottom: 15px;border-radius: 5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;text-shadow: 0px 1px 0px rgba(0,0,0,0.5);-ms-filter: &quot;progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=2,Color=#33000000,Positive=true)&quot;;zoom: 1;filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=2,Color=#33000000,Positive=true);-moz-box-shadow: 0px 2px 2px rgba(0,0,0,0.2);-webkit-box-shadow: 0px 2px 2px rgba(0,0,0,0.2);box-shadow: 0px 2px 2px rgba(0,0,0,0.2);"><span style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;position: absolute;left: 0;width: 50px;background-color: rgba(0,0,0,0.5);-webkit-border-top-left-radius: 5px;-webkit-border-bottom-left-radius: 5px;-moz-border-radius-topleft: 5px;-moz-border-radius-bottomleft: 5px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;border-right: 1px solid  rgba(0,0,0,0.15);">✓</span>Super down</a>'+
 '			<a href="' + host + 'api/polls/no/' + emailId + '"class="button purple" style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color: rgb(255,255,255);display: inline-block;height: 50px;line-height: 50px;padding-right: 30px;padding-left: 70px;position: relative;background-color: rgb(41,127,184);text-decoration: none;text-transform: uppercase;letter-spacing: 1px;margin-bottom: 15px;border-radius: 5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;text-shadow: 0px 1px 0px rgba(0,0,0,0.5);-ms-filter: &quot;progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=2,Color=#33000000,Positive=true)&quot;;zoom: 1;filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=2,Color=#33000000,Positive=true);-moz-box-shadow: 0px 2px 2px rgba(0,0,0,0.2);-webkit-box-shadow: 0px 2px 2px rgba(0,0,0,0.2);box-shadow: 0px 2px 2px rgba(0,0,0,0.2);background: #8e44ad;"><span style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;position: absolute;left: 0;width: 50px;background-color: rgba(0,0,0,0.5);-webkit-border-top-left-radius: 5px;-webkit-border-bottom-left-radius: 5px;-moz-border-radius-topleft: 5px;-moz-border-radius-bottomleft: 5px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;border-right: 1px solid  rgba(0,0,0,0.15);">✓</span>Super not down</a>' +         
 '           <br style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">'+
@@ -370,7 +367,7 @@ var txt = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http:
 '                                     '+
 '                       <h5 class="" style="margin: 0;padding: 0;font-family: &quot;HelveticaNeue-Light&quot;, &quot;Helvetica Neue Light&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Lucida Grande&quot;, sans-serif;line-height: 1.1;margin-bottom: 15px;color: #000;font-weight: 900;font-size: 17px;">Contact Info:</h5>                       '+
 '                       <p style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 14px;line-height: 1.6;">Phone: <strong style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">555.555.5555</strong><br style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">'+
-'                Email: <strong style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;"><a href="emailto:shafique.rashid@gmail.com" style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color: #2BA6CB;">shafique.rashid@gmail.com</a></strong></p>'+
+'                Email: <strong style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;"><a href="emailto:waydhomie@gmail.com" style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color: #2BA6CB;">waydhomie@gmail.com</a></strong></p>'+
 '                '+
 '                     </td>'+
 '                   </tr>'+

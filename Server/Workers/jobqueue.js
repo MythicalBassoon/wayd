@@ -4,6 +4,7 @@ var template = require('../Templates/invite').template
 var attendingTemplate = require('../Templates/attending').template
 var rejectedTemplate = require('../Templates/rejecting').template
 var gmail = require('./apikeys').gmail
+var moment = require('moment')
 
 if(process.env.DEPLOYED) {
   var client = redis.createClient('6379', 'redis');
@@ -28,6 +29,8 @@ function runTest() {
     if (err) throw new Error(err);
 
     var emailInfo = JSON.parse(results[1]);
+    var startTime = moment(emailInfo.start_time).calendar()
+    
 
     // INITIALIZE MAIL OPTIONS
     var mailOptions = {
@@ -39,7 +42,7 @@ function runTest() {
     if (!emailInfo.final) {
       // console.log('handling initial email')
       mailOptions.subject = 'You have been invited by ' + emailInfo.user;
-      mailOptions.html = template(emailInfo.eventInfo.title, emailInfo.to, emailInfo.eventInfo.category_image, emailInfo.eventInfo.description, emailInfo.emailId, emailInfo.eventInfo.address, emailInfo.eventInfo.city, emailInfo.eventInfo.state, emailInfo.eventInfo.image_thumb);
+      mailOptions.html = template(emailInfo.eventInfo.title, emailInfo.to, emailInfo.eventInfo.category_image, emailInfo.eventInfo.description, emailInfo.emailId, emailInfo.eventInfo.address, emailInfo.eventInfo.city, emailInfo.eventInfo.state, emailInfo.eventInfo.image_thumb, startTime);
       transporter.sendMail(mailOptions, function(error, info) {
       
           if(error){
@@ -53,12 +56,13 @@ function runTest() {
 
     } else {
       // console.log('handling final email');
+      console.log('email info is ', emailInfo);
       if (emailInfo.consensus){
         mailOptions.subject = 'Poll results are in, set your calendar!';
-        mailOptions.html = attendingTemplate(emailInfo.event.title, emailInfo.event.category_image, emailInfo.event.description); 
+        mailOptions.html = attendingTemplate(emailInfo.eventInfo.title, emailInfo.to, emailInfo.eventInfo.category_image, emailInfo.eventInfo.description, emailInfo.emailId, emailInfo.eventInfo.address, emailInfo.eventInfo.city, emailInfo.eventInfo.state, emailInfo.eventInfo.image_thumb, startTime); 
       } else {
-        mailOptions.subject = 'Poll results are in, people don\'t want to go to go!';
-        mailOptions.html = rejectedTemplate(emailInfo.event.title, emailInfo.event.category_image, emailInfo.event.description); 
+        mailOptions.subject = 'Poll results are in, people don\'t want to go!';
+        mailOptions.html = rejectedTemplate(emailInfo.eventInfo.title, emailInfo.to, emailInfo.eventInfo.category_image, emailInfo.eventInfo.description, emailInfo.emailId, emailInfo.eventInfo.address, emailInfo.eventInfo.city, emailInfo.eventInfo.state, emailInfo.eventInfo.image_thumb, startTime); 
       }
 
       transporter.sendMail(mailOptions, function(error, info){
