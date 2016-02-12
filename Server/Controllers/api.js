@@ -72,7 +72,7 @@ module.exports = {
             if (eventDate === dateFormater(JSON.stringify(new Date(event.start_time)))){
               return event
             }
-
+            console.log('event', event)
           }).map(function(event){
 
             return {
@@ -88,7 +88,7 @@ module.exports = {
               long: event.longitude,
               source: 'eventful',
               source_id: event.id,
-              image_thumb: event.venue_url !== null ? event.venue_url : null ,
+              image_thumb: event.url !== null ? event.url : null ,
               image_medium: event.image !== null ? event.image.medium.url : null
             }
 
