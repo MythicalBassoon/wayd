@@ -107,6 +107,7 @@ const EventRec = React.createClass({
 
       render: function() {
         var menu = (
+          <View style={styles.detailsOutline}>
            <MKIconToggle
             checked={true}
             onCheckedChange={this._onIconChecked}
@@ -122,11 +123,12 @@ const EventRec = React.createClass({
                   pointerEvents="none"
                   style={[styles.toggleText, styles.toggleText]}>details</Text>
           </MKIconToggle>
+          </View>
         );
         //CHECKS REDUX STATE to show loading screen or actual eventRec page
         switch(this.props.loading){
           case true:
-            var loadingArray = ['Looking   for   cool   things   to   do...', 'Finding   the   dopest   event   ever...', 'Finding   the   highest   levels   of   turn   up...', 'You\'re   about   to   be   shown   a   sick   event... like   fun   sick...', 'We\'re   pretty  sure   Brad   Pitt will   be   at   these   events...', 'Wait   up,   Homie...', 'I   think   we   found   your   event   soulmate...', 'Using   super   baller,   fun-maximizing   algorithm...'];
+            var loadingArray = ['Looking for cool things to do...', 'Finding the dopest event ever...', 'Finding the highest levels of turn up...', 'You\'re about to be shown a sick event... like fun sick...', 'We\'re pretty sure Brad Pitt will be at these events...', 'Wait up, Homie...', 'I think we found your event soulmate...', 'Using super baller, fun-maximizing algorithm...'];
             var item = loadingArray[Math.floor(Math.random()*loadingArray.length)]
             return(
               <View style= {styles.spinnerContainer}>
@@ -145,13 +147,17 @@ const EventRec = React.createClass({
               return (
                 <View style = {styles.mainContainerEventRec}>                      
                   <View style={MKCardStyles.card}>
-                    <Text style={[styles.eventTitle]}>{event.title} </Text>
+                    <View style={styles.eventTitleView}>
+                      <Text style={[styles.eventTitle]}>{event.title} </Text>
+                    </View>
+                    <View style={styles.eventMapView}>
                       <TouchableHighlight
                         style={[MKCardStyles.image, { opacity: .8}]}
                         onPress={this.map}
                         underlayColor="#FFC107">                       
                         <Image source={{uri : url}}  style={MKCardStyles.image}/>                       
                       </TouchableHighlight>
+                    </View>
                       <View  style={{ padding : 15 }} >
                         <Text style={[MKCardStyles.content, styles.textInfo]}>
                           {event.address} 
@@ -173,13 +179,13 @@ const EventRec = React.createClass({
                           style={styles.buttonEventRec}
                           onPress={this.yes}
                           underlayColor='#FFC107'>
-                          <Text style={styles.buttonTextEventRec}> YES!  Lets  send  Invites! </Text> 
+                          <Text style={styles.buttonTextEventRec}> YES!    Lets    send    Invites! </Text> 
                         </TouchableHighlight>
                         <TouchableHighlight
                           style={styles.buttonEventRec}
                           onPress={this.no}
                           underlayColor='#FFC107'>
-                          <Text style={styles.buttonTextEventRec}> No  Thanks,  Next Event </Text> 
+                          <Text style={styles.buttonTextEventRec}> No    Thanks,    Next    Event </Text> 
                         </TouchableHighlight>
                       </View>
                     </View>     

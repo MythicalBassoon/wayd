@@ -13,6 +13,7 @@
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* waydTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* waydTests.m */; };
+		097C2C8F1C6D488B002BE83D /* Raleway-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 097C2C851C6D488B002BE83D /* Raleway-Light.ttf */; };
 		098ACFCC1C64187200BDDD9D /* libRCTContacts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 098ACFC01C64118100BDDD9D /* libRCTContacts.a */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
@@ -157,6 +158,7 @@
 		00E356EE1AD99517003FC87E /* waydTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = waydTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* waydTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = waydTests.m; sourceTree = "<group>"; };
+		097C2C851C6D488B002BE83D /* Raleway-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Raleway-Light.ttf"; path = "../App/assets/Raleway-Light.ttf"; sourceTree = "<group>"; };
 		098ACFB91C64118000BDDD9D /* RCTContacts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTContacts.xcodeproj; path = "../node_modules/react-native-contacts/ios/RCTContacts.xcodeproj"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
@@ -402,6 +404,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				097C2C851C6D488B002BE83D /* Raleway-Light.ttf */,
 				7984389E1C6AAF0200BD9EE5 /* Default-568h@2x.png */,
 				79931CB01C69628000E40EDD /* BEBAS___.ttf */,
 				79931C6A1C692EE200E40EDD /* BEBAS___.ttf */,
@@ -495,7 +498,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = PG978XEX66;
+						DevelopmentTeam = H5P4HLA25F;
 					};
 				};
 			};
@@ -699,6 +702,7 @@
 				7957AC791C63077D00663D5F /* zocial-regular-webfont.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				79F898701C6AA16700080C70 /* Images-2.xcassets in Resources */,
+				097C2C8F1C6D488B002BE83D /* Raleway-Light.ttf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -865,7 +869,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				NODE_ENV = production;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.wayd2;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.wayd3;
 				PRODUCT_NAME = wayd;
 				PROVISIONING_PROFILE = "";
 			};
@@ -889,7 +893,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				NODE_ENV = production;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.wayd2;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.wayd3;
 				PRODUCT_NAME = wayd;
 				PROVISIONING_PROFILE = "";
 			};

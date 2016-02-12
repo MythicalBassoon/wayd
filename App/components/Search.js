@@ -103,9 +103,7 @@ const Search = React.createClass({
         if (this.state.errorShow) {
           console.log('renderError called')
 
-          return ( < Text style = {
-            styles.errortext
-          } > Please choose a location or set it to Current location < /Text>)
+          AlertIOS.alert("Please choose a location or set it to Current location");
         }
 
       },
@@ -148,6 +146,7 @@ const Search = React.createClass({
       render: function() {
           return (
             <View style={styles.container}>
+            <View style={styles.autocompleteContainer}>
               <GooglePlacesAutocomplete
                 placeholder=' Where you at, homie?'
                 minLength={2} // minimum length of text to search
@@ -176,6 +175,7 @@ const Search = React.createClass({
                 styles={ {
             description: {
               fontWeight: 'bold',
+              fontFamily: 'Raleway-Light'
             },
             body: {flex: .8},
             predefinedPlacesDescription: {
@@ -196,11 +196,11 @@ const Search = React.createClass({
             },
             textInput: {
               backgroundColor: 'rgba(125,125,125,0.1)',
-              fontFamily: 'Bebas',
+              fontFamily: 'Raleway-Light',
               height: 55,
               paddingTop: 0,
               paddingBottom: 0,
-              paddingLeft: 0,
+              paddingLeft: 10,
               paddingRight: 0,
               marginTop: 0,
               marginLeft: 0,
@@ -226,20 +226,20 @@ const Search = React.createClass({
                 // predefinedPlaces={[homePlace, workPlace]}
 
               ></GooglePlacesAutocomplete>
-
+              </View>
             
-
+              <View style={styles.eventBottom}>
               <TouchableHighlight
                 style={styles.bigButton}
                 onPress={this.eventRecView}
                 underlayColor = "#FFC107">
-                <Text style={styles.buttonText}> FIND  ME  AN  EVENT! </Text> 
+                <Text style={styles.buttonText}> FIND   ME   AN   EVENT! </Text> 
               </TouchableHighlight>
               <TouchableHighlight
                 style={styles.smallButton}
                 onPress={this.toggleModal}
                 underlayColor = "#FFC107">
-                <Text style={styles.smallButtonText}> Not  Today? </Text> 
+                <Text style={styles.smallButtonText}> Not   Today? </Text> 
               </TouchableHighlight>
 
 
@@ -276,7 +276,7 @@ const Search = React.createClass({
 
                 </Modal>
               </View>
-
+              </View>
        
             </View>
 

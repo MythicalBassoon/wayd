@@ -1,5 +1,8 @@
 const React = require('react-native');
 
+const TitleFont = 'Bebas';
+const SubTextFont = 'Raleway-Light';
+
 const {
   StyleSheet,
   Dimensions
@@ -18,12 +21,12 @@ module.exports = {
     marginTop: 60,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: 'black'
+    backgroundColor: '#484848'
   },
   title: {
     marginBottom: 20,
     fontSize: 25,
-    fontFamily: 'Bebas',
+    fontFamily: TitleFont,
     fontStyle: 'normal',
     fontWeight: 'normal',
     letterSpacing: 1,
@@ -40,6 +43,13 @@ module.exports = {
     borderColor: 'white',
     borderRadius: 8,
     color: 'white'
+  },
+  autocompleteContainer: {
+    flex: .3
+  },
+  eventBottom: {
+    flex: .7,
+    padding: 10
   },
   facebookLogin: {
     width: 290,
@@ -66,11 +76,6 @@ module.exports = {
       height: 1,
       width: 0
     }
-  },
-  buttonText: {
-    fontSize: 15,
-    color: '#111',
-    alignSelf: 'center'
   },
   button: {
     height: 80,
@@ -107,7 +112,9 @@ module.exports = {
   container: {
     flex: 1,
     paddingTop: 40,
-    backgroundColor: '#b6b6b6',
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: 'white',
     marginTop: 40,
   },
   textInput: {
@@ -126,12 +133,11 @@ module.exports = {
     datePicker:{
       backgroundColor: '#b6b6b6'
     },
-
   buttonText: {
-    fontSize: 45,
+    fontSize: 36,
     paddingTop: 10,
     color: '#FFFFFF',
-    fontFamily: 'Bebas',
+    fontFamily: TitleFont,
     fontStyle: 'normal',
     fontWeight: 'normal',
     letterSpacing: 0,
@@ -142,7 +148,7 @@ module.exports = {
     fontSize: 12,
     paddingTop: 0,
     color: '#FFFFFF',
-    fontFamily: 'Bebas',
+    fontFamily: TitleFont,
     fontStyle: 'normal',
     fontWeight: 'normal',
     letterSpacing: 0,
@@ -168,17 +174,17 @@ module.exports = {
     }
   },
    bigButton: {
-    marginRight: 30,
-    marginLeft: 30,
-    height: 260,
-    width: 260,
-    borderRadius: 130,
+    marginRight: 0,
+    marginLeft: 0,
+    height: width*(2/3),
+    width: width*(2/3),
+    borderRadius: width*(2/6),
     flexDirection: 'column',
     backgroundColor: '#673AB7',
-    marginBottom: 10,
+    //marginBottom: 10,
     marginTop: 0,
-    alignSelf: 'stretch',
-    alignItems: 'center',
+    //alignSelf: 'stretch',
+    alignItems: 'flex-start',
     justifyContent: 'center',
     shadowColor: "black",
     shadowOpacity: 1,
@@ -189,15 +195,16 @@ module.exports = {
     }
   },
    smallButton: {
-    marginRight: 30,
-    marginLeft: 30,
-    height: 100,
-    width: 100,
-    borderRadius: 50,
-    flexDirection: 'row',
+    //marginRight: 10,
+    //marginBottom: 20,
+    //marginLeft: 30,
+    height: width*(1/4),
+    width: width*(1/4),
+    borderRadius: width*(1/8),
+    flexDirection: 'column',
     backgroundColor: '#673AB7',
-    marginBottom: 10,
-    marginTop: 30,
+    //marginBottom: 10,
+    //marginTop: 30,
     alignSelf: 'flex-end',
     justifyContent: 'center',
     shadowColor: "black",
@@ -213,47 +220,8 @@ module.exports = {
     marginTop: 10,
     fontSize: 15,
     textAlign: 'center',
-    color: '#607D8B'
+    color: 'black'
   },
-
-  autocomplete: {
-            description: {
-              fontWeight: 'bold',
-            },
-            body: {flex: .8},
-            predefinedPlacesDescription: {
-              color: '#1faadb',
-            },
-            textInputContainer: {
-              backgroundColor: 'white',
-              height: 60,
-              borderTopColor: 'black',
-              borderBottomColor: 'black',
-              borderLeftColor: 'black',
-              borderRightColor: 'black',
-              borderRightWidth: 2,
-              borderLeftWidth: 2,
-              borderTopWidth: 2,
-              borderBottomWidth: 2,
-              marginTop: 10
-            },
-            textInput: {
-              backgroundColor: 'rgba(125,125,125,0.1)',
-              fontFamily: 'Bebas',
-              fontStyle: 'normal',
-              fontWeight: 'normal',
-              letterSpacing: 0,
-              height: 55,
-              paddingTop: 0,
-              paddingBottom: 0,
-              paddingLeft: 0,
-              paddingRight: 0,
-              marginTop: 0,
-              marginLeft: 0,
-              marginRight: 0,
-              fontSize: 15
-            },
-          },
 
   errortext: {
     marginBottom: 10,
@@ -285,35 +253,42 @@ module.exports = {
     marginTop: 50,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: '#b6b6b6'
+    backgroundColor: 'white'
   },
   titleEventRec: {
     marginBottom: 20,
     fontSize: 17,
     textAlign: 'center',
-    color: '#607D8B',
+    color: 'black',
   },
   loadingTitleEventRec: {
-    marginBottom: 20,
+    marginBottom: 50,
     fontSize: 24,
     textAlign: 'center',
-    color: '#607D8B',
-    fontFamily: 'Bebas',
+    color: 'black',
+    fontFamily: SubTextFont,
       fontStyle: 'normal',
     fontWeight: 'normal',
     letterSpacing: 0,
   },
   toggleText:{
-    fontFamily: 'Bebas',
+    fontFamily: TitleFont,
       fontStyle: 'normal',
     fontWeight: 'normal',
     letterSpacing: 0,
     fontSize: 12,
-
+  },
+  detailsOutline: {
+    height: 60,
+    width: 60,
+    borderColor: "#FFC107",
+    borderRadius: 30,
+    borderWidth: 2,
+    justifyContent: 'center'
   },
   textInfo: {
     padding: 0,
-    fontFamily: 'Bebas',
+    fontFamily: SubTextFont,
       fontStyle: 'normal',
     fontWeight: 'normal',
     letterSpacing: 0,
@@ -322,27 +297,153 @@ module.exports = {
   },
   eventTitle: {
     marginBottom: 5,
-    fontSize: 40,
+    fontSize: 28,
+    spaceAround: 'auto',
+    alignSelf: 'center',
+    flexDirection: 'column',
     textAlign: 'center',
-    color: '#607D8B',
-    fontFamily: 'Bebas',
+    alignItems: 'center',
+    color: 'black',
+    fontFamily: SubTextFont,
       fontStyle: 'normal',
     fontWeight: 'normal',
     letterSpacing: 0,
   },
  buttonTextEventRec: {
     fontSize: 15,
-    paddingTop: 10,
     color: '#FFFFFF',
-    fontFamily: 'Bebas',
+    fontFamily: TitleFont,
       fontStyle: 'normal',
     fontWeight: 'normal',
     letterSpacing: 0,
     alignSelf: 'center'
   },
   buttonEventRec: {
-    marginRight: 30,
-    marginLeft: 30,
+    marginRight: 0,
+    marginLeft: 0,
+    height: 50,
+    flexDirection: 'column',
+    backgroundColor: '#673AB7',
+    marginBottom: 10,
+    marginTop: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    shadowColor: "black",
+    shadowOpacity: 1,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 1
+    }
+  },
+  eventTitleView:{
+    flex: .4,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  eventMapView: {
+    flex: .6
+  },
+  image: {
+    height: 150,
+    width: 150,
+    borderRadius: 65,
+    marginTop: 50,
+    alignSelf: 'center'
+  },
+  spinner: {
+    width: width*(1/4),
+    height: width*(1/4),
+    //marginLeft: 170,
+    //marginRight: 170
+  },
+  spinnerContainer: {
+    flex: 1,
+    padding: 20,
+    //marginTop: 0,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF'
+  },
+   webBtn: {
+    fontSize: 15,
+    backgroundColor: '#FFFFFF',
+    alignSelf: 'center',
+  },
+   map: {
+    position: 'absolute',
+    top: 10,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+    mainEmailContainer: {
+    flex: 1,
+    padding: 20,
+    marginTop: 55,
+    backgroundColor: '#FFFFFF'
+  },
+  modalContainerEmail: {
+    flex: 1,
+    padding: 10,
+    marginTop: 10,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    backgroundColor: '#FFFFFF'
+  },
+  addFromContacts: {
+    flex: 1,
+    borderRadius: 25
+  },
+  contactRow:{
+    //marginRight: 0,
+    //marginLeft: 0,
+    height: 50,
+    flexDirection: 'row',
+    backgroundColor: '#FFFFFF',
+    //marginBottom: 0,
+    //marginTop: 0,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    shadowColor: "black",
+  },
+  contactRowText:{
+    fontFamily: SubTextFont,
+    fontSize: 15,
+    paddingTop: 10,
+    alignSelf: 'center'
+  },
+  smallButtonEmail: {
+    marginTop: 10,
+    height: 50,
+    width: 50,
+    borderRadius: 25,
+    flexDirection: 'row',
+    backgroundColor: '#673AB7',
+    alignSelf: 'flex-end',
+    justifyContent: 'center',
+    shadowColor: "black",
+    shadowOpacity: 1,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 1
+    }
+  },
+  buttonTextEmail: {
+    fontSize: 15,
+    color: '#FFFFFF',
+    fontFamily: TitleFont,
+    alignSelf: 'center'
+  },
+  listview: {
+    flex: 1
+  },
+  buttonEmail: {
+    marginRight: 0,
+    marginLeft: 0,
     height: 50,
     flexDirection: 'row',
     backgroundColor: '#673AB7',
@@ -352,48 +453,79 @@ module.exports = {
     justifyContent: 'center',
     shadowColor: "black",
     shadowOpacity: 1,
-    shadowRadius: 3,
+    shadowRadius: 2,
     shadowOffset: {
       height: 1,
       width: 1
     }
   },
-
-
-  image: {
-    height: 150,
-    width: 150,
-    borderRadius: 65,
-    marginTop: 50,
+  emailText: {
+    fontSize: 15,
+    padding: 15,
+    color: 'black',
+    fontFamily: SubTextFont,
     alignSelf: 'center'
   },
-  spinner: {
-    color: 'blue',
-    width: 50,
-    height: 50,
-    marginLeft: 170,
-    marginRight: 170
+  topSection: {
+    flex: .4
   },
-  spinnerContainer: {
-    flex: 1,
-    padding: 0,
-    marginTop: 0,
+  middleSection: {
+    flex: .5
+  },
+  bottomSection: {
+    flex: .1
+  },
+  rowStyle: {
+    paddingVertical: 20,
+    paddingLeft: 16,
+    borderTopColor: 'white',
+    borderLeftColor: 'white',
+    borderRightColor: 'white',
+    borderBottomColor: '#E0E0E0',
+    borderWidth: 1
+  },
+  sectionHeaderText: {
+    color: 'black',
+    fontFamily: TitleFont,
+    paddingHorizontal: 8,
+    fontSize: 16
+  },
+    section: {
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: '#ECEFF1'
+    alignItems: 'flex-start',
+    padding: 6,
+    backgroundColor: '#F2F2F2',
   },
-   webBtn: {
-    fontSize: 15,
+  textInputContainer: {
     backgroundColor: 'white',
-    alignSelf: 'center',
-    
-
+    height: 60,
+    borderTopColor: 'black',
+    borderBottomColor: 'black',
+    borderLeftColor: 'black',
+    borderRightColor: 'black',
+    borderRightWidth: 2,
+    borderLeftWidth: 2,
+    borderTopWidth: 2,
+    borderBottomWidth: 2,
+    marginTop: 10
   },
-   map: {
-    position: 'absolute',
-    top: 10,
-    left: 0,
-    right: 0,
-    bottom: 0,
+  textInput: {
+    backgroundColor: 'rgba(125,125,125,0.1)',
+    fontFamily: SubTextFont,
+    textAlign: 'center',
+    height: 55,
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingLeft: 0,
+    paddingRight: 0,
+    marginTop: 0,
+    marginLeft: 0,
+    marginRight: 0,
+    fontSize: 15
   },
+  separator: {
+    height: 1,
+    backgroundColor: '#CCCCCC',
+  }
 };
