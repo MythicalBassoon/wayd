@@ -198,11 +198,7 @@ router.route('/polls/:voteAction/:emailId')
                         to: emailObjs[i].email,
                         final: true,
                         consensus: results.consensus,
-                        eventInfo: {
-                          title: event.title,
-                          category_image: event.category_image,
-                          description: event.description
-                        }
+                        eventInfo: event
                       };
 
                       //make post request to server to results email for each email address
